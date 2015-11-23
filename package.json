@@ -16,7 +16,7 @@
 	},
 	"homepage": "https://github.com/iilab/openmentoring-mobile",
 	"nativescript": {
-		"id": "org.iilab.openmentoring.mobile",
+		"id": "org.iilab.openmentoring",
 		"tns-android": {
 			"version": "1.4.0"
 		}
