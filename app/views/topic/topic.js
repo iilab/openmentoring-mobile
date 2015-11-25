@@ -1,8 +1,8 @@
-var topic = {};
+var topicView = {};
 
-topic.pageNavigatedTo = function(args) {
+topicView.pageNavigatedTo = function(args) {
     var page = args.object;
     page.bindingContext = page.navigationContext;
 }
 
-module.exports = topic;
+module.exports = topicView;
