@@ -1,27 +1,27 @@
 {
-	"name": "openmentoring-mobile",
-	"version": "0.0.1",
-	"description": "Client app for the Open Mentoring content platform",
-	"main": "app/package.json",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"license": "GPL",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/iilab/openmentoring-mobile.git"
-	},
-	"bugs": {
-		"url": "https://github.com/iilab/openmentoring-mobile/issues"
-	},
-	"homepage": "https://github.com/iilab/openmentoring-mobile",
-	"nativescript": {
-		"id": "org.iilab.openmentoring",
-		"tns-android": {
-			"version": "1.4.0"
-		}
-	},
-	"dependencies": {
-		"tns-core-modules": "1.4.0"
-	}
+  "name": "openmentoring-mobile",
+  "version": "0.0.1",
+  "description": "Client app for the Open Mentoring content platform",
+  "main": "app/package.json",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "GPL",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iilab/openmentoring-mobile.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iilab/openmentoring-mobile/issues"
+  },
+  "homepage": "https://github.com/iilab/openmentoring-mobile",
+  "nativescript": {
+    "id": "org.iilab.openmentoring",
+    "tns-android": {
+      "version": "1.4.0"
+    }
+  },
+  "dependencies": {
+    "tns-core-modules": "1.4.0"
+  }
 }
