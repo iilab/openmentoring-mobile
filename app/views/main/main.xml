@@ -8,7 +8,7 @@
   </Page.actionBar>
   <ListView items="{{ topicItems }}" itemTap="listViewItemTap">
     <ListView.itemTemplate>
-       <Label text="{{ title || 'Downloading...' }}" textWrap="true" class="title" />
+       <Label text="{{ title }}" textWrap="true" class="topic-label" />
     </ListView.itemTemplate>
  </ListView>
 </Page>

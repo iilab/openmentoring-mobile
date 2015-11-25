@@ -1,1 +1,6 @@
 @import url('~/platform.css');
+
+.topic-label {
+  padding: 20;
+  font-size: 24;
+}
