@@ -1,6 +1,12 @@
 <Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="pageNavigatedTo">
+  <Page.actionBar>
+    <ActionBar title="Open Mentoring">
+      <ActionBar.actionItems>
+        <ActionItem text="Back" tap="buttonBackTap"  ios.position="left"/>
+      </ActionBar.actionItems>
+    </ActionBar>
+  </Page.actionBar>
   <StackLayout>
     <Label text="{{ title }}" />
-    <Button text="Go back" tap="buttonBackTap" />
   </StackLayout>
 </Page>
