@@ -1,5 +1,6 @@
 <Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="pageNavigatedTo">
   <StackLayout>
     <Label text="{{ title }}" />
+    <Button text="Go back" tap="buttonBackTap" />
   </StackLayout>
 </Page>
