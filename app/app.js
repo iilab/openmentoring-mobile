@@ -1,5 +1,4 @@
 var applicationModule = require("application");
-var navigation = require("./shared/navigation");
 
-applicationModule.mainModule = navigation.startingPage();
+applicationModule.mainModule = "/views/main/main";
 applicationModule.start();
