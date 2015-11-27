@@ -1,6 +1,6 @@
 <Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="pageNavigatedTo">
   <Page.actionBar>
-    <ActionBar title="Topic">
+    <ActionBar title="Unit">
       <ActionBar.actionItems>
         <ActionItem text="Back" tap="buttonBackTap"  ios.position="left"/>
       </ActionBar.actionItems>
