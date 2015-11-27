@@ -1,10 +1,11 @@
+var unitModel = require("../../shared/view-models/unit").unitModel;
 var frameModule = require("ui/frame");
 
 var unitView = {};
 
 unitView.pageNavigatedTo = function(args) {
   var page = args.object;
-  page.bindingContext = page.navigationContext;
+  page.bindingContext = unitModel;
 }
 
 unitView.buttonBackTap = function(args) {

@@ -4,3 +4,15 @@
   padding: 20;
   font-size: 24;
 }
+
+.unit-label {
+  padding: 20;
+  font-size: 24;
+}
+
+.card {
+  border-color: #000;
+  border-width: 1;
+  vertical-align: stretch;
+  horizontal-align: stretch;
+}

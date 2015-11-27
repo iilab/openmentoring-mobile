@@ -7,6 +7,10 @@
     </ActionBar>
   </Page.actionBar>
   <StackLayout>
-    <Label text="{{ title }}" />
+    <ListView items="{{ unitItems }}" itemTap="listViewItemTap">
+      <ListView.itemTemplate>
+         <Label text="{{ title }}" textWrap="true" class="unit-label" />
+      </ListView.itemTemplate>
+   </ListView>
   </StackLayout>
 </Page>

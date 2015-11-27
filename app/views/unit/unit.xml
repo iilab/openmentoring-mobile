@@ -6,7 +6,9 @@
       </ActionBar.actionItems>
     </ActionBar>
   </Page.actionBar>
-  <StackLayout>
-    <Label text="{{ title }}" />
-  </StackLayout>
+  <DockLayout stretchLastChild="true">
+    <Button dock="left" text="back" />
+    <Button dock="right" text="forward" />
+    <HtmlView html="{{ htmlString }}" class="card" />
+  </DockLayout>
 </Page>
