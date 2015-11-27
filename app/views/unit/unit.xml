@@ -1,14 +1,15 @@
-<Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="pageNavigatedTo">
-  <Page.actionBar>
-    <ActionBar title="Unit">
-      <ActionBar.actionItems>
-        <ActionItem text="Back" tap="buttonBackTap"  ios.position="left"/>
-      </ActionBar.actionItems>
-    </ActionBar>
-  </Page.actionBar>
+<Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="pageNavigatedTo" actionBarHidden="true">
   <DockLayout stretchLastChild="true">
-    <Button dock="left" text="back" />
-    <Button dock="right" text="forward" />
-    <HtmlView html="{{ htmlString }}" class="card" />
+    <DockLayout stretchLastChild="true" dock="left">
+      <Button dock="top" text="X" class="docked-button" />
+      <Label dock="bottom" text="" height="50" />
+      <Button verticalAlign="center" horizontal-align="center" height="50" text="<" />
+    </DockLayout>
+    <DockLayout stretchLastChild="true" dock="right">
+      <Button verticalAlign="center" horizontal-align="center" height="50" text="r" />
+    </DockLayout>
+    <ScrollView class="card-container">
+      <HtmlView html="{{ htmlString }}" class="card" />
+    </ScrollView>
   </DockLayout>
 </Page>

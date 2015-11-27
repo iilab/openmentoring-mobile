@@ -2,17 +2,41 @@
 
 .topic-label {
   padding: 20;
+  background-color: #fff;
   font-size: 24;
 }
 
 .unit-label {
   padding: 20;
+  background-color: #fff;
   font-size: 24;
 }
 
+page {
+  background-color: #A5CCCA;
+}
+
+.docked-button {
+  height: 50;
+  background-color: transparent;
+  color: #fff;
+  font-weight: bold;
+  font-size: 30;
+}
+
+.card-container {
+
+}
+
 .card {
-  border-color: #000;
+  margin-top: 50;
+  margin-bottom: 50;
+  border-radius: 10;
+  padding: 20;
+  border-color: #fff;
   border-width: 1;
+  background-color: #fff;
+  font-size: 18;
   vertical-align: stretch;
   horizontal-align: stretch;
 }
