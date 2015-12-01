@@ -1,10 +1,13 @@
-*/bin
-*/obj
-*.user-settings.xml
+# Mac
 .DS_Store
-*.map
-*.log
-node_modules/
 
-platforms/
-lib/
+# Node
+npm-debug.log
+/node_modules
+
+# Cordova
+/platforms
+/plugins
+
+# res
+resources/signing
