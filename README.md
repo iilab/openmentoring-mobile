@@ -13,7 +13,11 @@ Install the dependencies:
 
 ```$ npm install -g cordova ionic```
 
-Build the project:
+Then in the root directory of the project:
+
+```$ bower install```
+
+Then build the project:
 
 ```
 $ ionic platform add android
