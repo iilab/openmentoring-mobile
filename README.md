@@ -13,11 +13,21 @@ Install the dependencies:
 
 ```$ npm install -g cordova ionic```
 
-Run the project:
+Build the project:
 
 ```
 $ ionic platform add android
 $ ionic build android
-$ ionic emulate android
-
 ```
+
+Run the app using the default android emulator:
+
+```$ ionic emulate android```
+
+Run the app using Genymotion (if installed):
+
+```$ ionic run android```
+
+Preview the app in your browser (great for styling):
+
+```$ ionic serve```
