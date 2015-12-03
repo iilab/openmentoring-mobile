@@ -1,1 +1,19 @@
 /* Empty. Add your own CSS if you like */
+.swiper-container {
+  height: 100%;
+  width: 100%;
+}
+
+.swiper-slide {
+  position: relative;
+}
+
+.swiper-slide .card-container {
+  height: 100%;
+  padding: 20px 40px;
+}
+
+.swiper-slide .card-container .card {
+  min-height: 100%;
+  margin: 0;
+}

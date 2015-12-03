@@ -1,10 +1,12 @@
 <ion-view view-title="Unit">
-  <ion-content>
-  <ks-swiper-container speed="2000" loop="false" show-nav-buttons="true" slides-per-view="1" space-between="5" pagination-clickable="false" override-parameters="{effect: 'coverflow',coverflow: {rotate: 50,stretch: 0,depth: 100,modifier: 1,slideShadows : false}}">
+  <ion-content scroll="false">
+  <ks-swiper-container speed="2000" loop="false" show-nav-buttons="true" slides-per-view="1" space-between="20" pagination-clickable="false">
     <ks-swiper-slide class="swiper-slide" ng-repeat="card in cards">
-      <div class="card">
-        <div class="item item-text-wrap">
-          {{card.title}}
+      <div class="card-container">
+        <div class="card">
+          <div class="item item-text-wrap">
+            {{card.title}}
+          </div>
         </div>
       </div>
     </ks-swiper-slide>
