@@ -44,4 +44,10 @@ angular.module('starter.controllers', [])
 })
 
 .controller('TopicCtrl', function($scope, $stateParams) {
+  $scope.units = [
+    { title: 'How to', id: 1 }
+  ];
+})
+
+.controller('UnitCtrl', function($scope, $stateParams) {
 });
