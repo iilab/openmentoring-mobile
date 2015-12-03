@@ -50,4 +50,8 @@ angular.module('starter.controllers', [])
 })
 
 .controller('UnitCtrl', function($scope, $stateParams) {
+  $scope.cards = [
+    { title: 'Card 1', id: 1 },
+    { title: 'Card 2', id: 2 }
+  ];
 });
