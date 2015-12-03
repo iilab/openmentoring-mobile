@@ -2,7 +2,11 @@
   <ion-content>
   <ks-swiper-container speed="2000" loop="false" show-nav-buttons="true" slides-per-view="1" space-between="5" pagination-clickable="false" override-parameters="{effect: 'coverflow',coverflow: {rotate: 50,stretch: 0,depth: 100,modifier: 1,slideShadows : false}}">
     <ks-swiper-slide class="swiper-slide" ng-repeat="card in cards">
-      <h3>{{card.title}}</h3>
+      <div class="card">
+        <div class="item item-text-wrap">
+          {{card.title}}
+        </div>
+      </div>
     </ks-swiper-slide>
   </ks-swiper-container>
   </ion-content>
