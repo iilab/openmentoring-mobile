@@ -8,9 +8,39 @@
   <ion-content>
     <form ng-submit="doSettings()">
       <div class="list">
+        <div class="item item-divider">
+         Profile
+        </div>
+        <div class="item item-text-wrap description-item">
+            Select the profile that best describes you. This is used to suggest the most relevant content to you.
+        </div>
+        <label class="item item-select">
+          <select ng-model="settingsData.profile">
+            <option value="journo">Journalist</option>
+            <option value="hrd">Human rights defender</option>
+            <option value="citizen">An interested citizen</option>
+          </select>
+        </label>
+        <div class="item item-divider">
+          Platforms
+        </div>
+        <div class="item item-text-wrap description-item">
+            We'll show you content relevant to the devices/operating systems that you use, but you'll still be able to see other content if you want to help a colleague.
+        </div>
+        <ion-checkbox ng-repeat="item in settingsData.platforms"
+                    ng-model="item.checked"
+                    ng-checked="item.checked">
+        {{ item.text }}
+        </ion-checkbox>
+        <div class="item item-divider">
+          Advanced Settings
+        </div>
+        <div class="item item-text-wrap description-item">
+            These settings affect how content is retrieved or saved.
+        </div>
         <label class="item item-input">
-          <span class="input-label">Platform</span>
-          <input type="text" ng-model="settingsData.platform">
+          <span class="input-label">Content URL</span>
+          <input type="text" ng-model="settingsData.contentUrl">
         </label>
         <label class="item">
           <button class="button button-block button-positive" type="submit">Save</button>

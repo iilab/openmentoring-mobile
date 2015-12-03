@@ -9,8 +9,18 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  // Form data for the login modal
-  $scope.settingsData = {};
+  // Form data for the settings modal
+  $scope.settingsData = {
+    platforms: [
+      { text: "Android", checked: true },
+      { text: "iOS (iPhone or iPad)", checked: false },
+      { text: "Windows", checked: false },
+      { text: "OSX (Mac)", checked: false },
+      { text: "Linux", checked: false }
+    ],
+    contentUrl: "https://openmentoring.io",
+    profile: "journo"
+  };
 
   // Create the settings modal that we will use later
   $ionicModal.fromTemplateUrl('templates/settings.html', {

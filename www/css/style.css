@@ -17,3 +17,8 @@
   min-height: 100%;
   margin: 0;
 }
+
+.item.description-item {
+  color: #777;
+  font-size: 14px;
+}
