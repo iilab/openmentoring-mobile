@@ -18,7 +18,7 @@ angular.module('starter.controllers', [])
       { text: "OSX (Mac)", checked: false },
       { text: "Linux", checked: false }
     ],
-    contentUrl: "https://openmentoring.io",
+    contentUrl: "http://openmentoring.io",
     profile: "journo"
   };
 
@@ -46,12 +46,50 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('TopicsCtrl', function($scope) {
-  $scope.topics = [
-    { title: 'Safe Social Networks', id: 1 },
-    { title: 'Sharing Open Mentoring', id: 2 }
-  ];
+.controller('TopicsCtrl', function($scope, $http) {
+  console.log('inside topics controller');
+  var url = $scope.settingsData.contentUrl + '/index.json';
+  $http.get(url).then(function (resp) {
+    console.log('inside success');
+
+    console.log(resp);
+    $scope.topics = resp.data.items;
+  }, function(err) {
+    // Error
+    console.log('error');
+    console.log(err);
+  });
 })
+
+// .controller('TopicsCtrl', function($scope, $ionicPlatform, $timeout, $cordovaFileTransfer) {
+//   console.log('inside topics controller');
+//   $ionicPlatform.ready(function() {}).then(function () {
+//     console.log('inside ready');
+//     var url = $scope.settingsData.contentUrl + '/index.json';
+//     var targetPath = cordova.file.dataDirectory + 'index.json';
+//     var trustHosts = true;
+//     var options = {};
+//
+//     $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
+//       .then(function(result) {
+//         console.log('inside success');
+//          console.log(JSON.stringify(result));
+//         $scope.topics = [
+//           { title: 'Safe Social Networks', id: 1 },
+//           { title: 'Sharing Open Mentoring', id: 2 }
+//         ];
+//       }, function(err) {
+//         // Error
+//         console.log('error');
+//         console.log(JSON.stringify(err));
+//       }, function (progress) {
+//         $timeout(function () {
+//           $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+//           console.log('Progress: ' + $scope.downloadProgress);
+//         })
+//       });
+//   });
+// })
 
 .controller('TopicCtrl', function($scope, $stateParams) {
   $scope.units = [
