@@ -1,9 +1,17 @@
 <ion-view view-title="Topics">
   <ion-content>
-    <ion-list>
-      <ion-item ng-repeat="topic in topics" href="#/app/topics/{{topic.slug}}">
+    <div class="list card" ng-repeat="topic in topics">
+      <a class="item item-icon-right">
+        <i class="icon ion-arrow-down-b"></i>
         {{topic.title}}
-      </ion-item>
-    </ion-list>
+      </a>
+      <div>
+        <div class="list">
+          <a class="item" ng-repeat="unit in topic.units" href="#/app/units/{{unit.slug}}">
+            {{unit.title}}
+          </a>
+        </div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>
