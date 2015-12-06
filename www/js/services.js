@@ -15,26 +15,25 @@ angular.module('starter.services', ['lodash','ionic','lokijs'])
     if(_db) {
       dfd.resolve();
     } else {
+      var lokiPrefs = {
+        autosave: true,
+        autoload: true,
+        autosaveInterval: 1000, // 1 second
+        autoloadCallback: function() {
+          _topics = _db.getCollection('topics');
 
-      var fsAdapter = new LokiCordovaFSAdapter({"prefix": "loki"});
-
-      _db = new Loki('localDB',
-        {
-          autosave: true,
-          autoload: true,
-          autosaveInterval: 1000, // 1 second
-          adapter: fsAdapter,
-          autoloadCallback: function() {
-            _topics = _db.getCollection('topics');
-
-            if (!_topics) {
-              _topics = _db.addCollection('topics');
-            }
-
-            dfd.resolve();
+          if (!_topics) {
+            _topics = _db.addCollection('topics');
           }
+
+          dfd.resolve();
         }
-      );
+      };
+      if(window.cordova) {
+        var fsAdapter = new LokiCordovaFSAdapter({"prefix": "loki"});
+        lokiPrefs.adapter = fsAdapter;
+      }
+      _db = new Loki('localDB',lokiPrefs);
     }
 
     return dfd.promise;
