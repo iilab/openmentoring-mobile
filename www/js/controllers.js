@@ -1,6 +1,6 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, DBService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -46,17 +46,20 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('TopicsCtrl', function($scope, $http) {
+.controller('TopicsCtrl', function($scope, $http, $ionicLoading, DBService) {
   console.log('inside topics controller');
+  $ionicLoading.show({
+     template: 'Loading...'
+   });
   var url = $scope.settingsData.contentUrl + '/index.json';
   $http.get(url).then(function (resp) {
     console.log('inside success');
-
-    console.log(resp);
-    $scope.topics = resp.data.items;
+    $scope.topics = DBService.loadTopics(resp.data.items);
+    $ionicLoading.hide();
   }, function(err) {
     // Error
     console.log('error');
+    $ionicLoading.hide();
     console.log(err);
   });
 })
