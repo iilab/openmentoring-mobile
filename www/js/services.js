@@ -50,6 +50,7 @@ angular.module('starter.services', ['lodash','ionic','lokijs'])
       if (item.slug.indexOf('_') != 0) {
         if(item.type === "topic") {
           item.units = [];
+          item.isDownloaded = false;
           console.log('adding topic: ' + item.slug);
           loadListObject[item.slug] = item;
         } else if(item.type === "unit") {

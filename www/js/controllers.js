@@ -77,8 +77,7 @@ angular.module('starter.controllers', ['starter.services'])
         .then(function(result) {
           console.log('inside success');
           var folderDest = cordova.file.dataDirectory + topic.slug + "/";
-          var zipDeferred = $cordovaZip.unzip(result.nativeURL,folderDest);
-          return zipDeferred;
+          return $cordovaZip.unzip(result.nativeURL,folderDest);
         }, function(err) {
           // Error
           console.log('error');
@@ -90,7 +89,9 @@ angular.module('starter.controllers', ['starter.services'])
           })
         }).then(function(zipResult){
           console.log("Successfully unzipped");
-          $scope.downloadedTopics[topic] = true;
+          $timeout(function() {
+            topic.isDownloaded = true;
+          });
         }, function (zipErr) {
           console.log('error ' + zipErr);
         }, function (progressEvent) {
@@ -103,7 +104,7 @@ angular.module('starter.controllers', ['starter.services'])
 
   };
   $scope.isDownloaded = function(topic) {
-    if($scope.downloadedTopics[topic]) {
+    if(topic.isDownloaded) {
       return true;
     } else {
       return false;
