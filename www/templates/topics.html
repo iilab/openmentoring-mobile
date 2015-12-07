@@ -6,7 +6,8 @@
           <a class="button button-icon icon ion-android-download"></a>
           {{topic.title}}
         </ion-item>
-        <a class="item" ng-disabled="true" ng-repeat="unit in topic.units" href="#/app/units/{{unit.slug}}">
+        <a class="item item-icon-right" ng-disabled="true" ng-repeat="unit in topic.units" href="#/app/units/{{unit.slug}}">
+          <i class="icon ion-chevron-right"></i>
           {{unit.title}}
         </a>
       </div>

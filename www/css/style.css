@@ -22,3 +22,11 @@
   color: #777;
   font-size: 14px;
 }
+
+.item[disabled] {
+  color: #777;
+}
+
+.item[disabled] .icon {
+  display: none;
+}
