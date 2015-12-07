@@ -46,8 +46,11 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('TopicsCtrl', function($scope, $http, $ionicLoading, DBService) {
+.controller('TopicsCtrl', function($scope, $http, $ionicPlatform, $ionicLoading, $cordovaFileTransfer, $timeout, DBService) {
   console.log('inside topics controller');
+
+  $scope.downloadedTopics = {};
+
   $ionicLoading.show({
      template: 'Loading...'
    });
@@ -62,6 +65,42 @@ angular.module('starter.controllers', ['starter.services'])
     $ionicLoading.hide();
     console.log(err);
   });
+
+  $scope.downloadTopic = function(topic) {
+    $ionicPlatform.ready(function() {}).then(function () {
+      var url = topic.downloadUrl;
+      var targetPath = cordova.file.dataDirectory + topic.slug + '.zip';
+      var trustHosts = true;
+      var options = {};
+
+      $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
+        .then(function(result) {
+          console.log('inside success');
+           console.log(JSON.stringify(result));
+          $scope.downloadedTopics[topic] = true;
+        }, function(err) {
+          // Error
+          console.log('error');
+          console.log(JSON.stringify(err));
+        }, function (progress) {
+          $timeout(function () {
+            $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+            console.log('Progress: ' + $scope.downloadProgress);
+          })
+        });
+    });
+
+    console.log('Downloading ' + topic);
+
+  };
+  $scope.isDownloaded = function(topic) {
+    if($scope.downloadedTopics[topic]) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
 })
 
 // .controller('TopicsCtrl', function($scope, $ionicPlatform, $timeout, $cordovaFileTransfer) {

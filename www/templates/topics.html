@@ -3,10 +3,10 @@
     <ion-list>
       <div ng-repeat="topic in topics">
         <ion-item class="item-stable item-icon-right">
-          <a class="button button-icon icon ion-android-download"></a>
+          <a class="button button-icon icon ion-android-download" ng-click="downloadTopic(topic)"></a>
           {{topic.title}}
         </ion-item>
-        <a class="item item-icon-right" ng-disabled="true" ng-repeat="unit in topic.units" href="#/app/units/{{unit.slug}}">
+        <a class="item item-icon-right" ng-disabled="isDownloaded(topic.slug) ? 'false' : 'true'" ng-repeat="unit in topic.units" href="#/app/units/{{unit.slug}}">
           <i class="icon ion-chevron-right"></i>
           {{unit.title}}
         </a>
