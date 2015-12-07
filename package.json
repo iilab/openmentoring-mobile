@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "description": "Client app for the Open Mentoring content platform",
   "license": "GPL",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/iilab/openmentoring-mobile.git"
-	},
-	"bugs": {
-		"url": "https://github.com/iilab/openmentoring-mobile/issues"
-	},
-	"homepage": "https://github.com/iilab/openmentoring-mobile",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iilab/openmentoring-mobile.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iilab/openmentoring-mobile/issues"
+  },
+  "homepage": "https://github.com/iilab/openmentoring-mobile",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
@@ -31,10 +31,11 @@
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
     "cordova-plugin-file",
-    "cordova-plugin-file-transfer"
+    "cordova-plugin-file-transfer",
+    "cordova-plugin-zip"
   ],
   "cordovaPlatforms": [
-    "ios",
-    "android"
+    "android",
+    "ios"
   ]
 }
