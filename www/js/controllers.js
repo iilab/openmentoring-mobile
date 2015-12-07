@@ -46,7 +46,7 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('TopicsCtrl', function($scope, $http, $ionicPlatform, $ionicLoading, $cordovaFileTransfer, $timeout, DBService) {
+.controller('TopicsCtrl', function($scope, $http, $ionicPlatform, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
   console.log('inside topics controller');
 
   $scope.downloadedTopics = {};
@@ -76,8 +76,9 @@ angular.module('starter.controllers', ['starter.services'])
       $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
         .then(function(result) {
           console.log('inside success');
-           console.log(JSON.stringify(result));
-          $scope.downloadedTopics[topic] = true;
+          var folderDest = cordova.file.dataDirectory + topic.slug + "/";
+          var zipDeferred = $cordovaZip.unzip(result.nativeURL,folderDest);
+          return zipDeferred;
         }, function(err) {
           // Error
           console.log('error');
@@ -87,6 +88,14 @@ angular.module('starter.controllers', ['starter.services'])
             $scope.downloadProgress = (progress.loaded / progress.total) * 100;
             console.log('Progress: ' + $scope.downloadProgress);
           })
+        }).then(function(zipResult){
+          console.log("Successfully unzipped");
+          $scope.downloadedTopics[topic] = true;
+        }, function (zipErr) {
+          console.log('error ' + zipErr);
+        }, function (progressEvent) {
+          // https://github.com/MobileChromeApps/zip#usage
+          console.log(progressEvent);
         });
     });
 
