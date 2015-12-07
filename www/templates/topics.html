@@ -1,17 +1,15 @@
 <ion-view view-title="Topics">
   <ion-content>
-    <div class="list card" ng-repeat="topic in topics">
-      <a class="item item-icon-right">
-        <i class="icon ion-arrow-down-b"></i>
-        {{topic.title}}
-      </a>
-      <div>
-        <div class="list">
-          <a class="item" ng-repeat="unit in topic.units" href="#/app/units/{{unit.slug}}">
-            {{unit.title}}
-          </a>
-        </div>
+    <ion-list>
+      <div ng-repeat="topic in topics">
+        <ion-item class="item-stable item-icon-right">
+          <a class="button button-icon icon ion-android-download"></a>
+          {{topic.title}}
+        </ion-item>
+        <a class="item" ng-disabled="true" ng-repeat="unit in topic.units" href="#/app/units/{{unit.slug}}">
+          {{unit.title}}
+        </a>
       </div>
-    </div>
+    </ion-list>
   </ion-content>
 </ion-view>
