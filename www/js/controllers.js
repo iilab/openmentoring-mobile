@@ -76,7 +76,7 @@ angular.module('starter.controllers', ['starter.services'])
       $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
         .then(function(result) {
           console.log('inside success');
-          var folderDest = cordova.file.dataDirectory + topic.slug + "/";
+          var folderDest = cordova.file.dataDirectory;
           return $cordovaZip.unzip(result.nativeURL,folderDest);
         }, function(err) {
           // Error
@@ -150,9 +150,20 @@ angular.module('starter.controllers', ['starter.services'])
   ];
 })
 
-.controller('UnitCtrl', function($scope, $stateParams) {
-  $scope.cards = [
-    { title: 'Card 1', id: 1 },
-    { title: 'Card 2', id: 2 }
-  ];
+.controller('UnitCtrl', function($scope, $http, $ionicLoading, $stateParams) {
+  var slugPath = $stateParams.unitSlug.replace('_','/');
+  var url = cordova.file.dataDirectory + slugPath + '/index.json';
+  $http.get(url).then(function (resp) {
+    console.log('inside success');
+    console.log(resp.data);
+    $scope.cards = resp.data.cards;
+    $ionicLoading.hide();
+  }, function(err) {
+    // Error
+    console.log('error');
+    $ionicLoading.hide();
+    console.log(err);
+  });
+
+
 });

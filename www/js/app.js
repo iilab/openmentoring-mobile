@@ -84,7 +84,7 @@ angular.module('starter', ['ionic', 'ksSwiper', 'ngCordova', 'starter.controller
   })
 
   .state('app.unit', {
-    url: '/units/:unitId',
+    url: '/units/:unitSlug',
     views: {
       'menuContent': {
         templateUrl: 'templates/unit.html',
