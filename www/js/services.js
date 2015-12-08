@@ -88,8 +88,16 @@ angular.module('starter.services', ['lodash','ionic','lokijs'])
             //check previous downloads to set boolean for display
             if(downloadsHash[item.slug]) {
               item.isDownloaded = true;
+              var downloadedDate = new Date(downloadsHash[item.slug].updatedAt);
+              var indexDate = new Date(item.updatedAt);
+              if(indexDate > downloadedDate) {
+                item.isLatest = false;
+              } else {
+                item.isLatest = true;
+              }
             } else {
               item.isDownloaded = false;
+              item.isLatest = false;
             }
             console.log('adding topic: ' + item.slug);
             loadListObject[item.slug] = item;

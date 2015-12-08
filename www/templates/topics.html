@@ -3,7 +3,7 @@
     <ion-list>
       <div ng-repeat="topic in topics">
         <ion-item class="item-stable item-icon-right">
-          <a class="button button-icon icon ion-android-download" ng-show="(!topic.isDownloaded)" ng-click="downloadTopic(topic)"></a>
+          <a class="button button-icon icon ion-android-download" ng-show="(!topic.isLatest)" ng-click="downloadTopic(topic)"></a>
           {{topic.title}}
         </ion-item>
         <a class="item item-icon-right" ng-disabled="(!topic.isDownloaded)" ng-repeat="unit in topic.units" href="#/app/units/{{unit.slug}}">

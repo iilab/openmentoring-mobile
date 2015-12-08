@@ -91,6 +91,7 @@ angular.module('starter.controllers', ['starter.services'])
           console.log("Successfully unzipped");
           $timeout(function() {
             topic.isDownloaded = true;
+            topic.isLatest = true;
             DBService.markAsDownloaded(topic);
           });
         }, function (zipErr) {
