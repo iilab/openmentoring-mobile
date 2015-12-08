@@ -48,6 +48,8 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('TopicsCtrl', function($scope, $http, $ionicPlatform, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
+  $scope.topics = DBService.getAllTopics();
+
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
 
   $scope.refreshTopics = function() {

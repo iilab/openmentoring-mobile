@@ -50,7 +50,7 @@ angular.module('starter.services', ['lodash','ionic','lokijs'])
     },
 
     getAllTopics: function() {
-      return _topics.chain().find();
+      return _topics.chain().find().data();
     },
 
     markAsDownloaded: function(topic) {
