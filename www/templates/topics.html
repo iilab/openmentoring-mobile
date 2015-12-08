@@ -10,10 +10,10 @@
           <a class="button button-icon icon ion-android-download" ng-show="(!topic.isLatest)" ng-click="downloadTopic(topic)"></a>
           {{topic.title}}
         </ion-item>
-        <a class="item item-icon-right" ng-disabled="(!topic.isDownloaded)" ng-repeat="unit in topic.units" href="#/app/units/{{unit.slug}}">
+        <ion-item class="item item-icon-right" ng-disabled="(!topic.isDownloaded)" ng-repeat="unit in topic.units" ng-click="openUnit(unit.slug)">
           <i class="icon ion-chevron-right"></i>
           {{unit.title}}
-        </a>
+        </ion-item>
       </div>
     </ion-list>
   </ion-content>

@@ -26,17 +26,17 @@ angular.module('starter.controllers', ['starter.services'])
   $ionicModal.fromTemplateUrl('templates/settings.html', {
     scope: $scope
   }).then(function(modal) {
-    $scope.modal = modal;
+    $scope.settingsModal = modal;
   });
 
   // Triggered in the settings modal to close it
   $scope.closeSettings = function() {
-    $scope.modal.hide();
+    $scope.settingsModal.hide();
   };
 
   // Open the settings modal
   $scope.settings = function() {
-    $scope.modal.show();
+    $scope.settingsModal.show();
   };
 
   // Perform the settings action when the user submits the settings form
@@ -46,7 +46,17 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('TopicsCtrl', function($scope, $http, $ionicPlatform, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
+.controller('TopicsCtrl', function($scope, $http, $ionicPlatform, $ionicModal, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
+
+  $ionicModal.fromTemplateUrl('templates/unit.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.$on('$destroy', function(){
+    $scope.modal.remove();
+  });
 
   $scope.topics = DBService.getAllTopics();
 
@@ -63,6 +73,21 @@ angular.module('starter.controllers', ['starter.services'])
     }).finally(function() {
       // Stop the ion-refresher from spinning
       $scope.$broadcast('scroll.refreshComplete');
+    });
+  };
+
+  $scope.openUnit = function(unitSlug) {
+    var slugPath = unitSlug.replace('_','/');
+    var url = cordova.file.dataDirectory + slugPath + '/index.json';
+    $http.get(url).then(function (resp) {
+      console.log('inside success');
+      console.log(resp.data);
+      $scope.cards = resp.data.cards;
+      $scope.modal.show();
+    }, function(err) {
+      // Error
+      console.log('error');
+      console.log(err);
     });
   };
 
@@ -118,56 +143,8 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-// .controller('TopicsCtrl', function($scope, $ionicPlatform, $timeout, $cordovaFileTransfer) {
-//   console.log('inside topics controller');
-//   $ionicPlatform.ready(function() {}).then(function () {
-//     console.log('inside ready');
-//     var url = $scope.settingsData.contentUrl + '/index.json';
-//     var targetPath = cordova.file.dataDirectory + 'index.json';
-//     var trustHosts = true;
-//     var options = {};
-//
-//     $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
-//       .then(function(result) {
-//         console.log('inside success');
-//          console.log(JSON.stringify(result));
-//         $scope.topics = [
-//           { title: 'Safe Social Networks', id: 1 },
-//           { title: 'Sharing Open Mentoring', id: 2 }
-//         ];
-//       }, function(err) {
-//         // Error
-//         console.log('error');
-//         console.log(JSON.stringify(err));
-//       }, function (progress) {
-//         $timeout(function () {
-//           $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-//           console.log('Progress: ' + $scope.downloadProgress);
-//         })
-//       });
-//   });
-// })
-
 .controller('TopicCtrl', function($scope, $stateParams) {
   $scope.units = [
     { title: 'How to', id: 1 }
   ];
-})
-
-.controller('UnitCtrl', function($scope, $http, $ionicLoading, $stateParams) {
-  var slugPath = $stateParams.unitSlug.replace('_','/');
-  var url = cordova.file.dataDirectory + slugPath + '/index.json';
-  $http.get(url).then(function (resp) {
-    console.log('inside success');
-    console.log(resp.data);
-    $scope.cards = resp.data.cards;
-    $ionicLoading.hide();
-  }, function(err) {
-    // Error
-    console.log('error');
-    $ionicLoading.hide();
-    console.log(err);
-  });
-
-
 });
