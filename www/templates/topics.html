@@ -1,5 +1,9 @@
 <ion-view view-title="Topics">
   <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="refreshTopics()">
+    </ion-refresher>
     <ion-list>
       <div ng-repeat="topic in topics">
         <ion-item class="item-stable item-icon-right">

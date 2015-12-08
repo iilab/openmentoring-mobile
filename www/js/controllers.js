@@ -47,24 +47,22 @@ angular.module('starter.controllers', ['starter.services'])
 })
 
 .controller('TopicsCtrl', function($scope, $http, $ionicPlatform, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
-  console.log('inside topics controller');
 
-  $scope.downloadedTopics = {};
+  var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
 
-  $ionicLoading.show({
-     template: 'Loading...'
-   });
-  var url = $scope.settingsData.contentUrl + '/index.json';
-  $http.get(url).then(function (resp) {
-    console.log('inside success');
-    $scope.topics = DBService.loadTopics(resp.data.items);
-    $ionicLoading.hide();
-  }, function(err) {
-    // Error
-    console.log('error');
-    $ionicLoading.hide();
-    console.log(err);
-  });
+  $scope.refreshTopics = function() {
+    $http.get(INDEX_URL).then(function (resp) {
+      console.log('inside success');
+      $scope.topics = DBService.loadTopics(resp.data.items);
+    }, function(err) {
+      // Error
+      console.log('error');
+      console.log(err);
+    }).finally(function() {
+      // Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+  };
 
   $scope.downloadTopic = function(topic) {
     $ionicPlatform.ready(function() {}).then(function () {
@@ -112,6 +110,9 @@ angular.module('starter.controllers', ['starter.services'])
       return false;
     }
   };
+
+  //initialize the view
+  $scope.refreshTopics();
 
 })
 
