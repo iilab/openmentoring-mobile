@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.openmentoringmobile211601" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.iilab.openmentoring" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>openmentoring-mobile</name>
   <description>
         Client app for the Open Mentoring content platform
@@ -8,7 +8,7 @@
       iilab team
     </author>
   <content src="index.html"/>
-  <access origin="*"/>
+  <access origin="*" />
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
