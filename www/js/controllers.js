@@ -50,7 +50,10 @@ angular.module('starter.controllers', ['starter.services'])
 
   var filterBarInstance;
 
+  $scope.allowRefresh = true;
+
   $scope.showFilterBar = function () {
+    $scope.allowRefresh = false;
     filterBarInstance = $ionicFilterBar.show({
       items: $scope.topics,
       update: function (filteredItems, filterText) {
@@ -58,6 +61,9 @@ angular.module('starter.controllers', ['starter.services'])
         if (filterText) {
           console.log(filterText);
         }
+      },
+      cancel: function() {
+        $scope.allowRefresh = true;
       }
     });
   };
@@ -87,21 +93,22 @@ angular.module('starter.controllers', ['starter.services'])
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
 
   $scope.refreshTopics = function() {
-    if (filterBarInstance) {
-      filterBarInstance();
-      filterBarInstance = null;
-    }
-    $http.get(INDEX_URL).then(function (resp) {
-      console.log('inside success');
-      $scope.topics = DBService.loadTopics(resp.data.items);
-    }, function(err) {
-      // Error
-      console.log('error');
-      console.log(err);
-    }).finally(function() {
-      // Stop the ion-refresher from spinning
+    if($scope.allowRefresh) {
+      $http.get(INDEX_URL).then(function (resp) {
+        console.log('inside success');
+        $scope.topics = DBService.loadTopics(resp.data.items);
+      }, function(err) {
+        // Error
+        console.log('error');
+        console.log(err);
+      }).finally(function() {
+        // Stop the ion-refresher from spinning
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    } else {
+      //quickly return if we've disabled the refresher
       $scope.$broadcast('scroll.refreshComplete');
-    });
+    }
   };
 
   $scope.openUnit = function(unitSlug) {
