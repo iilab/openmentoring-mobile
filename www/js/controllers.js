@@ -50,6 +50,9 @@ angular.module('starter.controllers', ['starter.services'])
 
   var filterBarInstance;
 
+  //TODO: this is super messy.  Replace with a service
+  var settingsData = $scope.$parent.$parent.settingsData;
+
   $scope.allowRefresh = true;
 
   $scope.showFilterBar = function () {
@@ -94,8 +97,11 @@ angular.module('starter.controllers', ['starter.services'])
 
   $scope.refreshTopics = function() {
     if($scope.allowRefresh) {
-      $http.get(INDEX_URL).then(function (resp) {
-        console.log('inside success');
+      $http({
+        method: 'GET',
+        url: INDEX_URL,
+        responseType: 'json'
+      }).then(function (resp) {
         $scope.topics = DBService.loadTopics(resp.data.items);
       }, function(err) {
         // Error
@@ -115,9 +121,27 @@ angular.module('starter.controllers', ['starter.services'])
     var slugPath = unitSlug.replace('_','/');
     var url = cordova.file.dataDirectory + slugPath + '/index.json';
     $http.get(url).then(function (resp) {
-      console.log('inside success');
-      console.log(resp.data);
-      $scope.cards = resp.data.cards;
+      var groupedCardList = _.groupBy(resp.data.cards, 'subtype');
+      var cardList = [];
+      _.forEach(groupedCardList, function(group){
+        var done = false;
+        _.forEach(group, function(card){
+          var profiles = _.filter(card.category, function(i) {
+            return _.startsWith(i,'profile:');
+          });
+          if(group.length == 1) {
+            done = true;
+            cardList.push(card);
+          } else if((_.indexOf(profiles,'profile:' + settingsData.profile)>-1) && !done) {
+            done = true;
+            cardList.push(card);
+          } else if(!(profiles.length) && !done) {
+            done = true;
+            cardList.push(card);
+          }
+        });
+      });
+      $scope.cards = cardList;
       if(!_.isEmpty($scope.swiper)) {
         $scope.swiper.update();
       }
@@ -138,7 +162,6 @@ angular.module('starter.controllers', ['starter.services'])
 
       $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
         .then(function(result) {
-          console.log('inside success');
           var folderDest = cordova.file.dataDirectory;
           return $cordovaZip.unzip(result.nativeURL,folderDest);
         }, function(err) {
