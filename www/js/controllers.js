@@ -50,9 +50,6 @@ angular.module('starter.controllers', ['starter.services'])
 
   var filterBarInstance;
 
-  //TODO: this is super messy.  Replace with a service
-  var settingsData = $scope.$parent.$parent.settingsData;
-
   $scope.allowRefresh = true;
 
   $scope.showFilterBar = function () {
@@ -118,6 +115,8 @@ angular.module('starter.controllers', ['starter.services'])
   };
 
   $scope.openUnit = function(unitSlug) {
+    //TODO: this is super messy.  Replace with a service
+    var settingsData = $scope.$parent.$parent.settingsData;
     var slugPath = unitSlug.replace('_','/');
     var url = cordova.file.dataDirectory + slugPath + '/index.json';
     $http.get(url).then(function (resp) {
