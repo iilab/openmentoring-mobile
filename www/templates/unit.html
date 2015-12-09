@@ -1,6 +1,6 @@
 <ion-modal-view>
   <ion-content scroll="false">
-  <ks-swiper-container speed="2000" loop="false" show-nav-buttons="false" slides-per-view="1" space-between="20" pagination-clickable="true">
+  <ks-swiper-container swiper="swiper" on-ready="onReadySwiper(swiper)" show-nav-buttons="false" slides-per-view="1" space-between="20">
     <ks-swiper-slide class="swiper-slide" ng-repeat="card in cards">
       <div class="card-container">
         <div class="card">

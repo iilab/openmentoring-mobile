@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, DBService) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicFilterBarConfig, $timeout, DBService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -46,7 +46,31 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('TopicsCtrl', function($scope, $http, $ionicPlatform, $ionicModal, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
+.controller('TopicsCtrl', function($scope, $http, $ionicFilterBar, $ionicPlatform, $ionicModal, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
+
+  var filterBarInstance;
+
+  $scope.showFilterBar = function () {
+    filterBarInstance = $ionicFilterBar.show({
+      items: $scope.topics,
+      update: function (filteredItems, filterText) {
+        $scope.topics = filteredItems;
+        if (filterText) {
+          console.log(filterText);
+        }
+      }
+    });
+  };
+
+  $scope.swiper = {};
+
+  $scope.onReadySwiper = function (swiper) {
+
+    swiper.on('slideChangeStart', function () {
+
+      console.log('slideChangeStart');
+    });
+  };
 
   $ionicModal.fromTemplateUrl('templates/unit.html', {
     scope: $scope
@@ -63,6 +87,10 @@ angular.module('starter.controllers', ['starter.services'])
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
 
   $scope.refreshTopics = function() {
+    if (filterBarInstance) {
+      filterBarInstance();
+      filterBarInstance = null;
+    }
     $http.get(INDEX_URL).then(function (resp) {
       console.log('inside success');
       $scope.topics = DBService.loadTopics(resp.data.items);
@@ -83,6 +111,9 @@ angular.module('starter.controllers', ['starter.services'])
       console.log('inside success');
       console.log(resp.data);
       $scope.cards = resp.data.cards;
+      if(!_.isEmpty($scope.swiper)) {
+        $scope.swiper.update();
+      }
       $scope.modal.show();
     }, function(err) {
       // Error
