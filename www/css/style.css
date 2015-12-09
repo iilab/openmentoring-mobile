@@ -19,6 +19,12 @@
   margin: 0;
 }
 
+/* this is the card body */
+.swiper-slide .item-body p {
+  font-size: 22px;
+  line-height: 30px;
+}
+
 .item.description-item {
   color: #777;
   font-size: 14px;
