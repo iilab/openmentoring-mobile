@@ -55,14 +55,6 @@ angular.module('starter', ['ionic', 'ksSwiper', 'jett.ionic.filter.bar', 'ngCord
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
     .state('app.topics', {
       url: '/topics',
       views: {
