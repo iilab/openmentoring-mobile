@@ -1,0 +1,39 @@
+/* Empty. Add your own CSS if you like */
+.swiper-container {
+  height: 100%;
+  width: 100%;
+}
+
+.swiper-slide {
+  position: relative;
+}
+
+.swiper-slide .card-container {
+  height: 100%;
+  padding: 20px 20px;
+  overflow: auto;
+}
+
+.swiper-slide .card-container .card {
+  min-height: 100%;
+  margin: 0;
+}
+
+/* this is the card body */
+.swiper-slide .item-body p {
+  font-size: 22px;
+  line-height: 30px;
+}
+
+.item.description-item {
+  color: #777;
+  font-size: 14px;
+}
+
+.item[disabled] {
+  color: #777;
+}
+
+.item[disabled] .icon {
+  display: none;
+}

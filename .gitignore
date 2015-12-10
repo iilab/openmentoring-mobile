@@ -1,10 +1,10 @@
-*/bin
-*/obj
-*.user-settings.xml
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
 .DS_Store
-*.map
-*.log
+.tmp
+.sass-cache
 node_modules/
-
 platforms/
-lib/
+plugins/
+www/lib/
+www.zip
