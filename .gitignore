@@ -6,6 +6,7 @@
 node_modules/
 lib/
 platforms/ios
+platforms/android/build
 plugins/
 www/lib/
 www.zip
