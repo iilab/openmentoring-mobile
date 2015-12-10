@@ -1,2 +1,0 @@
-/Users/jun/dev/uganda/openmentoring-mobile/platforms/android/build/intermediates/classes/debug
-/Users/jun/dev/uganda/openmentoring-mobile/platforms/android/build/intermediates/pre-dexed/debug/classes-f7b8eb346442e7c14aaa456868120561738dcef1.jar
