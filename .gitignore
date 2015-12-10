@@ -5,6 +5,8 @@
 *.map
 *.log
 node_modules/
-
-platforms/
 lib/
+platforms/ios
+plugins/
+www/lib/
+www.zip

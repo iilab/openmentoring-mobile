@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/jun/dev/uganda/openmentoring-mobile/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/debug/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="39c4ed6c78acee45238754a7c72c6155aa0daf6c">
+        <dex dex="/Users/jun/dev/uganda/openmentoring-mobile/platforms/android/build/intermediates/pre-dexed/debug/classes-f7b8eb346442e7c14aaa456868120561738dcef1.jar" />
+    </item>
+
+</items>
