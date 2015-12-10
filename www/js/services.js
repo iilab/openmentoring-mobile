@@ -10,6 +10,44 @@ angular.module('starter.services', ['lodash','ionic','lokijs'])
   var _topics;
   var _downloadedTopics;
 
+  function renderIndexAsNestedList(flatIndex) {
+    //get the list of previously downloaded topics and conver it to a hash for easy lookup
+    var previouslyDownloaded = _downloadedTopics.chain().find().data();
+    var downloadsHash = {};
+    if(previouslyDownloaded && previouslyDownloaded.length) {
+      downloadsHash = _.indexBy(previouslyDownloaded,'slug');
+    }
+
+    var loadListObject = {};
+    //add topics to the list and units as subobjects of the topics
+    flatIndex.forEach(function(item){
+      if (item.slug.indexOf('_') != 0) {
+        if(item.type === "topic") {
+          item.units = [];
+          //check previous downloads to set boolean for display
+          if(downloadsHash[item.slug]) {
+            item.isDownloaded = true;
+            var downloadedDate = new Date(downloadsHash[item.slug].updatedAt);
+            var indexDate = new Date(item.updatedAt);
+            if(indexDate > downloadedDate) {
+              item.isLatest = false;
+            } else {
+              item.isLatest = true;
+            }
+          } else {
+            item.isDownloaded = false;
+            item.isLatest = false;
+          }
+          loadListObject[item.slug] = item;
+        } else if(item.type === "unit") {
+          var slugParts = item.slug.split('_');
+          loadListObject[slugParts[0]].units.push(item);
+        }
+      }
+    });
+    return _.values(loadListObject);
+  };
+
   return {
     initDB: function() {
 
@@ -71,46 +109,12 @@ angular.module('starter.services', ['lodash','ionic','lokijs'])
       _topics.update(topic);
     },
 
-    loadTopics: function(topicList) {
-      //get the list of previously downloaded topics and conver it to a hash for easy lookup
-      var previouslyDownloaded = _downloadedTopics.chain().find().data();
-      var downloadsHash = {};
-      if(previouslyDownloaded && previouslyDownloaded.length) {
-        downloadsHash = _.indexBy(previouslyDownloaded,'slug');
-      }
 
-      var loadListObject = {};
-      //add topics to the list and units as subobjects of the topics
-      topicList.forEach(function(item){
-        if (item.slug.indexOf('_') != 0) {
-          if(item.type === "topic") {
-            item.units = [];
-            //check previous downloads to set boolean for display
-            if(downloadsHash[item.slug]) {
-              item.isDownloaded = true;
-              var downloadedDate = new Date(downloadsHash[item.slug].updatedAt);
-              var indexDate = new Date(item.updatedAt);
-              if(indexDate > downloadedDate) {
-                item.isLatest = false;
-              } else {
-                item.isLatest = true;
-              }
-            } else {
-              item.isDownloaded = false;
-              item.isLatest = false;
-            }
-            console.log('adding topic: ' + item.slug);
-            loadListObject[item.slug] = item;
-          } else if(item.type === "unit") {
-            var slugParts = item.slug.split('_');
-            console.log('adding unit to topic: ' + slugParts[0]);
-            loadListObject[slugParts[0]].units.push(item);
-          }
-        }
-      });
+    loadTopics: function(topicList) {
+      var nestedList = renderIndexAsNestedList(topicList);
       //blow away the existing topics collection and replace with the fresh list
       _topics.removeDataOnly();
-      _topics.insert(_.values(loadListObject));
+      _topics.insert(nestedList);
       var retVal = _topics.chain().find();
       return retVal.data();
     }
