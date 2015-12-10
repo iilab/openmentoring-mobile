@@ -17,11 +17,10 @@ Then in the root directory of the project:
 
 ```$ bower install```
 
-Then build the project:
+Then build your local platforms/ and plugins/ folders by running this command:
 
 ```
-$ ionic platform add android
-$ ionic build android
+$ ionic state reset
 ```
 
 Run the app using the default android emulator:
