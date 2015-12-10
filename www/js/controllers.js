@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicFilterBarConfig, $timeout, DBService) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, DBService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -46,26 +46,26 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('TopicsCtrl', function($scope, $http, $ionicFilterBar, $ionicPlatform, $ionicModal, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
+.controller('TopicsCtrl', function($scope, $http, $ionicPlatform, $ionicModal, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
   var filterBarInstance;
 
   $scope.allowRefresh = true;
 
-  $scope.showFilterBar = function () {
+  $scope.doFilter = function () {
     $scope.allowRefresh = false;
-    filterBarInstance = $ionicFilterBar.show({
-      items: $scope.topics,
-      update: function (filteredItems, filterText) {
-        $scope.topics = filteredItems;
-        if (filterText) {
-          console.log(filterText);
-        }
-      },
-      cancel: function() {
-        $scope.allowRefresh = true;
-      }
-    });
+    // filterBarInstance = $ionicFilterBar.show({
+    //   items: $scope.topics,
+    //   update: function (filteredItems, filterText) {
+    //     $scope.topics = filteredItems;
+    //     if (filterText) {
+    //       console.log(filterText);
+    //     }
+    //   },
+    //   cancel: function() {
+    //     $scope.allowRefresh = true;
+    //   }
+    // });
   };
 
   $scope.swiper = {};
@@ -89,6 +89,14 @@ angular.module('starter.controllers', ['starter.services'])
   });
 
   $scope.topics = DBService.getAllTopics();
+
+  $scope.scrollTop = function() {
+    $ionicScrollDelegate.scrollTop();
+  };
+
+  $scope.clearSearch = function() {
+    $scope.search = '';
+  };
 
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
 

@@ -1,8 +1,19 @@
 <ion-view view-title="Topics">
-  <ion-nav-buttons side="secondary">
-    <button class="button button-icon icon ion-ios-search-strong" ng-click="showFilterBar()">
+  <ion-header-bar class="bar-subheader item-input-inset">
+    <label class="item-input-wrapper">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+      <input type="search"
+        placeholder="Search"
+        ng-model="search"
+        ng-focus="searchFocused = true"
+        ng-blur="searchFocused = false"
+        ng-change="scrollTop()">
+    </label>
+    <button ng-if="search.length"
+            class="button button-icon ion-android-close input-button"
+            ng-click="clearSearch()">
     </button>
-  </ion-nav-buttons>
+  </ion-header-bar>
   <ion-content>
     <ion-refresher
       ng-if="allowRefresh"
