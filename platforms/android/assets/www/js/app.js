@@ -46,31 +46,21 @@ angular.module('starter', ['ionic', 'ksSwiper', 'ngCordova', 'starter.controller
     }
   })
 
-  .state('app.search', {
-    url: '/search',
+  .state('app.help', {
+    url: '/help',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/help.html'
       }
     }
   })
 
-    .state('app.topics', {
-      url: '/topics',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/topics.html',
-          controller: 'TopicsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: '/topics/:topicId',
+  .state('app.topics', {
+    url: '/topics',
     views: {
       'menuContent': {
-        templateUrl: 'templates/topic.html',
-        controller: 'TopicCtrl'
+        templateUrl: 'templates/topics.html',
+        controller: 'TopicsCtrl'
       }
     }
   })
