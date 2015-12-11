@@ -6,7 +6,8 @@
 node_modules/
 /lib/
 platforms/ios
-platforms/android/build
+build/
+.gradle/
 /plugins/
 www/lib/
 www.zip
