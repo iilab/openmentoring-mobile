@@ -4,9 +4,10 @@
 .tmp
 .sass-cache
 node_modules/
-lib/
+/lib/
 platforms/ios
-platforms/android/build
-plugins/
+build/
+.gradle/
+/plugins/
 www/lib/
 www.zip
