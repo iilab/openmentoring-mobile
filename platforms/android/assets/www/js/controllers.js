@@ -196,10 +196,4 @@ angular.module('starter.controllers', ['starter.services'])
   //initialize the view
   $scope.refreshTopics();
 
-})
-
-.controller('TopicCtrl', function($scope, $stateParams) {
-  $scope.units = [
-    { title: 'How to', id: 1 }
-  ];
 });
