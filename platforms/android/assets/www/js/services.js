@@ -1,14 +1,54 @@
 angular.module('lodash', [])
 .factory('_', ['$window', function($window) {
-    return $window._; // assumes underscore has already been loaded on the page
+    return $window._; // assumes lodash has already been loaded on the page
 }]);
 
-angular.module('starter.services', ['lodash','ionic','lokijs'])
+angular.module('lunr', [])
+.factory('lunr', ['$window', function($window) {
+    return $window.lunr; // assumes lunr has already been loaded on the page
+}]);
 
-.factory('DBService', function(_, $q, Loki) {
+angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
+
+.factory('DBService', function(_, $q, Loki, lunr) {
   var _db;
   var _topics;
+  var _topicIndex;
   var _downloadedTopics;
+  var _idx;
+
+  function convertCategoriesToProperties(flatIndex) {
+    var newList = [];
+    flatIndex.forEach(function(item){
+      var newItem = _.cloneDeep(item);
+      newItem.profile = "";
+      newItem.devices = [];
+      var categories = newItem.categories;
+      categories.forEach(function(category){
+        var propArray = category.split(':');
+        switch(propArray[0]) {
+          case 'profile': item.profile = propArray[1]; break;
+          case 'device': item.devices.push(propArray[1]); break;
+        }
+      });
+      newList.push(newItem);
+    });
+    return newList;
+  };
+
+  function loadSearchIndex(flatIndex) {
+    //initialize search index, effectively clearing it
+    _idx = lunr(function () {
+      this.field('title', { boost: 10 });
+      this.field('parentTitle');
+      this.ref('slug');
+    });
+    flatIndex.forEach(function(item){
+      console.log(item);
+      _idx.add(item,false);
+    });
+    console.log('done with all');
+  };
 
   function renderIndexAsNestedList(flatIndex) {
     //get the list of previously downloaded topics and conver it to a hash for easy lookup
@@ -21,27 +61,30 @@ angular.module('starter.services', ['lodash','ionic','lokijs'])
     var loadListObject = {};
     //add topics to the list and units as subobjects of the topics
     flatIndex.forEach(function(item){
-      if (item.slug.indexOf('_') != 0) {
-        if(item.type === "topic") {
-          item.units = [];
+      var newItem = _.cloneDeep(item);
+      //get rid of db reference
+      delete newItem.$loki;
+      if (newItem.slug.indexOf('_') != 0) {
+        if(newItem.type === "topic") {
+          newItem.units = [];
           //check previous downloads to set boolean for display
-          if(downloadsHash[item.slug]) {
-            item.isDownloaded = true;
-            var downloadedDate = new Date(downloadsHash[item.slug].updatedAt);
-            var indexDate = new Date(item.updatedAt);
+          if(downloadsHash[newItem.slug]) {
+            newItem.isDownloaded = true;
+            var downloadedDate = new Date(downloadsHash[newItem.slug].updatedAt);
+            var indexDate = new Date(newItem.updatedAt);
             if(indexDate > downloadedDate) {
-              item.isLatest = false;
+              newItem.isLatest = false;
             } else {
-              item.isLatest = true;
+              newItem.isLatest = true;
             }
           } else {
-            item.isDownloaded = false;
-            item.isLatest = false;
+            newItem.isDownloaded = false;
+            newItem.isLatest = false;
           }
-          loadListObject[item.slug] = item;
-        } else if(item.type === "unit") {
-          var slugParts = item.slug.split('_');
-          loadListObject[slugParts[0]].units.push(item);
+          loadListObject[newItem.slug] = newItem;
+        } else if(newItem.type === "unit") {
+          var slugParts = newItem.slug.split('_');
+          loadListObject[slugParts[0]].units.push(newItem);
         }
       }
     });
@@ -62,16 +105,23 @@ angular.module('starter.services', ['lodash','ionic','lokijs'])
           autoloadCallback: function() {
             _topics = _db.getCollection('topics');
             _downloadedTopics = _db.getCollection('downloadedTopics');
+            _topicIndex = _db.getCollection('topicIndex');
 
-            if (!_topics) {
+            if(!_topics) {
               _topics = _db.addCollection('topics', { unique: ['slug'] });
             }
 
-            if (!_downloadedTopics) {
+            if(!_downloadedTopics) {
               _downloadedTopics = _db.addCollection('downloadedTopics', { unique: ['slug'] });
             }
-            console.log(_topics);
-            console.log(_downloadedTopics);
+
+
+            if(!_topicIndex) {
+              _topicIndex = _db.addCollection('topicIndex', { unique: ['slug'] });
+            } else {
+              var fullIndex = _topicIndex.chain().find().data();
+              loadSearchIndex(fullIndex);
+            }
 
             dfd.resolve();
           }
@@ -93,7 +143,6 @@ angular.module('starter.services', ['lodash','ionic','lokijs'])
 
     markAsDownloaded: function(topic) {
       //update the topic in the downloaded list
-      console.log('marking as downloaded: ' + topic.slug);
       var wasDownloaded = _downloadedTopics.by('slug', topic.slug);
       if(wasDownloaded) {
         //update the existing entry in case there's a new date
@@ -111,10 +160,20 @@ angular.module('starter.services', ['lodash','ionic','lokijs'])
 
 
     loadTopics: function(topicList) {
-      var nestedList = renderIndexAsNestedList(topicList);
+      //transform the flat list to the format used in the app
+      var normalizedTopicList = convertCategoriesToProperties(topicList);
+
+      //transform the normalized list to the version used for display
+      var nestedList = renderIndexAsNestedList(normalizedTopicList);
       //blow away the existing topics collection and replace with the fresh list
       _topics.removeDataOnly();
       _topics.insert(nestedList);
+
+      //blow away the existing search index and replace with the mormalized version
+      _topicIndex.removeDataOnly();
+      _topicIndex.insert(normalizedTopicList);
+      loadSearchIndex(normalizedTopicList);
+
       var retVal = _topics.chain().find();
       return retVal.data();
     }

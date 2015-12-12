@@ -46,26 +46,15 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('TopicsCtrl', function($scope, $http, $ionicPlatform, $ionicModal, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
+.controller('TopicsCtrl', function($scope, $http, $ionicPlatform, $ionicScrollDelegate, $ionicModal, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
   var filterBarInstance;
 
   $scope.allowRefresh = true;
 
   $scope.doFilter = function () {
-    $scope.allowRefresh = false;
-    // filterBarInstance = $ionicFilterBar.show({
-    //   items: $scope.topics,
-    //   update: function (filteredItems, filterText) {
-    //     $scope.topics = filteredItems;
-    //     if (filterText) {
-    //       console.log(filterText);
-    //     }
-    //   },
-    //   cancel: function() {
-    //     $scope.allowRefresh = true;
-    //   }
-    // });
+    //TODO: apply filter based on results from lunr
+    return $scope.topics;
   };
 
   $scope.swiper = {};
@@ -87,8 +76,6 @@ angular.module('starter.controllers', ['starter.services'])
   $scope.$on('$destroy', function(){
     $scope.modal.remove();
   });
-
-  $scope.topics = DBService.getAllTopics();
 
   $scope.scrollTop = function() {
     $ionicScrollDelegate.scrollTop();

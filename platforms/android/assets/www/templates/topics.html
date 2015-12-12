@@ -21,7 +21,7 @@
       on-refresh="refreshTopics()">
     </ion-refresher>
     <ion-list>
-      <div ng-repeat="topic in topics">
+      <div ng-repeat="topic in doFilter()">
         <ion-item class="item-stable item-icon-right">
           <a class="button button-icon icon ion-android-download" ng-show="(!topic.isLatest)" ng-click="downloadTopic(topic)"></a>
           {{topic.title}}
