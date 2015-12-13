@@ -235,4 +235,11 @@ angular.module('starter.controllers', ['starter.services'])
   //initialize the view
   $scope.refreshTopics();
 
+})
+
+.controller('HelpCtrl', function($scope, $cordovaDevice) {
+
+  document.addEventListener("deviceready", function () {
+    $scope.device = $cordovaDevice.getDevice();
+  }, false);
 });

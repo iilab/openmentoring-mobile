@@ -50,7 +50,8 @@ angular.module('starter', ['ionic', 'ksSwiper', 'ngCordova', 'starter.controller
     url: '/help',
     views: {
       'menuContent': {
-        templateUrl: 'templates/help.html'
+        templateUrl: 'templates/help.html',
+        controller: 'HelpCtrl'
       }
     }
   })
