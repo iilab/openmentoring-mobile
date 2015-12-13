@@ -52,9 +52,22 @@ angular.module('starter.controllers', ['starter.services'])
 
   $scope.allowRefresh = true;
 
-  $scope.doFilter = function () {
+  function doFilter() {
     //TODO: apply filter based on results from lunr
-    return $scope.topics;
+    console.log('doFilter');
+
+    if(_.isEmpty($scope.search)) {
+      resetViewState($scope.topics);
+    } else {
+      var results = DBService.doSearch($scope.search);
+      var resultsHash = _.indexBy(results,'ref');
+      $scope.topics.forEach(function(topic){
+        topic.isVisible = resultsHash[topic.slug];
+        topic.units.forEach(function(unit){
+          unit.isVisible = resultsHash[unit.slug];
+        });
+      });
+    }
   };
 
   $scope.swiper = {};
@@ -77,12 +90,23 @@ angular.module('starter.controllers', ['starter.services'])
     $scope.modal.remove();
   });
 
-  $scope.scrollTop = function() {
+  $scope.updateFilter = function() {
     $ionicScrollDelegate.scrollTop();
+    doFilter();
   };
 
   $scope.clearSearch = function() {
     $scope.search = '';
+    $scope.updateFilter();
+  };
+
+  function resetViewState(nestedList) {
+    nestedList.forEach(function(topic){
+      topic.isVisible = true;
+      topic.units.forEach(function(unit){
+        unit.isVisible = false;
+      });
+    });
   };
 
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
@@ -94,7 +118,9 @@ angular.module('starter.controllers', ['starter.services'])
         url: INDEX_URL,
         responseType: 'json'
       }).then(function (resp) {
-        $scope.topics = DBService.loadTopics(resp.data.items);
+        var topics = DBService.loadTopics(resp.data.items);
+        resetViewState(topics);
+        $scope.topics = topics;
       }, function(err) {
         // Error
         console.log('error');

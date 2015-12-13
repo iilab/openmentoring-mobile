@@ -40,7 +40,6 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
     //initialize search index, effectively clearing it
     _idx = lunr(function () {
       this.field('title', { boost: 10 });
-      this.field('parentTitle');
       this.ref('slug');
     });
     flatIndex.forEach(function(item){
@@ -139,6 +138,10 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
 
     getAllTopics: function() {
       return _topics.chain().find().data();
+    },
+
+    doSearch: function(term) {
+      return _idx.search(term);
     },
 
     markAsDownloaded: function(topic) {

@@ -7,7 +7,7 @@
         ng-model="search"
         ng-focus="searchFocused = true"
         ng-blur="searchFocused = false"
-        ng-change="scrollTop()">
+        ng-change="updateFilter()">
     </label>
     <button ng-if="search.length"
             class="button button-icon ion-android-close input-button"
@@ -21,14 +21,16 @@
       on-refresh="refreshTopics()">
     </ion-refresher>
     <ion-list>
-      <div ng-repeat="topic in doFilter()">
+      <div ng-repeat="topic in topics" ng-show="topic.isVisible">
         <ion-item class="item-stable item-icon-right">
           <a class="button button-icon icon ion-android-download" ng-show="(!topic.isLatest)" ng-click="downloadTopic(topic)"></a>
           {{topic.title}}
         </ion-item>
-        <ion-item class="item item-icon-right" ng-disabled="(!topic.isDownloaded)" ng-repeat="unit in topic.units" ng-click="openUnit(unit.slug)">
-          <i class="icon ion-chevron-right"></i>
-          {{unit.title}}
+        <ion-item class="item item-icon-right" ng-disabled="(!topic.isDownloaded)" ng-repeat="unit in topic.units" ng-click="openUnit(unit.slug)" ng-show="unit.isVisible">
+          <div>
+            <i class="icon ion-chevron-right"></i>
+            {{unit.title}}
+          </div>
         </ion-item>
       </div>
     </ion-list>
