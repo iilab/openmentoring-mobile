@@ -1,4 +1,41 @@
 /* Empty. Add your own CSS if you like */
+
+/* Topic list styles */
+.topic-card .item-icon-left {
+  padding-left: 49px;
+}
+
+.topic-card .item-icon-right {
+  padding-right: 49px;
+}
+
+.topic-card .item-icon-right .icon {
+  right: 0;
+}
+
+.topic-card .item-icon-left .icon {
+  left: 0;
+}
+
+.topic-card .segment-button-right {
+  border-left: 1px solid #ddd;
+}
+.topic-card .segment-button-right:before {
+  font-size: 24px;
+}
+
+.item[disabled] {
+  color: #aaa;
+}
+
+.item[disabled] .icon {
+  display: flex;
+}
+
+.icon.unit-icon:before {
+  font-size: 24px;
+}
+
 .swiper-container {
   height: 100%;
   width: 100%;

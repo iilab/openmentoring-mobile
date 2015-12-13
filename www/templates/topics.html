@@ -20,19 +20,18 @@
       pulling-text="Pull to refresh..."
       on-refresh="refreshTopics()">
     </ion-refresher>
-    <ion-list>
-      <div ng-repeat="topic in topics" ng-show="topic.isVisible">
-        <ion-item class="item-stable item-icon-right">
-          <a class="button button-icon icon ion-android-download" ng-show="(!topic.isLatest)" ng-click="downloadTopic(topic)"></a>
-          {{topic.title}}
-        </ion-item>
-        <ion-item class="item item-icon-right" ng-disabled="(!topic.isDownloaded)" ng-repeat="unit in topic.units" ng-click="openUnit(unit.slug)" ng-show="unit.isVisible">
-          <div>
-            <i class="icon ion-chevron-right"></i>
-            {{unit.title}}
-          </div>
-        </ion-item>
-      </div>
-    </ion-list>
+
+    <div class="card topic-card list" ng-repeat="topic in topics" ng-show="topic.isVisible">
+      <ion-item class="item-stable item-icon-right" ng-class="{'item-icon-left':!topic.isLatest}">
+        <a class="button button-icon icon ion-android-download" ng-show="(!topic.isLatest)" ng-click="downloadTopic(topic)"></a>
+        {{topic.title}}
+        <a class="button segment-button-right button-icon icon" ng-class="{'ion-arrow-down-b': !topic.showUnits, 'ion-arrow-up-b': topic.showUnits }" ng-click="toggleUnits(topic)"></a>
+      </ion-item>
+      <ion-item class="item item-icon-right" ng-disabled="(!topic.isDownloaded)" ng-repeat="unit in topic.units" ng-click="openUnit(unit.slug)" ng-show="(topic.showUnits || unit.isVisible)">
+        <i class="icon unit-icon" ng-class="{'ion-android-download':!topic.isDownloaded,'ion-chevron-right':topic.isDownloaded}"></i>
+        {{unit.title}}
+      </ion-item>
+    </div>
+
   </ion-content>
 </ion-view>

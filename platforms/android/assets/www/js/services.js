@@ -39,7 +39,7 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
   function loadSearchIndex(flatIndex) {
     //initialize search index, effectively clearing it
     _idx = lunr(function () {
-      this.field('title', { boost: 10 });
+      this.field('title');
       this.ref('slug');
     });
     flatIndex.forEach(function(item){

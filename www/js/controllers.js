@@ -63,8 +63,12 @@ angular.module('starter.controllers', ['starter.services'])
       var resultsHash = _.indexBy(results,'ref');
       $scope.topics.forEach(function(topic){
         topic.isVisible = resultsHash[topic.slug];
+        topic.showUnits = false;
         topic.units.forEach(function(unit){
           unit.isVisible = resultsHash[unit.slug];
+          if(unit.isVisible) {
+            topic.isVisible = true;
+          }
         });
       });
     }
@@ -100,9 +104,18 @@ angular.module('starter.controllers', ['starter.services'])
     $scope.updateFilter();
   };
 
+  $scope.toggleUnits = function(topic) {
+    if(topic.showUnits) {
+      topic.showUnits = false;
+    } else {
+      topic.showUnits = true;
+    }
+  };
+
   function resetViewState(nestedList) {
     nestedList.forEach(function(topic){
       topic.isVisible = true;
+      topic.showUnits = false;
       topic.units.forEach(function(unit){
         unit.isVisible = false;
       });
