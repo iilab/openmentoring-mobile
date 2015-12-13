@@ -119,8 +119,8 @@ angular.module('starter.controllers', ['starter.services'])
         responseType: 'json'
       }).then(function (resp) {
         var topics = DBService.loadTopics(resp.data.items);
-        resetViewState(topics);
         $scope.topics = topics;
+        doFilter();
       }, function(err) {
         // Error
         console.log('error');
