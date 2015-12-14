@@ -75,9 +75,9 @@ angular.module('starter.controllers', ['starter.services'])
   };
 
   $scope.swiper = {};
-
   $scope.onReadySwiper = function (swiper) {
 
+    $scope.swiper = swiper;
     swiper.on('slideChangeStart', function () {
 
       console.log('slideChangeStart');
@@ -177,8 +177,8 @@ angular.module('starter.controllers', ['starter.services'])
       });
       $scope.cards = cardList;
       if(!_.isEmpty($scope.swiper)) {
-        //$scope.swiper.slideTo(0,0,false);
-        $scope.swiper.update();
+        $scope.swiper.update(true);
+        $scope.swiper.slideTo(0,0,false);
       }
       $scope.modal.show();
     }, function(err) {
