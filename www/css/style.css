@@ -24,11 +24,11 @@
   font-size: 24px;
 }
 
-.item[disabled] {
+.topic-card .item[disabled] {
   color: #aaa;
 }
 
-.item[disabled] .icon {
+.topic-card .item[disabled] .icon {
   display: flex;
 }
 
