@@ -43,6 +43,10 @@
                         {
                             "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"LaunchMyApp\"><param name=\"android-package\" value=\"nl.xservices.plugins.LaunchMyApp\" /></feature>",
+                            "count": 1
                         }
                     ],
                     "/widget": [
@@ -110,6 +114,12 @@
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
                             "count": 1
                         }
+                    ],
+                    "/*/application/activity": [
+                        {
+                            "xml": "<intent-filter><data android:scheme=\"openmentoring\" /><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><category android:name=\"android.intent.category.BROWSABLE\" /></intent-filter>",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -150,6 +160,10 @@
             "PACKAGE_NAME": "org.iilab.openmentoring"
         },
         "cordova-plugin-app-version": {
+            "PACKAGE_NAME": "org.iilab.openmentoring"
+        },
+        "cordova-plugin-customurlscheme": {
+            "URL_SCHEME": "openmentoring",
             "PACKAGE_NAME": "org.iilab.openmentoring"
         }
     },
@@ -419,6 +433,14 @@
             "clobbers": [
                 "cordova.getAppVersion"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
+            "id": "cordova-plugin-customurlscheme.LaunchMyApp",
+            "pluginId": "cordova-plugin-customurlscheme",
+            "clobbers": [
+                "window.plugins.launchmyapp"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -433,6 +455,7 @@
         "cordova-plugin-zip": "3.0.0",
         "cordova-plugin-registerusernotificationsettings": "1.0.2",
         "de.appplant.cordova.plugin.local-notification": "0.8.3-dev",
-        "cordova-plugin-app-version": "0.1.8"
+        "cordova-plugin-app-version": "0.1.8",
+        "cordova-plugin-customurlscheme": "4.0.0"
     }
 }

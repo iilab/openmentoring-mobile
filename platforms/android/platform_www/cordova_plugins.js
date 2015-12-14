@@ -264,6 +264,14 @@ module.exports = [
         "clobbers": [
             "cordova.getAppVersion"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
+        "id": "cordova-plugin-customurlscheme.LaunchMyApp",
+        "pluginId": "cordova-plugin-customurlscheme",
+        "clobbers": [
+            "window.plugins.launchmyapp"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -280,7 +288,8 @@ module.exports.metadata =
     "cordova-plugin-zip": "3.0.0",
     "cordova-plugin-registerusernotificationsettings": "1.0.2",
     "de.appplant.cordova.plugin.local-notification": "0.8.3-dev",
-    "cordova-plugin-app-version": "0.1.8"
+    "cordova-plugin-app-version": "0.1.8",
+    "cordova-plugin-customurlscheme": "4.0.0"
 }
 // BOTTOM OF METADATA
 });
