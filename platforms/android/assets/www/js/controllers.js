@@ -237,7 +237,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('HelpCtrl', function($scope, $cordovaDevice) {
+.controller('AboutCtrl', function($scope, $cordovaDevice) {
 
   document.addEventListener("deviceready", function () {
     $scope.device = $cordovaDevice.getDevice();

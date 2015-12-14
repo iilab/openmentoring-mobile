@@ -46,12 +46,12 @@ angular.module('starter', ['ionic', 'ksSwiper', 'ngCordova', 'starter.controller
     }
   })
 
-  .state('app.help', {
-    url: '/help',
+  .state('app.about', {
+    url: '/about',
     views: {
       'menuContent': {
-        templateUrl: 'templates/help.html',
-        controller: 'HelpCtrl'
+        templateUrl: 'templates/about.html',
+        controller: 'AboutCtrl'
       }
     }
   })
