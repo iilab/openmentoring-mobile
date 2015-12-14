@@ -56,6 +56,10 @@
   margin: 0;
 }
 
+.swiper-slide .card-container .card img {
+  max-width: 100%;
+}
+
 /* this is the card body */
 .swiper-slide .item-body, .swiper-slide .item-body p {
   font-size: 22px;

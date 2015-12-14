@@ -152,13 +152,16 @@ angular.module('starter.controllers', ['starter.services'])
     //TODO: this is super messy.  Replace with a service
     var settingsData = $scope.$parent.$parent.settingsData;
     var slugPath = unitSlug.replace('_','/');
-    var url = cordova.file.dataDirectory + slugPath + '/index.json';
+    var baseUrl = cordova.file.dataDirectory + slugPath;
+    var url = baseUrl + '/index.json';
     $http.get(url).then(function (resp) {
       var groupedCardList = _.groupBy(resp.data.cards, 'subtype');
       var cardList = [];
+      var re = /src=\"(.*)\"/ig;
       _.forEach(groupedCardList, function(group){
         var done = false;
         _.forEach(group, function(card){
+          card.contents = card.contents.replace(re, "src=\"" + baseUrl + "/$1\"");
           var profiles = _.filter(card.category, function(i) {
             return _.startsWith(i,'profile:');
           });
