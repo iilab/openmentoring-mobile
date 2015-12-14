@@ -75,12 +75,12 @@ angular.module('starter.controllers', ['starter.services'])
   };
 
   $scope.swiper = {};
+  $scope.currentUnit = null;
   $scope.onReadySwiper = function (swiper) {
-
     $scope.swiper = swiper;
-    swiper.on('slideChangeStart', function () {
 
-      console.log('slideChangeStart');
+    swiper.on('slideChangeEnd', function (sw) {
+      DBService.logUnitAdvance($scope.currentUnit, sw.activeIndex, sw.isEnd);
     });
   };
 
@@ -175,12 +175,16 @@ angular.module('starter.controllers', ['starter.services'])
           }
         });
       });
+      $scope.currentUnit = unitSlug;
+      DBService.logUnitStart($scope.currentUnit);
+
+      $scope.swiper.detachEvents();
       $scope.cards = cardList;
-      if(!_.isEmpty($scope.swiper)) {
-        $scope.swiper.update(true);
-        $scope.swiper.slideTo(0,0,false);
-      }
+      $scope.swiper.update(true);
+      var startSlide = DBService.getStartSlide(unitSlug);
+      $scope.swiper.slideTo(startSlide,0,false);
       $scope.modal.show();
+      $scope.swiper.attachEvents();
     }, function(err) {
       // Error
       console.log('error');

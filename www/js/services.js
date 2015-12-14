@@ -15,6 +15,7 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
   var _topics;
   var _topicIndex;
   var _downloadedTopics;
+  var _viewedUnits;
   var _idx;
 
   function convertCategoriesToProperties(flatIndex) {
@@ -105,6 +106,7 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
             _topics = _db.getCollection('topics');
             _downloadedTopics = _db.getCollection('downloadedTopics');
             _topicIndex = _db.getCollection('topicIndex');
+            _viewedUnits = _db.getCollection('viewedUnits');
 
             if(!_topics) {
               _topics = _db.addCollection('topics', { unique: ['slug'] });
@@ -114,6 +116,9 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
               _downloadedTopics = _db.addCollection('downloadedTopics', { unique: ['slug'] });
             }
 
+            if(!_viewedUnits) {
+              _viewedUnits = _db.addCollection('viewedUnits', { unique: ['slug'] });
+            }
 
             if(!_topicIndex) {
               _topicIndex = _db.addCollection('topicIndex', { unique: ['slug'] });
@@ -179,6 +184,40 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
 
       var retVal = _topics.chain().find();
       return retVal.data();
+    },
+
+    getStartSlide: function(slug) {
+      var retVal = 0;
+      var viewLog = _viewedUnits.by('slug', slug);
+      if(viewLog) {
+        retVal = viewLog.currentCardIndex;
+      }
+      return retVal;
+    },
+
+    logUnitStart: function(slug) {
+      var viewLog = _viewedUnits.by('slug', slug);
+      if(viewLog) {
+        viewLog.isStarted = true;
+        _viewedUnits.update(viewLog);
+      } else {
+        _viewedUnits.insert({
+          slug: slug,
+          isStarted: true,
+          currentCardIndex: 0
+        });
+      }
+    },
+
+    logUnitAdvance: function(slug, cardIndex, isEnd) {
+      var viewLog = _viewedUnits.by('slug', slug);
+      if(viewLog) {
+        viewLog.currentCardIndex = cardIndex;
+        if(isEnd) {
+          viewLog.isFinished = true;
+        }
+        _viewedUnits.update(viewLog);
+      }
     }
   };
 });
