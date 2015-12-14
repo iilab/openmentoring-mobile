@@ -163,19 +163,18 @@ angular.module('starter.controllers', ['starter.services'])
             return _.startsWith(i,'profile:');
           });
           if(group.length == 1) {
-            done = true;
             cardList.push(card);
-          } else if((_.indexOf(profiles,'profile:' + settingsData.profile)>-1) && !done) {
+          } else if((_.indexOf(profiles,'profile:' + settingsData.profile)>-1)) {
             done = true;
             cardList.push(card);
           } else if(!(profiles.length) && !done) {
-            done = true;
             cardList.push(card);
           }
         });
       });
       $scope.cards = cardList;
       if(!_.isEmpty($scope.swiper)) {
+        //$scope.swiper.slideTo(0,0,false);
         $scope.swiper.update();
       }
       $scope.modal.show();
