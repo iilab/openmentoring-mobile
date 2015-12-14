@@ -237,9 +237,12 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('AboutCtrl', function($scope, $cordovaDevice) {
+.controller('AboutCtrl', function($scope, $cordovaDevice, $cordovaAppVersion) {
 
   document.addEventListener("deviceready", function () {
     $scope.device = $cordovaDevice.getDevice();
+    $cordovaAppVersion.getVersionNumber().then(function (version) {
+        $scope.appVersion = version;
+    });
   }, false);
 });

@@ -39,6 +39,10 @@
                         {
                             "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
+                            "count": 1
                         }
                     ],
                     "/widget": [
@@ -143,6 +147,9 @@
             "PACKAGE_NAME": "org.iilab.openmentoring"
         },
         "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "org.iilab.openmentoring"
+        },
+        "cordova-plugin-app-version": {
             "PACKAGE_NAME": "org.iilab.openmentoring"
         }
     },
@@ -404,6 +411,14 @@
                 "cordova.plugins.notification.local.core",
                 "plugin.notification.local.core"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
+            "id": "cordova-plugin-app-version.AppVersionPlugin",
+            "pluginId": "cordova-plugin-app-version",
+            "clobbers": [
+                "cordova.getAppVersion"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -417,6 +432,7 @@
         "cordova-plugin-file-transfer": "1.4.0",
         "cordova-plugin-zip": "3.0.0",
         "cordova-plugin-registerusernotificationsettings": "1.0.2",
-        "de.appplant.cordova.plugin.local-notification": "0.8.3-dev"
+        "de.appplant.cordova.plugin.local-notification": "0.8.3-dev",
+        "cordova-plugin-app-version": "0.1.8"
     }
 }

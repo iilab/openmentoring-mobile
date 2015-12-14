@@ -33,6 +33,7 @@
     "cordova-plugin-file",
     "cordova-plugin-file-transfer",
     "cordova-plugin-zip",
+    "cordova-plugin-app-version",
     "de.appplant.cordova.plugin.local-notification"
   ],
   "cordovaPlatforms": [
