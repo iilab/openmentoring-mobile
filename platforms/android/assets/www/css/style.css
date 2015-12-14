@@ -57,7 +57,7 @@
 }
 
 /* this is the card body */
-.swiper-slide .item-body p {
+.swiper-slide .item-body, .swiper-slide .item-body p {
   font-size: 22px;
   line-height: 30px;
 }
