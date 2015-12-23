@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.iilab.openmentoring" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.iilab.openmentoring" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>openmentoring-mobile</name>
     <description>
         Client app for the Open Mentoring content platform
@@ -18,11 +18,6 @@
     <preference name="SplashScreenDelay" value="3000" />
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
-    </feature>
-    <feature name="Custom URL scheme">
-        <param name="id" value="cordova-plugin-customurlscheme" />
-        <param name="url" value="https://github.com/EddyVerbruggen/LaunchMyApp-PhoneGap-Plugin.git" />
-        <variable name="URL_SCHEME" value="openmentoring" />
     </feature>
     <platform name="android">
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />

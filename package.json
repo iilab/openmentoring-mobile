@@ -1,6 +1,6 @@
 {
   "name": "openmentoring-mobile",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Client app for the Open Mentoring content platform",
   "license": "GPL",
   "repository": {
@@ -34,7 +34,6 @@
     "cordova-plugin-file-transfer",
     "cordova-plugin-zip",
     "cordova-plugin-app-version",
-    "cordova-plugin-customurlscheme",
     "de.appplant.cordova.plugin.local-notification"
   ],
   "cordovaPlatforms": [
