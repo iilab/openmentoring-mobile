@@ -127,7 +127,8 @@ public class Builder {
                 .setTicker(options.getText())
                 .setAutoCancel(options.isAutoClear())
                 .setOngoing(options.isOngoing())
-                .setLights(options.getLedColor(), 500, 500);
+                .setColor(options.getColor())
+                .setLights(options.getLedColor(), 100, 100);
 
         if (sound != null) {
             builder.setSound(sound);

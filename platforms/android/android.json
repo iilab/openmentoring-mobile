@@ -9,7 +9,15 @@
                 "parents": {
                     "/*": [
                         {
+                            "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
                             "count": 1
                         },
                         {
@@ -37,14 +45,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"LaunchMyApp\"><param name=\"android-package\" value=\"nl.xservices.plugins.LaunchMyApp\" /></feature>",
                             "count": 1
                         }
@@ -57,24 +57,8 @@
                     ]
                 }
             },
-            "config.xml": {
-                "parents": {
-                    "/*": [
-                        {
-                            "xml": "<preference name=\"AndroidPersistentFileLocation\" value=\"Internal\" />",
-                            "count": 1
-                        }
-                    ]
-                }
-            },
             "AndroidManifest.xml": {
                 "parents": {
-                    "/*": [
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 2
-                        }
-                    ],
                     "/manifest/application": [
                         {
                             "xml": "<receiver android:exported=\"false\" android:name=\"de.appplant.cordova.plugin.localnotification.TriggerReceiver\" />",
@@ -115,9 +99,25 @@
                             "count": 1
                         }
                     ],
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 2
+                        }
+                    ],
                     "/*/application/activity": [
                         {
                             "xml": "<intent-filter><data android:scheme=\"openmentoring\" /><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><category android:name=\"android.intent.category.BROWSABLE\" /></intent-filter>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<preference name=\"AndroidPersistentFileLocation\" value=\"Internal\" />",
                             "count": 1
                         }
                     ]
@@ -126,7 +126,16 @@
         }
     },
     "installed_plugins": {
+        "cordova-plugin-app-version": {
+            "PACKAGE_NAME": "org.iilab.openmentoring"
+        },
         "cordova-plugin-device": {
+            "PACKAGE_NAME": "org.iilab.openmentoring"
+        },
+        "cordova-plugin-registerusernotificationsettings": {
+            "PACKAGE_NAME": "org.iilab.openmentoring"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
             "PACKAGE_NAME": "org.iilab.openmentoring"
         },
         "cordova-plugin-console": {
@@ -153,15 +162,6 @@
         "cordova-plugin-zip": {
             "PACKAGE_NAME": "org.iilab.openmentoring"
         },
-        "cordova-plugin-registerusernotificationsettings": {
-            "PACKAGE_NAME": "org.iilab.openmentoring"
-        },
-        "de.appplant.cordova.plugin.local-notification": {
-            "PACKAGE_NAME": "org.iilab.openmentoring"
-        },
-        "cordova-plugin-app-version": {
-            "PACKAGE_NAME": "org.iilab.openmentoring"
-        },
         "cordova-plugin-customurlscheme": {
             "URL_SCHEME": "openmentoring",
             "PACKAGE_NAME": "org.iilab.openmentoring"
@@ -170,11 +170,46 @@
     "dependent_plugins": {},
     "modules": [
         {
+            "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
+            "id": "cordova-plugin-app-version.AppVersionPlugin",
+            "pluginId": "cordova-plugin-app-version",
+            "clobbers": [
+                "cordova.getAppVersion"
+            ]
+        },
+        {
             "file": "plugins/cordova-plugin-device/www/device.js",
             "id": "cordova-plugin-device.device",
             "pluginId": "cordova-plugin-device",
             "clobbers": [
                 "device"
+            ]
+        },
+        {
+            "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification.js",
+            "id": "de.appplant.cordova.plugin.local-notification.LocalNotification",
+            "pluginId": "de.appplant.cordova.plugin.local-notification",
+            "clobbers": [
+                "cordova.plugins.notification.local",
+                "plugin.notification.local"
+            ]
+        },
+        {
+            "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification-core.js",
+            "id": "de.appplant.cordova.plugin.local-notification.LocalNotification.Core",
+            "pluginId": "de.appplant.cordova.plugin.local-notification",
+            "clobbers": [
+                "cordova.plugins.notification.local.core",
+                "plugin.notification.local.core"
+            ]
+        },
+        {
+            "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification-util.js",
+            "id": "de.appplant.cordova.plugin.local-notification.LocalNotification.Util",
+            "pluginId": "de.appplant.cordova.plugin.local-notification",
+            "merges": [
+                "cordova.plugins.notification.local.core",
+                "plugin.notification.local.core"
             ]
         },
         {
@@ -400,41 +435,6 @@
             ]
         },
         {
-            "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification.js",
-            "id": "de.appplant.cordova.plugin.local-notification.LocalNotification",
-            "pluginId": "de.appplant.cordova.plugin.local-notification",
-            "clobbers": [
-                "cordova.plugins.notification.local",
-                "plugin.notification.local"
-            ]
-        },
-        {
-            "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification-core.js",
-            "id": "de.appplant.cordova.plugin.local-notification.LocalNotification.Core",
-            "pluginId": "de.appplant.cordova.plugin.local-notification",
-            "clobbers": [
-                "cordova.plugins.notification.local.core",
-                "plugin.notification.local.core"
-            ]
-        },
-        {
-            "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification-util.js",
-            "id": "de.appplant.cordova.plugin.local-notification.LocalNotification.Util",
-            "pluginId": "de.appplant.cordova.plugin.local-notification",
-            "merges": [
-                "cordova.plugins.notification.local.core",
-                "plugin.notification.local.core"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
-            "id": "cordova-plugin-app-version.AppVersionPlugin",
-            "pluginId": "cordova-plugin-app-version",
-            "clobbers": [
-                "cordova.getAppVersion"
-            ]
-        },
-        {
             "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
             "id": "cordova-plugin-customurlscheme.LaunchMyApp",
             "pluginId": "cordova-plugin-customurlscheme",
@@ -444,7 +444,10 @@
         }
     ],
     "plugin_metadata": {
+        "cordova-plugin-app-version": "0.1.8",
         "cordova-plugin-device": "1.1.0",
+        "cordova-plugin-registerusernotificationsettings": "1.0.2",
+        "de.appplant.cordova.plugin.local-notification": "0.8.3-dev",
         "cordova-plugin-console": "1.0.2",
         "cordova-plugin-whitelist": "1.2.0",
         "cordova-plugin-splashscreen": "3.0.0",
@@ -453,9 +456,6 @@
         "cordova-plugin-file": "3.0.0",
         "cordova-plugin-file-transfer": "1.4.0",
         "cordova-plugin-zip": "3.0.0",
-        "cordova-plugin-registerusernotificationsettings": "1.0.2",
-        "de.appplant.cordova.plugin.local-notification": "0.8.3-dev",
-        "cordova-plugin-app-version": "0.1.8",
-        "cordova-plugin-customurlscheme": "4.0.0"
+        "cordova-plugin-customurlscheme": "4.1.0"
     }
 }
