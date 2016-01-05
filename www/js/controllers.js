@@ -141,6 +141,10 @@ angular.module('starter.controllers', ['starter.services'])
       }).finally(function() {
         // Stop the ion-refresher from spinning
         $scope.$broadcast('scroll.refreshComplete');
+        if(window.skipToUnit) {
+          $scope.openUnit(window.skipToUnit);
+          window.skipToUnit = null;
+        }
       });
     } else {
       //quickly return if we've disabled the refresher

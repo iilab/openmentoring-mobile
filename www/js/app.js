@@ -22,7 +22,9 @@ angular.module('starter', ['ionic', 'ksSwiper', 'ngCordova', 'starter.controller
 
     $window.addEventListener('CustomURLFollow', function(e) {
       if(LaunchService.checkUrl(e.detail.url)) {
-        $state.go('app.unit');
+        $window.skipToUnit = LaunchService.get();
+      } else {
+        $window.skipToUnit = null;
       }
     });
   });
@@ -65,16 +67,6 @@ angular.module('starter', ['ionic', 'ksSwiper', 'ngCordova', 'starter.controller
 
   .state('app.topics', {
     url: '/topics',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/topics.html',
-        controller: 'TopicsCtrl'
-      }
-    }
-  })
-
-  .state('app.unit', {
-    url: '/units/:unitSlug',
     views: {
       'menuContent': {
         templateUrl: 'templates/topics.html',
