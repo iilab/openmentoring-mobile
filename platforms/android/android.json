@@ -43,6 +43,10 @@
                         {
                             "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"LaunchMyApp\"><param name=\"android-package\" value=\"nl.xservices.plugins.LaunchMyApp\" /></feature>",
+                            "count": 1
                         }
                     ],
                     "/widget": [
@@ -100,6 +104,12 @@
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
                             "count": 2
                         }
+                    ],
+                    "/*/application/activity": [
+                        {
+                            "xml": "<intent-filter><data android:scheme=\"openmentoring\" /><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><category android:name=\"android.intent.category.BROWSABLE\" /></intent-filter>",
+                            "count": 1
+                        }
                     ]
                 }
             },
@@ -150,6 +160,10 @@
             "PACKAGE_NAME": "org.iilab.openmentoring"
         },
         "cordova-plugin-zip": {
+            "PACKAGE_NAME": "org.iilab.openmentoring"
+        },
+        "cordova-plugin-customurlscheme": {
+            "URL_SCHEME": "openmentoring",
             "PACKAGE_NAME": "org.iilab.openmentoring"
         }
     },
@@ -419,6 +433,14 @@
             "clobbers": [
                 "zip"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
+            "id": "cordova-plugin-customurlscheme.LaunchMyApp",
+            "pluginId": "cordova-plugin-customurlscheme",
+            "clobbers": [
+                "window.plugins.launchmyapp"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -433,6 +455,7 @@
         "ionic-plugin-keyboard": "1.0.8",
         "cordova-plugin-file": "3.0.0",
         "cordova-plugin-file-transfer": "1.4.0",
-        "cordova-plugin-zip": "3.0.0"
+        "cordova-plugin-zip": "3.0.0",
+        "cordova-plugin-customurlscheme": "4.1.0"
     }
 }

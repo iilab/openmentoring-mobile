@@ -264,6 +264,14 @@ module.exports = [
         "clobbers": [
             "zip"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
+        "id": "cordova-plugin-customurlscheme.LaunchMyApp",
+        "pluginId": "cordova-plugin-customurlscheme",
+        "clobbers": [
+            "window.plugins.launchmyapp"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -280,7 +288,8 @@ module.exports.metadata =
     "ionic-plugin-keyboard": "1.0.8",
     "cordova-plugin-file": "3.0.0",
     "cordova-plugin-file-transfer": "1.4.0",
-    "cordova-plugin-zip": "3.0.0"
+    "cordova-plugin-zip": "3.0.0",
+    "cordova-plugin-customurlscheme": "4.1.0"
 }
 // BOTTOM OF METADATA
 });

@@ -10,6 +10,33 @@ angular.module('lunr', [])
 
 angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
 
+.factory('LaunchService', ['$q',
+  function($q) {
+    var unit = undefined;
+
+    function checkUnitUrl(unitUrl) {
+      console.log('checking url:' + unitUrl);
+      var parser = document.createElement('a');
+      parser.href = unitUrl;
+      var res = parser.pathname.split("/");
+      if((res.length>3) && (res[2]==='units') && res[3]) {
+        unit = res[3];
+        console.log("go to unit: " + unit);
+        return true;
+      }
+      else {
+        console.log('malformed url: ' + res);
+        return false;
+      }
+    }
+
+    return {
+      checkUrl: checkUnitUrl,
+      get: function() { return unit;}
+    }
+  }
+])
+
 .factory('DBService', function(_, $q, Loki, lunr) {
   var _db;
   var _topics;
@@ -201,6 +228,7 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
         viewLog.isStarted = true;
         _viewedUnits.update(viewLog);
       } else {
+        //create a local notification for finishing the unit
         _viewedUnits.insert({
           slug: slug,
           isStarted: true,
@@ -215,6 +243,7 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
         viewLog.currentCardIndex = cardIndex;
         if(isEnd) {
           viewLog.isFinished = true;
+          //if there's a notification for finishing the unit, remove it
         }
         _viewedUnits.update(viewLog);
       }

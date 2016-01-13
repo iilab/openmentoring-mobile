@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'ksSwiper', 'ngCordova', 'starter.controllers', 'starter.services'])
-.run(function($ionicPlatform, DBService) {
+.run(function($state, $window, LaunchService, $ionicPlatform, DBService) {
   $ionicPlatform.ready(function() {
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -19,8 +19,17 @@ angular.module('starter', ['ionic', 'ksSwiper', 'ngCordova', 'starter.controller
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    $window.addEventListener('CustomURLFollow', function(e) {
+      if(LaunchService.checkUrl(e.detail.url)) {
+        $window.skipToUnit = LaunchService.get();
+      } else {
+        $window.skipToUnit = null;
+      }
+    });
   });
 })
+
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -57,24 +66,29 @@ angular.module('starter', ['ionic', 'ksSwiper', 'ngCordova', 'starter.controller
   })
 
   .state('app.topics', {
-    url: '/topics',
+    url: '/topics?unit',
     views: {
       'menuContent': {
         templateUrl: 'templates/topics.html',
         controller: 'TopicsCtrl'
       }
     }
-  })
-
-  .state('app.unit', {
-    url: '/units/:unitSlug',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/unit.html',
-        controller: 'UnitCtrl'
-      }
-    }
   });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/topics');
 });
+
+//url scheme handling
+function handleOpenURL(url) {
+  console.log('handleOpenURL: ' + url);
+  setTimeout(function() {
+    if (window.CustomEvent) {
+      var event = new CustomEvent('CustomURLFollow', {detail: {url: url}});
+    } else {
+      var event = document.createEvent('CustomEvent');
+      event.initCustomEvent('CustomURLFollow', true, true, {url: url});
+    }
+
+    window.dispatchEvent(event);
+  }, 0);
+}

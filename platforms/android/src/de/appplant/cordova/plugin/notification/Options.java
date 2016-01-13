@@ -27,6 +27,7 @@ import android.app.AlarmManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -128,7 +129,7 @@ public class Options {
      */
     private void parseAssets() {
 
-        if (options.has("iconUri"))
+        if (options.has("iconUri") && !options.optBoolean("updated"))
             return;
 
         Uri iconUri  = assets.parse(options.optString("icon", "icon"));
@@ -216,10 +217,7 @@ public class Options {
      * Trigger date in milliseconds.
      */
     public long getTriggerTime() {
-        //return Math.max(
-        //        System.currentTimeMillis(),
-                return options.optLong("at", 0) * 1000;
-        //);
+        return options.optLong("at", 0) * 1000;
     }
 
     /**
@@ -241,12 +239,32 @@ public class Options {
      *      The notification color for LED
      */
     public int getLedColor() {
-        String hex = options.optString("led", "000000");
-        int aRGB   = Integer.parseInt(hex,16);
+        String hex = options.optString("led", null);
 
-        aRGB += 0xFF000000;
+        if (hex == null) {
+            return NotificationCompat.DEFAULT_LIGHTS;
+        }
 
-        return aRGB;
+        int aRGB = Integer.parseInt(hex, 16);
+
+        return aRGB + 0xFF000000;
+    }
+
+    /**
+     * @return
+     *      The notification background color for the small icon
+     *      Returns null, if no color is given.
+     */
+    public int getColor() {
+        String hex = options.optString("color", null);
+
+        if (hex == null) {
+            return NotificationCompat.COLOR_DEFAULT;
+        }
+
+        int aRGB = Integer.parseInt(hex, 16);
+
+        return aRGB + 0xFF000000;
     }
 
     /**

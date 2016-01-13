@@ -46,9 +46,14 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('TopicsCtrl', function($scope, $http, $ionicPlatform, $ionicScrollDelegate, $ionicModal, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
+.controller('TopicsCtrl', function($scope, $stateParams, $http, $ionicPlatform, $ionicScrollDelegate, $ionicModal, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
   var filterBarInstance;
+
+  //if the unit was passed in to the url, add it to the global variable that is also used by the custom URL handler
+  if($stateParams.unit) {
+    window.skipToUnit = $stateParams.unit;
+  }
 
   $scope.allowRefresh = true;
 
@@ -141,6 +146,10 @@ angular.module('starter.controllers', ['starter.services'])
       }).finally(function() {
         // Stop the ion-refresher from spinning
         $scope.$broadcast('scroll.refreshComplete');
+        if(window.skipToUnit) {
+          $scope.openUnit(window.skipToUnit);
+          window.skipToUnit = null;
+        }
       });
     } else {
       //quickly return if we've disabled the refresher
@@ -158,10 +167,12 @@ angular.module('starter.controllers', ['starter.services'])
       var groupedCardList = _.groupBy(resp.data.cards, 'subtype');
       var cardList = [];
       var re = /src=\"(.*)\"/ig;
+      var linkingRe = /href=\"topics\/([A-Za-z0-9_\-]*)\/([A-Za-z0-9_\-]*)(\.md)?\"/ig;
       _.forEach(groupedCardList, function(group){
         var done = false;
         _.forEach(group, function(card){
           card.contents = card.contents.replace(re, "src=\"" + baseUrl + "/$1\"");
+          card.contents = card.contents.replace(linkingRe, "href=\"#/app/topics?unit=$1_$2\"");
           var profiles = _.filter(card.category, function(i) {
             return _.startsWith(i,'profile:');
           });

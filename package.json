@@ -34,6 +34,7 @@
     "cordova-plugin-file-transfer",
     "cordova-plugin-zip",
     "cordova-plugin-app-version",
+    "cordova-plugin-customurlscheme --variable URL_SCHEME=openmentoring",
     "de.appplant.cordova.plugin.local-notification"
   ],
   "cordovaPlatforms": [
