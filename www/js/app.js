@@ -66,7 +66,7 @@ angular.module('starter', ['ionic', 'ksSwiper', 'ngCordova', 'starter.controller
   })
 
   .state('app.topics', {
-    url: '/topics',
+    url: '/topics?unit',
     views: {
       'menuContent': {
         templateUrl: 'templates/topics.html',
@@ -80,6 +80,7 @@ angular.module('starter', ['ionic', 'ksSwiper', 'ngCordova', 'starter.controller
 
 //url scheme handling
 function handleOpenURL(url) {
+  console.log('handleOpenURL: ' + url);
   setTimeout(function() {
     if (window.CustomEvent) {
       var event = new CustomEvent('CustomURLFollow', {detail: {url: url}});

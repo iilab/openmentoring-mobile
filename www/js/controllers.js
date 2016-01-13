@@ -162,20 +162,25 @@ angular.module('starter.controllers', ['starter.services'])
       var groupedCardList = _.groupBy(resp.data.cards, 'subtype');
       var cardList = [];
       var re = /src=\"(.*)\"/ig;
+      var linkingRe = /href=\"topics\/([A-Za-z0-9_\-]*)\/([A-Za-z0-9_\-]*)(\.md)?\"/ig;
       _.forEach(groupedCardList, function(group){
         var done = false;
         _.forEach(group, function(card){
           card.contents = card.contents.replace(re, "src=\"" + baseUrl + "/$1\"");
+          card.contents = card.contents.replace(linkingRe, "href=\"#\" onclick=\"window.handleOpenURL('openmentoring://units/$1_$2');\"");
           var profiles = _.filter(card.category, function(i) {
             return _.startsWith(i,'profile:');
           });
           if(group.length == 1) {
             cardList.push(card);
+            console.log("card: " + card.contents);
           } else if((_.indexOf(profiles,'profile:' + settingsData.profile)>-1)) {
             done = true;
+            console.log("card: " + card.contents);
             cardList.push(card);
           } else if(!(profiles.length) && !done) {
             cardList.push(card);
+            console.log("card: " + card.contents);
           }
         });
       });
