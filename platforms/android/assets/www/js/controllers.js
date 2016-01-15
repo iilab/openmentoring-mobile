@@ -46,7 +46,7 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('TopicsCtrl', function($scope, $stateParams, $http, $ionicPlatform, $ionicScrollDelegate, $ionicModal, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
+.controller('TopicsCtrl', function($scope, $stateParams, $http, $ionicPlatform, $ionicScrollDelegate, $ionicModal, $ionicPopup, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
   var filterBarInstance;
 
@@ -147,8 +147,26 @@ angular.module('starter.controllers', ['starter.services'])
         // Stop the ion-refresher from spinning
         $scope.$broadcast('scroll.refreshComplete');
         if(window.skipToUnit) {
-          $scope.openUnit(window.skipToUnit);
-          window.skipToUnit = null;
+          var topic = DBService.getTopicByUnit(window.skipToUnit);
+          if($scope.isDownloaded(topic)) {
+            $scope.openUnit(window.skipToUnit);
+            window.skipToUnit = null;
+          } else {
+            var confirmPopup = $ionicPopup.confirm({
+              title: 'Download Topic',
+              template: 'In order to view this unit, you need to download <strong>This Topic</strong>. Download it now?'
+            });
+
+            confirmPopup.then(function(res) {
+              if(res) {
+                $scope.openUnit(window.skipToUnit);
+                window.skipToUnit = null;
+              } else {
+                window.skipToUnit = null;
+              }
+            });
+          }
+
         }
       });
     } else {

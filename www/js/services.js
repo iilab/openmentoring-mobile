@@ -172,6 +172,16 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
       return _topics.chain().find().data();
     },
 
+    getTopicByUnit: function(unitSlug) {
+      var unitSlugParts = unitSlug.split('_');
+      var topicSlug = null;
+      if(unitSlugParts && unitSlugParts.length) {
+        topicSlug = unitSlugParts[0];
+      }
+      var topic = _topics.by('slug',topicSlug);
+      return topic;
+    },
+
     doSearch: function(term) {
       return _idx.search(term);
     },
