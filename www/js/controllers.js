@@ -46,7 +46,7 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('TopicsCtrl', function($scope, $stateParams, $http, $ionicPlatform, $ionicScrollDelegate, $ionicModal, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
+.controller('TopicsCtrl', function($scope, $stateParams, $q, $http, $ionicPlatform, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
   var filterBarInstance;
 
@@ -147,8 +147,34 @@ angular.module('starter.controllers', ['starter.services'])
         // Stop the ion-refresher from spinning
         $scope.$broadcast('scroll.refreshComplete');
         if(window.skipToUnit) {
-          $scope.openUnit(window.skipToUnit);
-          window.skipToUnit = null;
+          var topic = DBService.getTopicByUnit(window.skipToUnit);
+          if($scope.isDownloaded(topic)) {
+            $scope.openUnit(window.skipToUnit);
+            window.skipToUnit = null;
+          } else {
+            var confirmPopup = $ionicPopup.confirm({
+              title: 'Download Topic',
+              template: 'In order to view this unit, you need to download <strong>' + topic.title + '</strong>. Download it now?'
+            });
+
+            confirmPopup.then(function(res) {
+              if(res) {
+                var download = $scope.downloadTopic(topic);
+                download.then(function(){
+                  //download succeeded... proceed to the unit
+                  $scope.openUnit(window.skipToUnit);
+                  window.skipToUnit = null;
+                }).catch(function(){
+                  //download failed... just show the topic list
+                  window.skipToUnit = null;
+                });
+              } else {
+                //the user cancelled... just show them the topic list
+                window.skipToUnit = null;
+              }
+            });
+          }
+
         }
       });
     } else {
@@ -204,12 +230,16 @@ angular.module('starter.controllers', ['starter.services'])
   };
 
   $scope.downloadTopic = function(topic) {
+    //TODO: replace this with a service
+    var dfd = $q.defer();
     $ionicPlatform.ready(function() {}).then(function () {
       var url = topic.downloadUrl;
       var targetPath = cordova.file.dataDirectory + topic.slug + '.zip';
       var trustHosts = true;
       var options = {};
-
+      $ionicLoading.show({
+        template: 'Downloading...'
+      });
       $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
         .then(function(result) {
           var folderDest = cordova.file.dataDirectory;
@@ -218,6 +248,11 @@ angular.module('starter.controllers', ['starter.services'])
           // Error
           console.log('error');
           console.log(JSON.stringify(err));
+          $ionicLoading.show({
+            template: 'Download failed!',
+            duration: 1500
+          });
+          dfd.reject();
         }, function (progress) {
           $timeout(function () {
             $scope.downloadProgress = (progress.loaded / progress.total) * 100;
@@ -229,9 +264,16 @@ angular.module('starter.controllers', ['starter.services'])
             topic.isDownloaded = true;
             topic.isLatest = true;
             DBService.markAsDownloaded(topic);
+            $ionicLoading.hide();
+            dfd.resolve();
           });
         }, function (zipErr) {
           console.log('error ' + zipErr);
+          $ionicLoading.show({
+            template: 'Content could not be loaded.',
+            duration: 1500
+          });
+          dfd.reject();
         }, function (progressEvent) {
           // https://github.com/MobileChromeApps/zip#usage
           console.log(progressEvent);
@@ -239,6 +281,8 @@ angular.module('starter.controllers', ['starter.services'])
     });
 
     console.log('Downloading ' + topic);
+
+    return dfd.promise;
 
   };
   $scope.isDownloaded = function(topic) {
