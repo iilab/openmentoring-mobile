@@ -105,7 +105,7 @@
                             "count": 2
                         }
                     ],
-                    "/*/application/activity": [
+                    "/manifest/application/activity": [
                         {
                             "xml": "<intent-filter><data android:scheme=\"openmentoring\" /><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><category android:name=\"android.intent.category.BROWSABLE\" /></intent-filter>",
                             "count": 1
@@ -132,7 +132,7 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "org.iilab.openmentoring"
         },
-        "cordova-plugin-registerusernotificationsettings": {
+        "cordova-plugin-app-event": {
             "PACKAGE_NAME": "org.iilab.openmentoring"
         },
         "de.appplant.cordova.plugin.local-notification": {
@@ -446,8 +446,8 @@
     "plugin_metadata": {
         "cordova-plugin-app-version": "0.1.8",
         "cordova-plugin-device": "1.1.0",
-        "cordova-plugin-registerusernotificationsettings": "1.0.2",
-        "de.appplant.cordova.plugin.local-notification": "0.8.3-dev",
+        "cordova-plugin-app-event": "1.1.0",
+        "de.appplant.cordova.plugin.local-notification": "0.8.4",
         "cordova-plugin-console": "1.0.2",
         "cordova-plugin-whitelist": "1.2.0",
         "cordova-plugin-splashscreen": "3.0.0",
@@ -456,6 +456,6 @@
         "cordova-plugin-file": "3.0.0",
         "cordova-plugin-file-transfer": "1.4.0",
         "cordova-plugin-zip": "3.0.0",
-        "cordova-plugin-customurlscheme": "4.1.0"
+        "cordova-plugin-customurlscheme": "4.1.1"
     }
 }

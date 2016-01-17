@@ -2,11 +2,11 @@
   "name": "openmentoring-mobile",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.1.1"
+    "ionic": "driftyco/ionic-bower#1.2.4"
   },
   "dependencies": {
-    "angular-swiper": "~0.3.0",
-    "ngCordova": "~0.1.23-alpha",
+    "angular-swiper": "~0.3.2",
+    "ngCordova": "~0.1.24-alpha",
     "lokijs": "~1.3.10",
     "lunr.js": "~0.6.0"
   }
