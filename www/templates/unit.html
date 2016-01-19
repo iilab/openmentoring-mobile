@@ -1,8 +1,8 @@
 <ion-modal-view>
   <ion-content scroll="false">
-  <ks-swiper-container swiper="swiper" on-ready="onReadySwiper(swiper)" show-nav-buttons="false" slides-per-view="1" space-between="20">
-    <ks-swiper-slide class="swiper-slide" ng-repeat="card in cards">
-      <div class="card-container">
+  <ion-slides slider="data.slider" show-nav-buttons="false" slides-per-view="1" space-between="20">
+    <ion-slide-page class="swiper-slide" ng-repeat="card in cards">
+      <ion-content class="card-container" scrollbar-y="false" padding="false">
         <div class="card">
           <div class="item">
             {{card.title}}
@@ -10,8 +10,8 @@
           <div ng-bind-html="card.contents" class="item item-body">
           </div>
         </div>
-      </div>
-    </ks-swiper-slide>
-  </ks-swiper-container>
+      </ion-content>
+    </ion-slide-page>
+  </ion-slides>
   </ion-content>
 </ion-modal-view>
