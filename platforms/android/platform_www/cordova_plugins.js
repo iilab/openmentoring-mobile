@@ -279,8 +279,8 @@ module.exports.metadata =
 {
     "cordova-plugin-app-version": "0.1.8",
     "cordova-plugin-device": "1.1.0",
-    "cordova-plugin-registerusernotificationsettings": "1.0.2",
-    "de.appplant.cordova.plugin.local-notification": "0.8.3-dev",
+    "cordova-plugin-app-event": "1.1.0",
+    "de.appplant.cordova.plugin.local-notification": "0.8.4",
     "cordova-plugin-console": "1.0.2",
     "cordova-plugin-whitelist": "1.2.0",
     "cordova-plugin-splashscreen": "3.0.0",
@@ -289,7 +289,7 @@ module.exports.metadata =
     "cordova-plugin-file": "3.0.0",
     "cordova-plugin-file-transfer": "1.4.0",
     "cordova-plugin-zip": "3.0.0",
-    "cordova-plugin-customurlscheme": "4.1.0"
+    "cordova-plugin-customurlscheme": "4.1.1"
 }
 // BOTTOM OF METADATA
 });

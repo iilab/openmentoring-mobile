@@ -79,15 +79,14 @@ angular.module('starter.controllers', ['starter.services'])
     }
   };
 
-  $scope.swiper = {};
+  $scope.data = {};
   $scope.currentUnit = null;
-  $scope.onReadySwiper = function (swiper) {
-    $scope.swiper = swiper;
-
-    swiper.on('slideChangeEnd', function (sw) {
+  $scope.$watch('data.slider', function(nv, ov) {
+    $scope.swiper = $scope.data.slider;
+    $scope.swiper.on('slideChangeEnd', function (sw) {
       DBService.logUnitAdvance($scope.currentUnit, sw.activeIndex, sw.isEnd);
     });
-  };
+  });
 
   $ionicModal.fromTemplateUrl('templates/unit.html', {
     scope: $scope
