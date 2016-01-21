@@ -65,6 +65,16 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     }
   })
 
+  .state('app.queue', {
+    url: '/queue',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/queue.html',
+        controller: 'QueueCtrl'
+      }
+    }
+  })
+
   .state('app.topics', {
     url: '/topics?unit',
     views: {

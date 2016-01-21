@@ -46,6 +46,24 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
+.controller('QueueCtrl',function($scope){
+  $scope.incompleteUnits = [{
+    title: 'Unit 1',
+    parentTitle: 'Parent Topic'
+  },{
+    title: 'Unit 2',
+    parentTitle: 'Other Topic'
+  }];
+
+  $scope.suggestedUnits = [{
+    title: 'Unit 3',
+    parentTitle: 'Other Topic'
+  },{
+    title: 'Unit 4',
+    parentTitle: 'Other Topic'
+  }];
+})
+
 .controller('TopicsCtrl', function($scope, $stateParams, $q, $http, $ionicPlatform, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
   var filterBarInstance;
