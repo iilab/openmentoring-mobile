@@ -39,7 +39,6 @@
     <feature name="Zip">
         <param name="android-package" value="org.apache.cordova.Zip" />
     </feature>
-    <preference name="AndroidPersistentFileLocation" value="Internal" />
     <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
     <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
     <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
