@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 From version 0.1.0 forward, this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased - 0.1.0]
+## [0.1.0] - 2016-01-22
 ### Added
 - Allow units to be linked from the web or other apps using ```openmentoring://``` custom urls
 - Allow units to link to eachother
@@ -10,8 +10,13 @@ From version 0.1.0 forward, this project adheres to [Semantic Versioning](http:/
 - Show an activity indicator when downloading a topic
 - Add a changelog :)
 
+### Changed
+- Updated Ionic from 1.1.1 to 1.2.4
+
 ### Fixed
 - Allow ```ionic state reset``` to work properly (was broken when adding the custom url plugin)
+- Fixed typos on the About screen
+- Fixed issue with "pull to refresh" element remaining onscreen after a partial pull
 
 ## [0.0.4] - 2015-12-23
 ### Added
