@@ -17,5 +17,6 @@
   },
   "_source": "git://github.com/olivernn/lunr.js.git",
   "_target": "~0.6.0",
-  "_originalSource": "lunr.js"
+  "_originalSource": "lunr.js",
+  "_direct": true
 }
