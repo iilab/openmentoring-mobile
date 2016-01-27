@@ -4,10 +4,10 @@
       <div class="item item-divider">
         Continue Reading
       </div>
-      <ion-item ng-repeat="unit in incompleteUnits">
+      <a class="item" href="#/app/topics?unit={{unit.slug}}" ng-repeat="unit in incompleteUnits">
         <h2>{{unit.title}}</h2>
         <p>{{unit.parentTitle}}</p>
-      </ion-item>
+      </a>
       <div class="item item-divider">
         Learn More
       </div>
