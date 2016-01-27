@@ -70,7 +70,7 @@
   font-size: 14px;
 }
 
-.item[disabled] {
+.item[disabled], .item.item-looks-disabled {
   color: #777;
 }
 
