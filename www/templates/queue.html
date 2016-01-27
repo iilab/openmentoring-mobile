@@ -1,0 +1,24 @@
+<ion-view view-title="What to read next">
+  <ion-content>
+    <ion-list can-swipe="true">
+      <div class="item item-divider">
+        Continue Reading
+      </div>
+      <a class="item" href="#/app/topics?unit={{unit.slug}}" ng-repeat="unit in incompleteUnits">
+        <h2>{{unit.title}}</h2>
+        <p>{{unit.parentTitle}}</p>
+      </a>
+      <div class="item item-divider">
+        Learn More
+      </div>
+      <ion-item ng-repeat="unit in suggestedUnits">
+        <h2>{{unit.title}}</h2>
+        <p>{{unit.parentTitle}}</p>
+        <ion-option-button class="button-info"
+                           ng-click="deleteSuggestion(unit)">
+          Remove
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

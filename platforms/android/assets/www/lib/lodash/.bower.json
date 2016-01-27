@@ -1,0 +1,15 @@
+{
+  "name": "lodash",
+  "homepage": "https://github.com/lodash/lodash",
+  "version": "3.10.1-amd",
+  "_release": "3.10.1-amd",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.10.1-amd",
+    "commit": "0ec6d91543257e56db05ebad4ac1832b1570648d"
+  },
+  "_source": "git://github.com/lodash/lodash.git",
+  "_target": "3.10.1-amd",
+  "_originalSource": "lodash",
+  "_direct": true
+}

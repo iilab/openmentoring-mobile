@@ -257,6 +257,22 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
         }
         _viewedUnits.update(viewLog);
       }
+    },
+
+    getIncompleteUnits: function() {
+      return _viewedUnits.chain()
+        .find({isFinished: {$ne: true}})
+        .eqJoin(_topicIndex.find(),'slug','slug',function(viewedUnit,indexedUnit){
+          var retVal = {
+            slug: viewedUnit.slug,
+            title: indexedUnit.title,
+            isStarted: viewedUnit.isStarted,
+            currentCardIndex: viewedUnit.currentCardIndex,
+            isFinished: false,
+            parentTitle: indexedUnit.parentTitle
+          };
+          return retVal;
+        }).data();
     }
   };
 });

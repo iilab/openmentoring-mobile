@@ -46,6 +46,16 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
+.controller('QueueCtrl',function($scope, DBService){
+  $scope.incompleteUnits = [];
+
+  $scope.suggestedUnits = [];
+
+  $scope.$on('$ionicView.beforeEnter', function() {
+    $scope.incompleteUnits = DBService.getIncompleteUnits();
+  });
+})
+
 .controller('TopicsCtrl', function($scope, $stateParams, $q, $http, $ionicPlatform, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
   var filterBarInstance;
