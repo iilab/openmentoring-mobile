@@ -47,6 +47,10 @@
                         {
                             "xml": "<feature name=\"LaunchMyApp\"><param name=\"android-package\" value=\"nl.xservices.plugins.LaunchMyApp\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"startApp\"><param name=\"android-package\" value=\"com.lampa.startapp.startApp\" /></feature>",
+                            "count": 1
                         }
                     ],
                     "/widget": [
@@ -154,6 +158,9 @@
         },
         "cordova-plugin-customurlscheme": {
             "URL_SCHEME": "openmentoring",
+            "PACKAGE_NAME": "org.iilab.openmentoring"
+        },
+        "com.lampa.startapp": {
             "PACKAGE_NAME": "org.iilab.openmentoring"
         }
     },
@@ -431,6 +438,14 @@
             "clobbers": [
                 "window.plugins.launchmyapp"
             ]
+        },
+        {
+            "file": "plugins/com.lampa.startapp/www/startApp.js",
+            "id": "com.lampa.startapp.startapp",
+            "pluginId": "com.lampa.startapp",
+            "merges": [
+                "navigator.startApp"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -446,6 +461,7 @@
         "cordova-plugin-file": "4.1.0",
         "cordova-plugin-file-transfer": "1.5.0",
         "cordova-plugin-zip": "3.0.0",
-        "cordova-plugin-customurlscheme": "4.1.2"
+        "cordova-plugin-customurlscheme": "4.1.2",
+        "com.lampa.startapp": "0.0.5"
     }
 }

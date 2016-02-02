@@ -272,6 +272,14 @@ module.exports = [
         "clobbers": [
             "window.plugins.launchmyapp"
         ]
+    },
+    {
+        "file": "plugins/com.lampa.startapp/www/startApp.js",
+        "id": "com.lampa.startapp.startapp",
+        "pluginId": "com.lampa.startapp",
+        "merges": [
+            "navigator.startApp"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -289,7 +297,8 @@ module.exports.metadata =
     "cordova-plugin-file": "4.1.0",
     "cordova-plugin-file-transfer": "1.5.0",
     "cordova-plugin-zip": "3.0.0",
-    "cordova-plugin-customurlscheme": "4.1.2"
+    "cordova-plugin-customurlscheme": "4.1.2",
+    "com.lampa.startapp": "0.0.5"
 }
 // BOTTOM OF METADATA
 });
