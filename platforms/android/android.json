@@ -51,6 +51,10 @@
                         {
                             "xml": "<feature name=\"startApp\"><param name=\"android-package\" value=\"com.lampa.startapp.startApp\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>",
+                            "count": 1
                         }
                     ],
                     "/widget": [
@@ -107,6 +111,10 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
                             "count": 2
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
                         }
                     ],
                     "/manifest/application/activity": [
@@ -161,6 +169,9 @@
             "PACKAGE_NAME": "org.iilab.openmentoring"
         },
         "com.lampa.startapp": {
+            "PACKAGE_NAME": "org.iilab.openmentoring"
+        },
+        "cordova-plugin-network-information": {
             "PACKAGE_NAME": "org.iilab.openmentoring"
         }
     },
@@ -446,6 +457,23 @@
             "merges": [
                 "navigator.startApp"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-network-information/www/network.js",
+            "id": "cordova-plugin-network-information.network",
+            "pluginId": "cordova-plugin-network-information",
+            "clobbers": [
+                "navigator.connection",
+                "navigator.network.connection"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+            "id": "cordova-plugin-network-information.Connection",
+            "pluginId": "cordova-plugin-network-information",
+            "clobbers": [
+                "Connection"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -462,6 +490,7 @@
         "cordova-plugin-file-transfer": "1.5.0",
         "cordova-plugin-zip": "3.0.0",
         "cordova-plugin-customurlscheme": "4.1.2",
-        "com.lampa.startapp": "0.0.5"
+        "com.lampa.startapp": "0.0.5",
+        "cordova-plugin-network-information": "1.2.0"
     }
 }
