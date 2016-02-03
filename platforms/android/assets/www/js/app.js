@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services'])
-.run(function($state, $window, LaunchService, $ionicPlatform, DBService) {
+.run(function($state, $window, $rootScope, $cordovaNetwork, LaunchService, $ionicPlatform, DBService) {
   $ionicPlatform.ready(function() {
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -19,6 +19,19 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    $window.isOnline = $cordovaNetwork.isOnline();
+
+
+    // listen for Online event
+    $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+      $window.isOnline = true;
+    })
+
+    // listen for Offline event
+    $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+      $window.isOnline = false;
+    })
 
     $window.addEventListener('CustomURLFollow', function(e) {
       if(LaunchService.checkUrl(e.detail.url)) {
