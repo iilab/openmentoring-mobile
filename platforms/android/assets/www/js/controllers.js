@@ -139,7 +139,7 @@ angular.module('starter.controllers', ['starter.services'])
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
 
   $scope.refreshTopics = function() {
-    if($scope.allowRefresh) {
+    if($scope.allowRefresh && window.isOnline) {
       $http({
         method: 'GET',
         url: INDEX_URL,
@@ -188,6 +188,9 @@ angular.module('starter.controllers', ['starter.services'])
       });
     } else {
       //quickly return if we've disabled the refresher
+      var topics = DBService.getAllTopics();
+      $scope.topics = topics;
+      doFilter();
       $scope.$broadcast('scroll.refreshComplete');
     }
   };
