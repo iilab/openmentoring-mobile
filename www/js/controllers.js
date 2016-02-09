@@ -58,14 +58,10 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('TopicsCtrl', function($scope, $stateParams, $q, $http, $ionicPlatform, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
-  var filterBarInstance;
-
   //if the unit was passed in to the url, add it to the global variable that is also used by the custom URL handler
   if($stateParams.unit) {
     window.skipToUnit = $stateParams.unit;
   }
-
-  $scope.allowRefresh = true;
 
   function _doFilter() {
     //TODO: apply filter based on results from lunr
@@ -216,7 +212,7 @@ angular.module('starter.controllers', ['starter.services'])
   }
 
   $scope.refreshTopics = function() {
-    if($scope.allowRefresh && window.isOnline) {
+    if(window.isOnline) {
       var orbotCheck = _activateOrbotOrOverride();
       orbotCheck.then(function(){
         //orbot is installed... proceed
