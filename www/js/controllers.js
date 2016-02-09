@@ -93,9 +93,11 @@ angular.module('starter.controllers', ['starter.services'])
   $scope.currentUnit = null;
   $scope.$watch('data.slider', function(nv, ov) {
     $scope.swiper = $scope.data.slider;
-    $scope.swiper.on('slideChangeEnd', function (sw) {
-      DBService.logUnitAdvance($scope.currentUnit, sw.activeIndex, sw.isEnd);
-    });
+    if($scope.swiper) {
+      $scope.swiper.on('slideChangeEnd', function (sw) {
+        DBService.logUnitAdvance($scope.currentUnit, sw.activeIndex, sw.isEnd);
+      });
+    }
   });
 
   $ionicModal.fromTemplateUrl('templates/unit.html', {
@@ -138,54 +140,137 @@ angular.module('starter.controllers', ['starter.services'])
 
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
 
+  function activateOrbotOrOverride() {
+    var dfd = $q.defer();
+    navigator.startApp.check("org.torproject.android", function(message) { /* success */
+        console.log("app exists: ");
+        console.log(message.versionName);
+        console.log(message.packageName);
+        console.log(message.versionCode);
+        console.log(message.applicationInfo);
+        window.checkedOrbotInstalled = true;
+
+        dfd.resolve();
+    },
+    function(error) { /* error */
+        console.log(error);
+        window.checkedOrbotInstalled = true;
+        dfd.reject();
+    });
+    return dfd.promise;
+  }
+
+  function _downloadTopicList() {
+    $http({
+      method: 'GET',
+      url: INDEX_URL,
+      responseType: 'json'
+    }).then(function (resp) {
+      var topics = DBService.loadTopics(resp.data.items);
+      $scope.topics = topics;
+      doFilter();
+    }, function(err) {
+      // Error
+      console.log('error');
+      console.log(err);
+    }).finally(function() {
+      // Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
+      if(window.skipToUnit) {
+        var topic = DBService.getTopicByUnit(window.skipToUnit);
+        if($scope.isDownloaded(topic)) {
+          $scope.openUnit(window.skipToUnit);
+          window.skipToUnit = null;
+        } else {
+          var confirmPopup = $ionicPopup.confirm({
+            title: 'Download Topic',
+            template: 'In order to view this unit, you need to download <strong>' + topic.title + '</strong>. Download it now?'
+          });
+
+          confirmPopup.then(function(res) {
+            if(res) {
+              var download = $scope.downloadTopic(topic);
+              download.then(function(){
+                //download succeeded... proceed to the unit
+                $scope.openUnit(window.skipToUnit);
+                window.skipToUnit = null;
+              }).catch(function(){
+                //download failed... just show the topic list
+                window.skipToUnit = null;
+              });
+            } else {
+              //the user cancelled... just show them the topic list
+              window.skipToUnit = null;
+            }
+          });
+        }
+
+      }
+    });
+  }
+
   $scope.refreshTopics = function() {
     if($scope.allowRefresh && window.isOnline) {
-      $http({
-        method: 'GET',
-        url: INDEX_URL,
-        responseType: 'json'
-      }).then(function (resp) {
-        var topics = DBService.loadTopics(resp.data.items);
-        $scope.topics = topics;
-        doFilter();
-      }, function(err) {
-        // Error
-        console.log('error');
-        console.log(err);
-      }).finally(function() {
-        // Stop the ion-refresher from spinning
-        $scope.$broadcast('scroll.refreshComplete');
-        if(window.skipToUnit) {
-          var topic = DBService.getTopicByUnit(window.skipToUnit);
-          if($scope.isDownloaded(topic)) {
-            $scope.openUnit(window.skipToUnit);
-            window.skipToUnit = null;
-          } else {
-            var confirmPopup = $ionicPopup.confirm({
-              title: 'Download Topic',
-              template: 'In order to view this unit, you need to download <strong>' + topic.title + '</strong>. Download it now?'
-            });
-
-            confirmPopup.then(function(res) {
-              if(res) {
-                var download = $scope.downloadTopic(topic);
-                download.then(function(){
-                  //download succeeded... proceed to the unit
-                  $scope.openUnit(window.skipToUnit);
-                  window.skipToUnit = null;
-                }).catch(function(){
-                  //download failed... just show the topic list
-                  window.skipToUnit = null;
-                });
-              } else {
-                //the user cancelled... just show them the topic list
-                window.skipToUnit = null;
+      var orbotCheck = activateOrbotOrOverride();
+      orbotCheck.then(function(){
+        //orbot is installed... proceed
+        _downloadTopicList();
+      }).catch(function(){
+        //orbot is not installed.. prompt to download
+        var getAppPopup = $ionicPopup.show({
+          title: 'Downloading Content',
+          cssClass: 'popup-vertical-buttons',
+          template: 'In order to download content safely, we recommend using Orbot. Without Orbot, your activity in this app is easier for malicious parties to intercept.',
+          buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
+             text: 'Install Orbot from F-Droid',
+             type: 'button-positive',
+             onTap: function(e) {
+               return "fdroid";
+             }
+           }, {
+              text: 'Install Orbot from Google Play',
+              type: 'button-positive',
+              onTap: function(e) {
+                return "play";
               }
-            });
-          }
+            }, {
+             text: 'Proceed without Orbot',
+             type: 'button-default',
+             onTap: function(e) {
+               // Returning a value will cause the promise to resolve with the given value.
+               return "unprotected";
+             }
+           }, {
+              text: 'Cancel (stay offline)',
+              type: 'button-default',
+              onTap: function(e) {
+                // Returning a value will cause the promise to resolve with the given value.
+                return "offline";
+              }
+           }]
+        });
 
-        }
+        getAppPopup.then(function(res) {
+          if(res==="fdroid") {
+            //TODO: take the user to app store?
+            window.open('https://f-droid.org/repository/browse/?fdid=org.torproject.android', '_system');
+            $scope.$broadcast('scroll.refreshComplete');
+          } else if(res==="play") {
+            //TODO: take the user to app store?
+            window.open('market://details?id=org.torproject.android', '_system');
+            $scope.$broadcast('scroll.refreshComplete');
+          } else if(res==="unprotected") {
+            //the user cancelled... just get the topic list anyways
+            _downloadTopicList();
+          } else if(res==="offline") {
+            var topics = DBService.getAllTopics();
+            $scope.topics = topics;
+            doFilter();
+            $scope.$broadcast('scroll.refreshComplete');
+          }
+        });
       });
+
     } else {
       //quickly return if we've disabled the refresher
       var topics = DBService.getAllTopics();

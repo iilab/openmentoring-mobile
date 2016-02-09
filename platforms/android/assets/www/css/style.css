@@ -1,5 +1,9 @@
 /* Empty. Add your own CSS if you like */
 
+.unit-modal {
+  background: #f9f9f9;
+}
+
 /* Topic list styles */
 .topic-card .item-icon-left {
   padding-left: 49px;
@@ -76,4 +80,14 @@
 
 .item[disabled] .icon {
   display: none;
+}
+
+.popup-vertical-buttons button
+{
+    min-width: 100%;
+    margin-bottom: 5px;
+}
+.popup-vertical-buttons .popup-buttons
+{
+    display: block;
 }
