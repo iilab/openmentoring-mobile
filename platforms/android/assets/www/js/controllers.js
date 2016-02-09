@@ -67,7 +67,7 @@ angular.module('starter.controllers', ['starter.services'])
 
   $scope.allowRefresh = true;
 
-  function doFilter() {
+  function _doFilter() {
     //TODO: apply filter based on results from lunr
     console.log('doFilter');
 
@@ -112,7 +112,7 @@ angular.module('starter.controllers', ['starter.services'])
 
   $scope.updateFilter = function() {
     $ionicScrollDelegate.scrollTop();
-    doFilter();
+    _doFilter();
   };
 
   $scope.clearSearch = function() {
@@ -140,7 +140,7 @@ angular.module('starter.controllers', ['starter.services'])
 
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
 
-  function activateOrbotOrOverride() {
+  function _activateOrbotOrOverride() {
     var dfd = $q.defer();
     navigator.startApp.check("org.torproject.android", function(message) { /* success */
         console.log("app exists: ");
@@ -160,6 +160,12 @@ angular.module('starter.controllers', ['starter.services'])
     return dfd.promise;
   }
 
+  function _loadLocalTopicList() {
+    var topics = DBService.getAllTopics();
+    $scope.topics = topics;
+    _doFilter();
+  }
+
   function _downloadTopicList() {
     $http({
       method: 'GET',
@@ -168,7 +174,7 @@ angular.module('starter.controllers', ['starter.services'])
     }).then(function (resp) {
       var topics = DBService.loadTopics(resp.data.items);
       $scope.topics = topics;
-      doFilter();
+      _doFilter();
     }, function(err) {
       // Error
       console.log('error');
@@ -211,7 +217,7 @@ angular.module('starter.controllers', ['starter.services'])
 
   $scope.refreshTopics = function() {
     if($scope.allowRefresh && window.isOnline) {
-      var orbotCheck = activateOrbotOrOverride();
+      var orbotCheck = _activateOrbotOrOverride();
       orbotCheck.then(function(){
         //orbot is installed... proceed
         _downloadTopicList();
@@ -263,9 +269,7 @@ angular.module('starter.controllers', ['starter.services'])
             //the user cancelled... just get the topic list anyways
             _downloadTopicList();
           } else if(res==="offline") {
-            var topics = DBService.getAllTopics();
-            $scope.topics = topics;
-            doFilter();
+            _loadLocalTopicList();
             $scope.$broadcast('scroll.refreshComplete');
           }
         });
@@ -273,9 +277,7 @@ angular.module('starter.controllers', ['starter.services'])
 
     } else {
       //quickly return if we've disabled the refresher
-      var topics = DBService.getAllTopics();
-      $scope.topics = topics;
-      doFilter();
+      _loadLocalTopicList();
       $scope.$broadcast('scroll.refreshComplete');
     }
   };
