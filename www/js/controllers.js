@@ -58,35 +58,15 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('TopicsCtrl', function($scope, $stateParams, $q, $http, $ionicPlatform, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
+  var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
+  $scope.data = {};
+  $scope.currentUnit = null;
+
   //if the unit was passed in to the url, add it to the global variable that is also used by the custom URL handler
   if($stateParams.unit) {
     window.skipToUnit = $stateParams.unit;
   }
 
-  function _doFilter() {
-    //TODO: apply filter based on results from lunr
-    console.log('doFilter');
-
-    if(_.isEmpty($scope.search)) {
-      resetViewState($scope.topics);
-    } else {
-      var results = DBService.doSearch($scope.search);
-      var resultsHash = _.indexBy(results,'ref');
-      $scope.topics.forEach(function(topic){
-        topic.isVisible = resultsHash[topic.slug];
-        topic.showUnits = false;
-        topic.units.forEach(function(unit){
-          unit.isVisible = resultsHash[unit.slug];
-          if(unit.isVisible) {
-            topic.isVisible = true;
-          }
-        });
-      });
-    }
-  };
-
-  $scope.data = {};
-  $scope.currentUnit = null;
   $scope.$watch('data.slider', function(nv, ov) {
     $scope.swiper = $scope.data.slider;
     if($scope.swiper) {
@@ -106,25 +86,30 @@ angular.module('starter.controllers', ['starter.services'])
     $scope.modal.remove();
   });
 
-  $scope.updateFilter = function() {
-    $ionicScrollDelegate.scrollTop();
-    _doFilter();
-  };
+  // PRIVATE FUNCTIONS
+  function _doFilter() {
+    //TODO: apply filter based on results from lunr
+    console.log('doFilter');
 
-  $scope.clearSearch = function() {
-    $scope.search = '';
-    $scope.updateFilter();
-  };
-
-  $scope.toggleUnits = function(topic) {
-    if(topic.showUnits) {
-      topic.showUnits = false;
+    if(_.isEmpty($scope.search)) {
+      _resetViewState($scope.topics);
     } else {
-      topic.showUnits = true;
+      var results = DBService.doSearch($scope.search);
+      var resultsHash = _.indexBy(results,'ref');
+      $scope.topics.forEach(function(topic){
+        topic.isVisible = resultsHash[topic.slug];
+        topic.showUnits = false;
+        topic.units.forEach(function(unit){
+          unit.isVisible = resultsHash[unit.slug];
+          if(unit.isVisible) {
+            topic.isVisible = true;
+          }
+        });
+      });
     }
   };
 
-  function resetViewState(nestedList) {
+  function _resetViewState(nestedList) {
     nestedList.forEach(function(topic){
       topic.isVisible = true;
       topic.showUnits = false;
@@ -133,8 +118,6 @@ angular.module('starter.controllers', ['starter.services'])
       });
     });
   };
-
-  var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
 
   function _activateOrbotOrOverride() {
     var dfd = $q.defer();
@@ -210,6 +193,25 @@ angular.module('starter.controllers', ['starter.services'])
       }
     });
   }
+
+  // PUBLIC FUNCTIONS
+  $scope.updateFilter = function() {
+    $ionicScrollDelegate.scrollTop();
+    _doFilter();
+  };
+
+  $scope.clearSearch = function() {
+    $scope.search = '';
+    $scope.updateFilter();
+  };
+
+  $scope.toggleUnits = function(topic) {
+    if(topic.showUnits) {
+      topic.showUnits = false;
+    } else {
+      topic.showUnits = true;
+    }
+  };
 
   $scope.refreshTopics = function() {
     if(window.isOnline) {
@@ -380,6 +382,7 @@ angular.module('starter.controllers', ['starter.services'])
     return dfd.promise;
 
   };
+
   $scope.isDownloaded = function(topic) {
     if(topic.isDownloaded) {
       return true;
