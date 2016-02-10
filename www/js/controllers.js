@@ -441,7 +441,7 @@ angular.module('starter.controllers', ['starter.services'])
 
     } else {
       var offlinePopup = $ionicPopup.alert({
-        //title: 'Downloading Content',
+        title: 'Unable to Download Content',
         template: 'You are currently offline. To download content, enable your network connection.'
       });
     }
