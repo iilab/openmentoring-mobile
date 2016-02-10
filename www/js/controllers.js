@@ -326,7 +326,7 @@ angular.module('starter.controllers', ['starter.services'])
     });
   };
 
-  $scope.downloadTopic = function(topic) {
+  function _performTopicDownload(topic) {
     //TODO: replace this with a service
     var dfd = $q.defer();
     $ionicPlatform.ready(function() {}).then(function () {
@@ -375,12 +375,76 @@ angular.module('starter.controllers', ['starter.services'])
           // https://github.com/MobileChromeApps/zip#usage
           console.log(progressEvent);
         });
-    });
+      });
 
-    console.log('Downloading ' + topic);
+      console.log('Downloading ' + topic);
 
-    return dfd.promise;
+      return dfd.promise;
+  }
 
+  $scope.downloadTopic = function(topic) {
+    if(window.isOnline) {
+      var orbotCheck = _activateOrbotOrOverride();
+      orbotCheck.then(function(){
+        //orbot is installed... proceed
+        _performTopicDownload(topic);
+      }).catch(function(){
+        //orbot is not installed.. prompt to download
+        var getAppPopup = $ionicPopup.show({
+          title: 'Downloading Content',
+          cssClass: 'popup-vertical-buttons',
+          template: 'In order to download content safely, we recommend using Orbot. Without Orbot, your activity in this app is easier for malicious parties to intercept.',
+          buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
+             text: 'Install Orbot from F-Droid',
+             type: 'button-positive',
+             onTap: function(e) {
+               return "fdroid";
+             }
+           }, {
+              text: 'Install Orbot from Google Play',
+              type: 'button-positive',
+              onTap: function(e) {
+                return "play";
+              }
+            }, {
+             text: 'Proceed without Orbot',
+             type: 'button-default',
+             onTap: function(e) {
+               // Returning a value will cause the promise to resolve with the given value.
+               return "unprotected";
+             }
+           }, {
+              text: 'Cancel (stay offline)',
+              type: 'button-default',
+              onTap: function(e) {
+                // Returning a value will cause the promise to resolve with the given value.
+                return "offline";
+              }
+           }]
+        });
+
+        getAppPopup.then(function(res) {
+          if(res==="fdroid") {
+            //TODO: take the user to app store?
+            window.open('https://f-droid.org/repository/browse/?fdid=org.torproject.android', '_system');
+          } else if(res==="play") {
+            //TODO: take the user to app store?
+            window.open('market://details?id=org.torproject.android', '_system');
+          } else if(res==="unprotected") {
+            //the user cancelled... just get the topic anyways
+            _performTopicDownload(topic);
+          } else if(res==="offline") {
+            //do nothing... staying offline
+          }
+        });
+      });
+
+    } else {
+      var offlinePopup = $ionicPopup.alert({
+        //title: 'Downloading Content',
+        template: 'You are currently offline. To download content, enable your network connection.'
+      });
+    }
   };
 
   $scope.isDownloaded = function(topic) {
