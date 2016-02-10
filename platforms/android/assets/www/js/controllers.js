@@ -194,6 +194,62 @@ angular.module('starter.controllers', ['starter.services'])
     });
   }
 
+  function _performTopicDownload(topic) {
+    //TODO: replace this with a service
+    var dfd = $q.defer();
+    $ionicPlatform.ready(function() {}).then(function () {
+      var url = topic.downloadUrl;
+      var targetPath = cordova.file.dataDirectory + topic.slug + '.zip';
+      var trustHosts = true;
+      var options = {};
+      $ionicLoading.show({
+        template: 'Downloading...'
+      });
+      $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
+        .then(function(result) {
+          var folderDest = cordova.file.dataDirectory;
+          return $cordovaZip.unzip(result.nativeURL,folderDest);
+        }, function(err) {
+          // Error
+          console.log('error');
+          console.log(JSON.stringify(err));
+          $ionicLoading.show({
+            template: 'Download failed!',
+            duration: 1500
+          });
+          dfd.reject();
+        }, function (progress) {
+          $timeout(function () {
+            $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+            console.log('Progress: ' + $scope.downloadProgress);
+          })
+        }).then(function(zipResult){
+          console.log("Successfully unzipped");
+          $timeout(function() {
+            topic.isDownloaded = true;
+            topic.isLatest = true;
+            DBService.markAsDownloaded(topic);
+            $ionicLoading.hide();
+            dfd.resolve();
+          });
+        }, function (zipErr) {
+          console.log('error ' + zipErr);
+          $ionicLoading.show({
+            template: 'Content could not be loaded.',
+            duration: 1500
+          });
+          dfd.reject();
+        }, function (progressEvent) {
+          // https://github.com/MobileChromeApps/zip#usage
+          console.log(progressEvent);
+        });
+      });
+
+      console.log('Downloading ' + topic);
+
+      return dfd.promise;
+  }
+
   // PUBLIC FUNCTIONS
   $scope.updateFilter = function() {
     $ionicScrollDelegate.scrollTop();
@@ -325,62 +381,6 @@ angular.module('starter.controllers', ['starter.services'])
       console.log(err);
     });
   };
-
-  function _performTopicDownload(topic) {
-    //TODO: replace this with a service
-    var dfd = $q.defer();
-    $ionicPlatform.ready(function() {}).then(function () {
-      var url = topic.downloadUrl;
-      var targetPath = cordova.file.dataDirectory + topic.slug + '.zip';
-      var trustHosts = true;
-      var options = {};
-      $ionicLoading.show({
-        template: 'Downloading...'
-      });
-      $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
-        .then(function(result) {
-          var folderDest = cordova.file.dataDirectory;
-          return $cordovaZip.unzip(result.nativeURL,folderDest);
-        }, function(err) {
-          // Error
-          console.log('error');
-          console.log(JSON.stringify(err));
-          $ionicLoading.show({
-            template: 'Download failed!',
-            duration: 1500
-          });
-          dfd.reject();
-        }, function (progress) {
-          $timeout(function () {
-            $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-            console.log('Progress: ' + $scope.downloadProgress);
-          })
-        }).then(function(zipResult){
-          console.log("Successfully unzipped");
-          $timeout(function() {
-            topic.isDownloaded = true;
-            topic.isLatest = true;
-            DBService.markAsDownloaded(topic);
-            $ionicLoading.hide();
-            dfd.resolve();
-          });
-        }, function (zipErr) {
-          console.log('error ' + zipErr);
-          $ionicLoading.show({
-            template: 'Content could not be loaded.',
-            duration: 1500
-          });
-          dfd.reject();
-        }, function (progressEvent) {
-          // https://github.com/MobileChromeApps/zip#usage
-          console.log(progressEvent);
-        });
-      });
-
-      console.log('Downloading ' + topic);
-
-      return dfd.promise;
-  }
 
   $scope.downloadTopic = function(topic) {
     if(window.isOnline) {
