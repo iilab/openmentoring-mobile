@@ -20,6 +20,8 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       StatusBar.styleDefault();
     }
 
+
+
     //keep track of whether the user is online
     $window.isOnline = $cordovaNetwork.isOnline();
 
@@ -49,7 +51,9 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 })
 
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $ionicConfigProvider, $urlRouterProvider) {
+  $ionicConfigProvider.views.transition('none');
+
   $stateProvider
   // .state('intro', {
   //   url: '/',

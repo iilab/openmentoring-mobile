@@ -56,7 +56,7 @@ angular.module('starter.controllers', ['starter.services'])
   });
 })
 
-.controller('TopicsCtrl', function($scope, $stateParams, $q, $http, $ionicPlatform, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
+.controller('TopicsCtrl', function($scope, $stateParams, $q, $http, $ionicPlatform, $ionicHistory, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
   $scope.data = {};
@@ -76,10 +76,8 @@ angular.module('starter.controllers', ['starter.services'])
     }
   });
 
-  $ionicModal.fromTemplateUrl('templates/unit.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
+  $scope.$on('modal.hidden', function() {
+    $ionicHistory.goBack();
   });
 
   $scope.$on('$destroy', function(){
@@ -161,36 +159,6 @@ angular.module('starter.controllers', ['starter.services'])
     }).finally(function() {
       // Stop the ion-refresher from spinning
       $scope.$broadcast('scroll.refreshComplete');
-      if(window.skipToUnit) {
-        var topic = DBService.getTopicByUnit(window.skipToUnit);
-        if($scope.isDownloaded(topic)) {
-          $scope.openUnit(window.skipToUnit);
-          window.skipToUnit = null;
-        } else {
-          var confirmPopup = $ionicPopup.confirm({
-            title: 'Download Topic',
-            template: 'In order to view this unit, you need to download <strong>' + topic.title + '</strong>. Download it now?'
-          });
-
-          confirmPopup.then(function(res) {
-            if(res) {
-              var download = $scope.downloadTopic(topic);
-              download.then(function(){
-                //download succeeded... proceed to the unit
-                $scope.openUnit(window.skipToUnit);
-                window.skipToUnit = null;
-              }).catch(function(){
-                //download failed... just show the topic list
-                window.skipToUnit = null;
-              });
-            } else {
-              //the user cancelled... just show them the topic list
-              window.skipToUnit = null;
-            }
-          });
-        }
-
-      }
     });
   }
 
@@ -456,7 +424,45 @@ angular.module('starter.controllers', ['starter.services'])
   };
 
   //initialize the view
-  $scope.refreshTopics();
+  $ionicModal.fromTemplateUrl('templates/unit.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+    if(window.skipToUnit) {
+      var topic = DBService.getTopicByUnit(window.skipToUnit);
+      if($scope.isDownloaded(topic)) {
+        $scope.openUnit(window.skipToUnit);
+        window.skipToUnit = null;
+      } else {
+        var confirmPopup = $ionicPopup.confirm({
+          title: 'Download Topic',
+          template: 'In order to view this unit, you need to download <strong>' + topic.title + '</strong>. Download it now?'
+        });
+
+        confirmPopup.then(function(res) {
+          if(res) {
+            var download = $scope.downloadTopic(topic);
+            download.then(function(){
+              //download succeeded... proceed to the unit
+              $scope.openUnit(window.skipToUnit);
+              window.skipToUnit = null;
+            }).catch(function(){
+              //download failed... just show the topic list
+              window.skipToUnit = null;
+              $scope.refreshTopics();
+            });
+          } else {
+            //the user cancelled... just show them the topic list
+            window.skipToUnit = null;
+            $scope.refreshTopics();
+          }
+        });
+      }
+
+    } else {
+      $scope.refreshTopics();
+    }
+  });
 
 })
 
