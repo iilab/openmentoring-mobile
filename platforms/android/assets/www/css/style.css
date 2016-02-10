@@ -65,6 +65,10 @@
   font-size: 24px;
 }
 
+.topic-card .item-icon-right .icon.unit-icon {
+  right: 5px;
+}
+
 .swiper-container {
   height: 100%;
   width: 100%;
