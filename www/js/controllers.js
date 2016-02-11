@@ -310,6 +310,10 @@ angular.module('starter.controllers', ['starter.services'])
     }
   };
 
+  $scope.closeUnit = function() {
+    $scope.modal.hide();
+  };
+
   $scope.openUnit = function(unitSlug) {
     //TODO: this is super messy.  Replace with a service
     var settingsData = $scope.$parent.$parent.settingsData;
@@ -317,6 +321,7 @@ angular.module('starter.controllers', ['starter.services'])
     var baseUrl = cordova.file.dataDirectory + slugPath;
     var url = baseUrl + '/index.json';
     $http.get(url).then(function (resp) {
+      var title = resp.data.title;
       var groupedCardList = _.groupBy(resp.data.cards, 'subtype');
       var cardList = [];
       var re = /src=\"(.*)\"/ig;
@@ -339,6 +344,7 @@ angular.module('starter.controllers', ['starter.services'])
           }
         });
       });
+      $scope.currentUnitTitle = title;
       $scope.currentUnit = unitSlug;
       DBService.logUnitStart($scope.currentUnit);
 
