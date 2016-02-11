@@ -20,15 +20,14 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       StatusBar.styleDefault();
     }
 
-
-
     //keep track of whether the user is online
     $window.isOnline = $cordovaNetwork.isOnline();
 
     //ask at least once per session to run Orbot before downloading
-    $window.checkedOrbotInstalled = false;
-    $window.checkedOrbotActive = false;
-
+    $window.skipOrbotCheck = false;
+    $ionicPlatform.on('resume', function(){
+      $window.skipOrbotCheck = false;
+    });
 
     // listen for Online event
     $rootScope.$on('$cordovaNetwork:online', function(event, networkState){

@@ -119,21 +119,26 @@ angular.module('starter.controllers', ['starter.services'])
 
   function _activateOrbotOrOverride() {
     var dfd = $q.defer();
-    navigator.startApp.check("org.torproject.android", function(message) { /* success */
-        console.log("app exists: ");
-        console.log(message.versionName);
-        console.log(message.packageName);
-        console.log(message.versionCode);
-        console.log(message.applicationInfo);
-        window.checkedOrbotInstalled = true;
+    if(window.skipOrbotCheck) {
+      //don't check for orbot if the user has bypassed it intentionally
+      dfd.resolve();
+    } else {
+      navigator.startApp.check("org.torproject.android", function(message) { /* success */
+          console.log("app exists: ");
+          console.log(message.versionName);
+          console.log(message.packageName);
+          console.log(message.versionCode);
+          console.log(message.applicationInfo);
+          window.isOrbotInstalled = true;
 
-        dfd.resolve();
-    },
-    function(error) { /* error */
-        console.log(error);
-        window.checkedOrbotInstalled = true;
-        dfd.reject();
-    });
+          dfd.resolve();
+      },
+      function(error) { /* error */
+          console.log(error);
+          window.isOrbotInstalled = false;
+          dfd.reject();
+      });
+    }
     return dfd.promise;
   }
 
@@ -289,6 +294,7 @@ angular.module('starter.controllers', ['starter.services'])
             $scope.$broadcast('scroll.refreshComplete');
           } else if(res==="unprotected") {
             //the user cancelled... just get the topic list anyways
+            window.skipOrbotCheck = true;
             _downloadTopicList();
           } else if(res==="offline") {
             _loadLocalTopicList();
@@ -400,6 +406,7 @@ angular.module('starter.controllers', ['starter.services'])
             window.open('market://details?id=org.torproject.android', '_system');
           } else if(res==="unprotected") {
             //the user cancelled... just get the topic anyways
+            window.skipOrbotCheck = true;
             _performTopicDownload(topic);
           } else if(res==="offline") {
             //do nothing... staying offline
