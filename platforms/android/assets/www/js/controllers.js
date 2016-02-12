@@ -56,7 +56,7 @@ angular.module('starter.controllers', ['starter.services'])
   });
 })
 
-.controller('TopicsCtrl', function($scope, $stateParams, $q, $http, $ionicPlatform, $ionicHistory, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
+.controller('TopicsCtrl', function($scope, $state, $stateParams, $q, $http, $ionicPlatform, $ionicHistory, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
   $scope.data = {};
@@ -319,6 +319,14 @@ angular.module('starter.controllers', ['starter.services'])
 
   $scope.closeUnit = function() {
     $scope.modal.hide();
+  };
+
+  $scope.goHome = function() {
+    $ionicHistory.nextViewOptions({
+      historyRoot: true
+    });
+    $scope.modal.hide();
+    _loadLocalTopicList();
   };
 
   $scope.openUnit = function(unitSlug) {

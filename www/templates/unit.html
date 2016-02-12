@@ -1,8 +1,11 @@
 <ion-modal-view class="unit-modal">
-  <ion-header-bar>
+  <ion-header-bar align-title="center" class="bar-minimal">
+    <div class="buttons">
+      <button class="button button-icon icon ion-home" ng-click="goHome()"></button>
+    </div>
     <h1 class="title">{{currentUnitTitle}}</h1>
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeUnit()">Close</button>
+      <button class="button button-icon icon ion-close" ng-click="closeUnit()"></button>
     </div>
   </ion-header-bar>
   <ion-content scroll="false">
