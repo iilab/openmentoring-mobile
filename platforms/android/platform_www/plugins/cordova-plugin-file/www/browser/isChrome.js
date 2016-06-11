@@ -1,4 +1,6 @@
-cordova.define("cordova-plugin-whitelist.whitelist", function(require, exports, module) { /*
+cordova.define("cordova-plugin-file.isChrome", function(require, exports, module) {
+/*
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -16,14 +18,12 @@ cordova.define("cordova-plugin-whitelist.whitelist", function(require, exports, 
  * specific language governing permissions and limitations
  * under the License.
  *
-*/
+ */
 
-if (!document.querySelector('meta[http-equiv=Content-Security-Policy]')) {
-    var msg = 'No Content-Security-Policy meta tag found. Please add one when using the cordova-plugin-whitelist plugin.';
-    console.error(msg);
-    setInterval(function() {
-        console.warn(msg);
-    }, 10000);
-}
+module.exports = function () {
+    // window.webkitRequestFileSystem and window.webkitResolveLocalFileSystemURL are available only in Chrome and
+    // possibly a good flag to indicate that we're running in Chrome
+    return window.webkitRequestFileSystem && window.webkitResolveLocalFileSystemURL;
+};
 
 });

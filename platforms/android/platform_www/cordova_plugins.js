@@ -3,7 +3,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
         "id": "cordova-plugin-app-version.AppVersionPlugin",
-        "pluginId": "cordova-plugin-app-version",
         "clobbers": [
             "cordova.getAppVersion"
         ]
@@ -11,7 +10,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-device/www/device.js",
         "id": "cordova-plugin-device.device",
-        "pluginId": "cordova-plugin-device",
         "clobbers": [
             "device"
         ]
@@ -19,7 +17,6 @@ module.exports = [
     {
         "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification.js",
         "id": "de.appplant.cordova.plugin.local-notification.LocalNotification",
-        "pluginId": "de.appplant.cordova.plugin.local-notification",
         "clobbers": [
             "cordova.plugins.notification.local",
             "plugin.notification.local"
@@ -28,7 +25,6 @@ module.exports = [
     {
         "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification-core.js",
         "id": "de.appplant.cordova.plugin.local-notification.LocalNotification.Core",
-        "pluginId": "de.appplant.cordova.plugin.local-notification",
         "clobbers": [
             "cordova.plugins.notification.local.core",
             "plugin.notification.local.core"
@@ -37,22 +33,14 @@ module.exports = [
     {
         "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification-util.js",
         "id": "de.appplant.cordova.plugin.local-notification.LocalNotification.Util",
-        "pluginId": "de.appplant.cordova.plugin.local-notification",
         "merges": [
             "cordova.plugins.notification.local.core",
             "plugin.notification.local.core"
         ]
     },
     {
-        "file": "plugins/cordova-plugin-whitelist/whitelist.js",
-        "id": "cordova-plugin-whitelist.whitelist",
-        "pluginId": "cordova-plugin-whitelist",
-        "runs": true
-    },
-    {
         "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
         "id": "cordova-plugin-splashscreen.SplashScreen",
-        "pluginId": "cordova-plugin-splashscreen",
         "clobbers": [
             "navigator.splashscreen"
         ]
@@ -60,7 +48,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
         "id": "cordova-plugin-statusbar.statusbar",
-        "pluginId": "cordova-plugin-statusbar",
         "clobbers": [
             "window.StatusBar"
         ]
@@ -68,7 +55,6 @@ module.exports = [
     {
         "file": "plugins/ionic-plugin-keyboard/www/android/keyboard.js",
         "id": "ionic-plugin-keyboard.keyboard",
-        "pluginId": "ionic-plugin-keyboard",
         "clobbers": [
             "cordova.plugins.Keyboard"
         ],
@@ -77,7 +63,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
         "id": "cordova-plugin-file.DirectoryEntry",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.DirectoryEntry"
         ]
@@ -85,7 +70,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/DirectoryReader.js",
         "id": "cordova-plugin-file.DirectoryReader",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.DirectoryReader"
         ]
@@ -93,7 +77,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/Entry.js",
         "id": "cordova-plugin-file.Entry",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.Entry"
         ]
@@ -101,7 +84,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/File.js",
         "id": "cordova-plugin-file.File",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.File"
         ]
@@ -109,7 +91,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/FileEntry.js",
         "id": "cordova-plugin-file.FileEntry",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.FileEntry"
         ]
@@ -117,7 +98,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/FileError.js",
         "id": "cordova-plugin-file.FileError",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.FileError"
         ]
@@ -125,7 +105,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/FileReader.js",
         "id": "cordova-plugin-file.FileReader",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.FileReader"
         ]
@@ -133,7 +112,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/FileSystem.js",
         "id": "cordova-plugin-file.FileSystem",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.FileSystem"
         ]
@@ -141,7 +119,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/FileUploadOptions.js",
         "id": "cordova-plugin-file.FileUploadOptions",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.FileUploadOptions"
         ]
@@ -149,7 +126,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/FileUploadResult.js",
         "id": "cordova-plugin-file.FileUploadResult",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.FileUploadResult"
         ]
@@ -157,7 +133,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/FileWriter.js",
         "id": "cordova-plugin-file.FileWriter",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.FileWriter"
         ]
@@ -165,7 +140,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/Flags.js",
         "id": "cordova-plugin-file.Flags",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.Flags"
         ]
@@ -173,7 +147,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/LocalFileSystem.js",
         "id": "cordova-plugin-file.LocalFileSystem",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.LocalFileSystem"
         ],
@@ -184,7 +157,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/Metadata.js",
         "id": "cordova-plugin-file.Metadata",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.Metadata"
         ]
@@ -192,20 +164,17 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/ProgressEvent.js",
         "id": "cordova-plugin-file.ProgressEvent",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.ProgressEvent"
         ]
     },
     {
         "file": "plugins/cordova-plugin-file/www/fileSystems.js",
-        "id": "cordova-plugin-file.fileSystems",
-        "pluginId": "cordova-plugin-file"
+        "id": "cordova-plugin-file.fileSystems"
     },
     {
         "file": "plugins/cordova-plugin-file/www/requestFileSystem.js",
         "id": "cordova-plugin-file.requestFileSystem",
-        "pluginId": "cordova-plugin-file",
         "clobbers": [
             "window.requestFileSystem"
         ]
@@ -213,15 +182,18 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/resolveLocalFileSystemURI.js",
         "id": "cordova-plugin-file.resolveLocalFileSystemURI",
-        "pluginId": "cordova-plugin-file",
         "merges": [
             "window"
         ]
     },
     {
+        "file": "plugins/cordova-plugin-file/www/browser/isChrome.js",
+        "id": "cordova-plugin-file.isChrome",
+        "runs": true
+    },
+    {
         "file": "plugins/cordova-plugin-file/www/android/FileSystem.js",
         "id": "cordova-plugin-file.androidFileSystem",
-        "pluginId": "cordova-plugin-file",
         "merges": [
             "FileSystem"
         ]
@@ -229,13 +201,11 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file/www/fileSystems-roots.js",
         "id": "cordova-plugin-file.fileSystems-roots",
-        "pluginId": "cordova-plugin-file",
         "runs": true
     },
     {
         "file": "plugins/cordova-plugin-file/www/fileSystemPaths.js",
         "id": "cordova-plugin-file.fileSystemPaths",
-        "pluginId": "cordova-plugin-file",
         "merges": [
             "cordova"
         ],
@@ -244,7 +214,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file-transfer/www/FileTransferError.js",
         "id": "cordova-plugin-file-transfer.FileTransferError",
-        "pluginId": "cordova-plugin-file-transfer",
         "clobbers": [
             "window.FileTransferError"
         ]
@@ -252,7 +221,6 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-file-transfer/www/FileTransfer.js",
         "id": "cordova-plugin-file-transfer.FileTransfer",
-        "pluginId": "cordova-plugin-file-transfer",
         "clobbers": [
             "window.FileTransfer"
         ]
@@ -260,31 +228,13 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-zip/zip.js",
         "id": "cordova-plugin-zip.Zip",
-        "pluginId": "cordova-plugin-zip",
         "clobbers": [
             "zip"
         ]
     },
     {
-        "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
-        "id": "cordova-plugin-customurlscheme.LaunchMyApp",
-        "pluginId": "cordova-plugin-customurlscheme",
-        "clobbers": [
-            "window.plugins.launchmyapp"
-        ]
-    },
-    {
-        "file": "plugins/com.lampa.startapp/www/startApp.js",
-        "id": "com.lampa.startapp.startapp",
-        "pluginId": "com.lampa.startapp",
-        "merges": [
-            "navigator.startApp"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-network-information/www/network.js",
         "id": "cordova-plugin-network-information.network",
-        "pluginId": "cordova-plugin-network-information",
         "clobbers": [
             "navigator.connection",
             "navigator.network.connection"
@@ -293,9 +243,22 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-network-information/www/Connection.js",
         "id": "cordova-plugin-network-information.Connection",
-        "pluginId": "cordova-plugin-network-information",
         "clobbers": [
             "Connection"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
+        "id": "cordova-plugin-customurlscheme.LaunchMyApp",
+        "clobbers": [
+            "window.plugins.launchmyapp"
+        ]
+    },
+    {
+        "file": "plugins/com.lampa.startapp/www/startApp.js",
+        "id": "com.lampa.startapp.startapp",
+        "merges": [
+            "startApp"
         ]
     }
 ];
@@ -303,20 +266,20 @@ module.exports.metadata =
 // TOP OF METADATA
 {
     "cordova-plugin-app-version": "0.1.8",
-    "cordova-plugin-device": "1.1.1",
-    "cordova-plugin-app-event": "1.1.0",
+    "cordova-plugin-device": "1.1.2",
+    "cordova-plugin-app-event": "1.2.0",
     "de.appplant.cordova.plugin.local-notification": "0.8.4",
-    "cordova-plugin-console": "1.0.2",
-    "cordova-plugin-whitelist": "1.2.1",
+    "cordova-plugin-console": "1.0.3",
+    "cordova-plugin-whitelist": "1.2.2",
     "cordova-plugin-splashscreen": "3.1.0",
-    "cordova-plugin-statusbar": "2.1.0",
-    "ionic-plugin-keyboard": "1.0.8",
-    "cordova-plugin-file": "4.1.0",
-    "cordova-plugin-file-transfer": "1.5.0",
-    "cordova-plugin-zip": "3.0.0",
-    "cordova-plugin-customurlscheme": "4.1.2",
-    "com.lampa.startapp": "0.0.5",
-    "cordova-plugin-network-information": "1.2.0"
-}
+    "cordova-plugin-statusbar": "2.1.3",
+    "ionic-plugin-keyboard": "2.2.0",
+    "cordova-plugin-file": "4.1.1",
+    "cordova-plugin-file-transfer": "1.5.1",
+    "cordova-plugin-zip": "3.1.0",
+    "cordova-plugin-network-information": "1.2.1",
+    "cordova-plugin-customurlscheme": "4.1.5",
+    "com.lampa.startapp": "0.1.4"
+};
 // BOTTOM OF METADATA
 });

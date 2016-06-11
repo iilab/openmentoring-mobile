@@ -1,4 +1,5 @@
-cordova.define("cordova-plugin-zip.Zip", function(require, exports, module) { var exec = cordova.require('cordova/exec');
+cordova.define("cordova-plugin-zip.Zip", function(require, exports, module) {
+var exec = cordova.require('cordova/exec');
 
 function newProgressEvent(result) {
     var event = {

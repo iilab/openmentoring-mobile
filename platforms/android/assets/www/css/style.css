@@ -1,4 +1,158 @@
 /* Empty. Add your own CSS if you like */
+
+.pane {
+  background-color: #f9f1d7;
+}
+
+.intro img {
+  width: 70%;
+  margin: 0 15%;
+}
+
+.logo-container h1 {
+    text-transform: uppercase;
+    height: 60px;
+    line-height: 55px;
+    font-size: 36px;
+    font-weight: bolder;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #4D301C;
+    text-align:center;
+    margin-top:70px;
+    margin-bottom: 0px;
+}
+
+.intro div.slide {
+  padding-top: 80px;
+}
+
+.intro h1 {
+    line-height: 55px;
+    font-size: 36px;
+    font-weight: 600;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #4D301C;
+    text-align:center;
+    margin-top:30px;
+    margin-bottom: 0px;
+}
+
+.intro h3 {
+    font-size: 26px;
+    font-weight: 600;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #4D301C;
+    text-align:center;
+    margin-top:80px;
+    margin-bottom: 0px;
+}
+
+div.list-intro {
+  margin: 100px 10% 0px;
+  width: 80%;
+  font-size: 19px;
+  font-weight: 200;
+  text-align: center;
+}
+
+.intro ul {
+  margin-top: 30px;
+  list-style:disc;
+  display: inline-block;
+  text-align:left;
+}
+
+.intro ul li {
+  padding-left:8px;
+  list-style:none;
+  margin-bottom:12px;
+  text-align: center;
+  text-indent: -12px;
+}
+
+.intro li:before {
+	padding-right: 4px;
+  content: url("../img/bullet.png");
+}
+
+.logo-container p {
+    font-size: 16px;
+    font-weight: bolder;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #4D301C;
+    text-align:center;
+    margin-top: 0px;
+    line-height: normal;
+}
+
+.intro p {
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: bolder;
+    text-align:center;
+    margin-top: 0px;
+    margin: 10px 10%;
+    width: 80%;
+}
+
+.welcome-view .images-row {
+    padding: 0;
+    height: 70%;
+}
+
+.welcome-view .actions-row {
+    margin: 0;
+    padding: 0;
+    height: 30%;
+}
+
+.welcome-view .images-row .logo-container {
+    margin: 0 auto;
+    width: 35vh;
+}
+
+.welcome-view .images-row .illustration-container .illustration-image {
+    margin: 0 20%;
+    width: 60%;
+}
+
+.welcome-view .images-row .illustration-container h4 {
+    margin: 20px 10%;
+    width: 80%;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #4D301C;
+    text-align:center;
+}
+
+.welcome-view .actions-row .get-started-button {
+    margin: 40px 9% 10px 9%;
+    text-transform: uppercase;
+    height: 60px;
+    line-height: 55px;
+    font-size: 20px;
+    border-radius: 30px;
+    border-color: transparent;
+    background-color: #4D301C;
+    color: #FFF;
+}
+
+.slider {
+  height: 100%;
+}
+
+.slider-pager {
+  margin-bottom: 60px;
+}
+
+.slider-slide {
+  color: #000;
+  background-color: #f9f1d7;
+  text-align: center;
+
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+}
+
 .card {
   padding: 0;
   box-shadow:  0 5px 5px -5px rgba(0,0,0,.1);
@@ -17,8 +171,33 @@
 
 }
 
+.tabs-striped.tabs-positive .tabs {
+    background-color: #856a14;
+}
+
+.bar.bar-stable {
+    border-color: #f9f1d7;
+    background-color: #856a14;
+    background-image: none;
+    color: #fff;
+}
+
+.bar.bar-stable .title {
+    color: #fff;
+    font-weight: 900;
+}
+
+.bar-stable .button {
+    border-color: transparent;
+    background-color: none;
+    color: #fff;
+}
+.bar-header {
+    background: none;
+}
+
 .topic-list {
-  background: #f9f9f9;
+//  background: #f9f9f9;
 }
 
 .topic-list .item.item-stable {

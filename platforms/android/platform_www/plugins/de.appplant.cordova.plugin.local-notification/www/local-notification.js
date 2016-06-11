@@ -1,4 +1,5 @@
-cordova.define("de.appplant.cordova.plugin.local-notification.LocalNotification", function(require, exports, module) { /*
+cordova.define("de.appplant.cordova.plugin.local-notification.LocalNotification", function(require, exports, module) {
+/*
  * Copyright (c) 2013-2015 by appPlant UG. All rights reserved.
  *
  * @APPPLANT_LICENSE_HEADER_START@
@@ -372,7 +373,7 @@ exports.on = function (event, callback, scope) {
  *      The function to be exec as callback
  */
 exports.un = function (event, callback) {
-    this.core.un(event, callback, scope);
+    this.core.un(event, callback);
 };
 
 });

@@ -4,6 +4,8 @@ import android.content.Intent;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaActivity;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,17 +23,35 @@ public class LaunchMyApp extends CordovaPlugin {
 
   private String lastIntentString = null;
 
+  /**
+   * We don't want to interfere with other plugins requiring the intent data,
+   * but in case of a multi-page app your app may receive the same intent data
+   * multiple times, that's why you'll get an option to reset it (null it).
+   *
+   * Add this to config.xml to enable that behaviour (default false):
+   *   <preference name="CustomURLSchemePluginClearsAndroidIntent" value="true"/>
+   */
+  private boolean resetIntent;
+
+  @Override
+  public void initialize(final CordovaInterface cordova, CordovaWebView webView){
+    this.resetIntent = preferences.getBoolean("resetIntent", false) ||
+        preferences.getBoolean("CustomURLSchemePluginClearsAndroidIntent", false);
+  }
+
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
     if (ACTION_CLEARINTENT.equalsIgnoreCase(action)) {
       final Intent intent = ((CordovaActivity) this.webView.getContext()).getIntent();
-      intent.setData(null);
+      if (resetIntent){
+        intent.setData(null);
+      }
       return true;
     } else if (ACTION_CHECKINTENT.equalsIgnoreCase(action)) {
       final Intent intent = ((CordovaActivity) this.webView.getContext()).getIntent();
       final String intentString = intent.getDataString();
       if (intentString != null && intent.getScheme() != null) {
-	 lastIntentString = intentString;
+        lastIntentString = intentString;
         callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, intent.getDataString()));
       } else {
         callbackContext.error("App was not started via the launchmyapp URL scheme. Ignoring this errorcallback is the best approach.");
@@ -54,7 +74,9 @@ public class LaunchMyApp extends CordovaPlugin {
   public void onNewIntent(Intent intent) {
     final String intentString = intent.getDataString();
     if (intentString != null && intent.getScheme() != null) {
-      intent.setData(null);
+      if (resetIntent){
+        intent.setData(null);
+      }
       try {
         StringWriter writer = new StringWriter(intentString.length() * 2);
         escapeJavaStyleString(writer, intentString, true, false);

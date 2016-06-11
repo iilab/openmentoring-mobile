@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'jett.ionic.filter.bar'])
 .run(function($state, $window, $rootScope, $cordovaNetwork, LaunchService, $ionicPlatform, DBService) {
   $ionicPlatform.ready(function() {
 
@@ -20,24 +20,30 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       StatusBar.styleDefault();
     }
 
-    //keep track of whether the user is online
-    $window.isOnline = $cordovaNetwork.isOnline();
+    if (window.Connection) {
+      //keep track of whether the user is online
+      $window.isOnline = $cordovaNetwork.isOnline();
 
-    //ask at least once per session to run Orbot before downloading
-    $window.skipOrbotCheck = false;
-    $ionicPlatform.on('resume', function(){
+      //ask at least once per session to run Orbot before downloading
       $window.skipOrbotCheck = false;
-    });
+      $ionicPlatform.on('resume', function(){
+        $window.skipOrbotCheck = false;
+      });
 
-    // listen for Online event
-    $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+      // listen for Online event
+      $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+        $window.isOnline = true;
+      })
+
+      // listen for Offline event
+      $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+        $window.isOnline = false;
+      })
+
+    } else {
       $window.isOnline = true;
-    })
+    }
 
-    // listen for Offline event
-    $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
-      $window.isOnline = false;
-    })
 
     $window.addEventListener('CustomURLFollow', function(e) {
       if(LaunchService.checkUrl(e.detail.url)) {
@@ -52,12 +58,56 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 
 .config(function($stateProvider, $ionicConfigProvider, $urlRouterProvider) {
   $ionicConfigProvider.views.transition('none');
+  $ionicConfigProvider.tabs.position('bottom');
 
   $stateProvider
-  // .state('intro', {
-  //   url: '/',
-  //   templateUrl: 'templates/intro.html',
-  //   controller: 'IntroCtrl'
+
+  .state('start', {
+    url: '/start',
+    templateUrl: 'templates/start.html',
+    controller: 'StartCtrl'
+  })
+
+  .state('intro', {
+    url: '/intro',
+    templateUrl: 'templates/intro.html',
+    controller: 'IntroCtrl'
+  })
+
+  .state('home', {
+    url: '/home',
+    abstract: true,
+    templateUrl: 'templates/home.html',
+    controller: 'HomeCtrl',
+    resolve: {
+      db: function($ionicPlatform, $q, DBService) {
+        var dfd = $q.defer();
+        $ionicPlatform.ready(function() {
+          dfd.resolve(DBService.initDB());
+        });
+        return dfd.promise;
+      }
+    }
+  })
+
+  .state('home.learn', {
+    url: '/learn?unit',
+    views: {
+      'home-learn': {
+        templateUrl: 'templates/topics.html',
+        controller: 'TopicsCtrl'
+      }
+    }
+  })
+
+  // .state('home.news', {
+  //   url: '/news',
+  //   views: {
+  //     'tab-news': {
+  //       templateUrl: 'templates/news.html',
+  //       controller: 'NewsCtrl'
+  //     }
+  //   }
   // })
 
   .state('app', {
@@ -106,7 +156,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/topics');
+  $urlRouterProvider.otherwise('/home/learn');
 });
 
 //url scheme handling

@@ -1,11 +1,12 @@
-cordova.define("cordova-plugin-customurlscheme.LaunchMyApp", function(require, exports, module) { (function () {
+cordova.define("cordova-plugin-customurlscheme.LaunchMyApp", function(require, exports, module) {
+(function () {
     "use strict";
 
   var remainingAttempts = 10;
 
   function waitForAndCallHandlerFunction(url) {
     if (typeof window.handleOpenURL === "function") {
-      // Clear the intent when we have a handler
+      // Clear the intent when we have a handler (note that this is only done when the preference 'CustomURLSchemePluginClearsAndroidIntent' is 'true' in config.xml
       cordova.exec(
           null,
           null,
