@@ -35,9 +35,9 @@
     "cordova-plugin-zip",
     "cordova-plugin-app-version",
     "cordova-plugin-network-information",
-    "com.lampa.startapp",
     "cordova-plugin-customurlscheme --variable URL_SCHEME=openmentoring",
-    "de.appplant.cordova.plugin.local-notification"
+    "de.appplant.cordova.plugin.local-notification",
+    "com.lampa.startapp"
   ],
   "cordovaPlatforms": [
     "android",

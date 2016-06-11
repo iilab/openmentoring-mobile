@@ -1,6 +1,81 @@
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, DBService) {
+.controller('StartCtrl', function($scope, $state) {
+
+})
+
+.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
+
+  // Called to navigate to the main app
+  $scope.startApp = function() {
+    $state.go('home.learn');
+  };
+  $scope.next = function() {
+    $ionicSlideBoxDelegate.next();
+  };
+  $scope.previous = function() {
+    $ionicSlideBoxDelegate.previous();
+  };
+
+  // Called each time the slide changes
+  $scope.slideChanged = function(index) {
+    $scope.slideIndex = index;
+  };
+})
+
+.controller('HomeCtrl', function($scope, $ionicModal, $timeout, DBService, $cordovaFile) {
+
+    // With the new view caching in Ionic, Controllers are only called
+    // when they are recreated or on app start, instead of every page change.
+    // To listen for when this page is active (for example, to refresh data),
+    // listen for the $ionicView.enter event:
+    //$scope.$on('$ionicView.enter', function(e) {
+    //});
+
+    $scope.toIntro = function(){
+      $state.go('intro');
+    }
+
+    // Form data for the settings modal
+    $scope.settingsData = {
+      platforms: [
+        { text: "Android", checked: true },
+        { text: "iOS (iPhone or iPad)", checked: false },
+        { text: "Windows", checked: false },
+        { text: "OSX (Mac)", checked: false },
+        { text: "Linux", checked: false }
+      ],
+      contentUrl: "http://openmentoring.io",
+      profile: "journo"
+    };
+
+    // Create the settings modal that we will use later
+    $ionicModal.fromTemplateUrl('templates/settings.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.settingsModal = modal;
+    });
+
+    // Triggered in the settings modal to close it
+    $scope.closeSettings = function() {
+      $scope.settingsModal.hide();
+    };
+
+    // Open the settings modal
+    $scope.settings = function() {
+      $scope.settingsModal.show();
+    };
+
+    // Perform the settings action when the user submits the settings form
+    $scope.doSettings = function() {
+      console.log('Doing settings', $scope.settingsData);
+      $scope.closeSettings();
+    };
+
+})
+
+
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, DBService, $cordovaFile) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -8,6 +83,10 @@ angular.module('starter.controllers', ['starter.services'])
   // listen for the $ionicView.enter event:
   //$scope.$on('$ionicView.enter', function(e) {
   //});
+
+  $scope.toIntro = function(){
+    $state.go('intro');
+  }
 
   // Form data for the settings modal
   $scope.settingsData = {
@@ -56,7 +135,7 @@ angular.module('starter.controllers', ['starter.services'])
   });
 })
 
-.controller('TopicsCtrl', function($scope, $state, $stateParams, $q, $http, $ionicPlatform, $ionicHistory, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
+.controller('TopicsCtrl', function($scope, $state, $stateParams, $q, $http, $ionicFilterBar, $ionicPlatform, $ionicHistory, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService) {
 
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
   $scope.data = {};
@@ -83,6 +162,28 @@ angular.module('starter.controllers', ['starter.services'])
   $scope.$on('$destroy', function(){
     $scope.modal.remove();
   });
+
+  $scope.showFilterBar = function () {
+    filterBarInstance = $ionicFilterBar.show({
+      items: $scope.topics,
+      update: function (filteredItems, filterText) {
+        if (filterText) {
+          var results = DBService.doSearch(filterText);
+          var resultsHash = _.indexBy(results,'ref');
+          $scope.topics.forEach(function(topic){
+            topic.isVisible = resultsHash[topic.slug];
+            topic.showUnits = false;
+            topic.units.forEach(function(unit){
+              unit.isVisible = resultsHash[unit.slug];
+              if(unit.isVisible) {
+                topic.isVisible = true;
+              }
+            });
+          });
+        }
+      }
+    });
+  };
 
   // PRIVATE FUNCTIONS
   function _doFilter() {
@@ -123,7 +224,10 @@ angular.module('starter.controllers', ['starter.services'])
       //don't check for orbot if the user has bypassed it intentionally
       dfd.resolve();
     } else {
-      navigator.startApp.check("org.torproject.android", function(message) { /* success */
+      console.log('before startApp set')
+      var sApp = startApp.set("org.torproject.android")
+      console.log('after startApp set')
+      sApp.check(function(message) { /* success */
           console.log("app exists: ");
           console.log(message.versionName);
           console.log(message.packageName);
@@ -141,6 +245,7 @@ angular.module('starter.controllers', ['starter.services'])
 
       },
       function(error) { /* error */
+          console.log("orbot not installed")
           console.log(error);
           window.isOrbotInstalled = false;
           dfd.reject();
@@ -231,6 +336,7 @@ angular.module('starter.controllers', ['starter.services'])
   }
 
   // PUBLIC FUNCTIONS
+
   $scope.updateFilter = function() {
     $ionicScrollDelegate.scrollTop();
     _doFilter();
@@ -250,70 +356,78 @@ angular.module('starter.controllers', ['starter.services'])
   };
 
   $scope.refreshTopics = function() {
-    if(window.isOnline) {
-      var orbotCheck = _activateOrbotOrOverride();
-      orbotCheck.then(function(){
-        //orbot is installed... proceed
-        _downloadTopicList();
-      }).catch(function(){
-        //orbot is not installed.. prompt to download
-        var getAppPopup = $ionicPopup.show({
-          title: 'Downloading Content',
-          cssClass: 'popup-vertical-buttons',
-          template: 'In order to download content safely, we recommend using Orbot. Without Orbot, your activity in this app is easier for malicious parties to intercept.',
-          buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
-             text: 'Install Orbot from F-Droid',
-             type: 'button-positive',
-             onTap: function(e) {
-               return "fdroid";
-             }
-           }, {
-              text: 'Install Orbot from Google Play',
-              type: 'button-positive',
-              onTap: function(e) {
-                return "play";
-              }
-            }, {
-             text: 'Proceed without Orbot',
-             type: 'button-default',
-             onTap: function(e) {
-               // Returning a value will cause the promise to resolve with the given value.
-               return "unprotected";
-             }
-           }, {
-              text: 'Cancel (stay offline)',
-              type: 'button-default',
-              onTap: function(e) {
-                // Returning a value will cause the promise to resolve with the given value.
-                return "offline";
-              }
-           }]
+    if (false) {
+    // deactivate tor check for now
+    // if (window.Connection) {
+      if(window.isOnline) {
+        var orbotCheck = _activateOrbotOrOverride();
+        orbotCheck.then(function(){
+          //orbot is installed... proceed
+          _downloadTopicList();
+        }).catch(function(){
+          //orbot is not installed.. prompt to download
+          var getAppPopup = $ionicPopup.show({
+            title: 'Downloading Content',
+            cssClass: 'popup-vertical-buttons',
+            template: 'In order to download content safely, we recommend using Orbot. Without Orbot, your activity in this app is easier for malicious parties to intercept.',
+            buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
+               text: 'Install Orbot from F-Droid',
+               type: 'button-positive',
+               onTap: function(e) {
+                 return "fdroid";
+               }
+             }, {
+                text: 'Install Orbot from Google Play',
+                type: 'button-positive',
+                onTap: function(e) {
+                  return "play";
+                }
+              }, {
+               text: 'Proceed without Orbot',
+               type: 'button-default',
+               onTap: function(e) {
+                 // Returning a value will cause the promise to resolve with the given value.
+                 return "unprotected";
+               }
+             }, {
+                text: 'Cancel (stay offline)',
+                type: 'button-default',
+                onTap: function(e) {
+                  // Returning a value will cause the promise to resolve with the given value.
+                  return "offline";
+                }
+             }]
+          });
+
+          getAppPopup.then(function(res) {
+            if(res==="fdroid") {
+              //TODO: take the user to app store?
+              console.log("clicked fdroid")
+              window.open('https://f-droid.org/repository/browse/?fdid=org.torproject.android', '_system');
+              $scope.$broadcast('scroll.refreshComplete');
+            } else if(res==="play") {
+              console.log("clicked play")
+              //TODO: take the user to app store?
+              window.open('market://details?id=org.torproject.android', '_system');
+              $scope.$broadcast('scroll.refreshComplete');
+            } else if(res==="unprotected") {
+              //the user cancelled... just get the topic list anyways
+              window.skipOrbotCheck = true;
+              _downloadTopicList();
+            } else if(res==="offline") {
+              _loadLocalTopicList();
+              $scope.$broadcast('scroll.refreshComplete');
+            }
+          });
         });
 
-        getAppPopup.then(function(res) {
-          if(res==="fdroid") {
-            //TODO: take the user to app store?
-            window.open('https://f-droid.org/repository/browse/?fdid=org.torproject.android', '_system');
-            $scope.$broadcast('scroll.refreshComplete');
-          } else if(res==="play") {
-            //TODO: take the user to app store?
-            window.open('market://details?id=org.torproject.android', '_system');
-            $scope.$broadcast('scroll.refreshComplete');
-          } else if(res==="unprotected") {
-            //the user cancelled... just get the topic list anyways
-            window.skipOrbotCheck = true;
-            _downloadTopicList();
-          } else if(res==="offline") {
-            _loadLocalTopicList();
-            $scope.$broadcast('scroll.refreshComplete');
-          }
-        });
-      });
-
+      } else {
+        //quickly return if we've disabled the refresher
+        _loadLocalTopicList();
+        $scope.$broadcast('scroll.refreshComplete');
+      }
     } else {
-      //quickly return if we've disabled the refresher
-      _loadLocalTopicList();
-      $scope.$broadcast('scroll.refreshComplete');
+      _downloadTopicList();
     }
   };
 
@@ -335,7 +449,9 @@ angular.module('starter.controllers', ['starter.services'])
     var slugPath = unitSlug.replace('_','/');
     var baseUrl = cordova.file.dataDirectory + slugPath;
     var url = baseUrl + '/index.json';
-    $http.get(url).then(function (resp) {
+    console.log(url)
+    $cordovaFile.readAsText(baseUrl, "index.json").then(function (resp) {
+      console.log(resp)
       var title = resp.data.title;
       var groupedCardList = _.groupBy(resp.data.cards, 'subtype');
       var cardList = [];
@@ -378,68 +494,72 @@ angular.module('starter.controllers', ['starter.services'])
   };
 
   $scope.downloadTopic = function(topic) {
-    if(window.isOnline) {
-      var orbotCheck = _activateOrbotOrOverride();
-      orbotCheck.then(function(){
-        //orbot is installed... proceed
-        _performTopicDownload(topic);
-      }).catch(function(){
-        //orbot is not installed.. prompt to download
-        var getAppPopup = $ionicPopup.show({
-          title: 'Downloading Content',
-          cssClass: 'popup-vertical-buttons',
-          template: 'In order to download content safely, we recommend using Orbot. Without Orbot, your activity in this app is easier for malicious parties to intercept.',
-          buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
-             text: 'Install Orbot from F-Droid',
-             type: 'button-positive',
-             onTap: function(e) {
-               return "fdroid";
-             }
-           }, {
-              text: 'Install Orbot from Google Play',
-              type: 'button-positive',
-              onTap: function(e) {
-                return "play";
-              }
-            }, {
-             text: 'Proceed without Orbot',
-             type: 'button-default',
-             onTap: function(e) {
-               // Returning a value will cause the promise to resolve with the given value.
-               return "unprotected";
-             }
-           }, {
-              text: 'Cancel (stay offline)',
-              type: 'button-default',
-              onTap: function(e) {
-                // Returning a value will cause the promise to resolve with the given value.
-                return "offline";
-              }
-           }]
+    if (window.Connection) {
+      if(window.isOnline) {
+        var orbotCheck = _activateOrbotOrOverride();
+        orbotCheck.then(function(){
+          //orbot is installed... proceed
+          _performTopicDownload(topic);
+        }).catch(function(){
+          //orbot is not installed.. prompt to download
+          var getAppPopup = $ionicPopup.show({
+            title: 'Downloading Content',
+            cssClass: 'popup-vertical-buttons',
+            template: 'In order to download content safely, we recommend using Orbot. Without Orbot, your activity in this app is easier for malicious parties to intercept.',
+            buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
+               text: 'Install Orbot from F-Droid',
+               type: 'button-positive',
+               onTap: function(e) {
+                 return "fdroid";
+               }
+             }, {
+                text: 'Install Orbot from Google Play',
+                type: 'button-positive',
+                onTap: function(e) {
+                  return "play";
+                }
+              }, {
+               text: 'Proceed without Orbot',
+               type: 'button-default',
+               onTap: function(e) {
+                 // Returning a value will cause the promise to resolve with the given value.
+                 return "unprotected";
+               }
+             }, {
+                text: 'Cancel (stay offline)',
+                type: 'button-default',
+                onTap: function(e) {
+                  // Returning a value will cause the promise to resolve with the given value.
+                  return "offline";
+                }
+             }]
+          });
+
+          getAppPopup.then(function(res) {
+            if(res==="fdroid") {
+              //TODO: take the user to app store?
+              window.open('https://f-droid.org/repository/browse/?fdid=org.torproject.android', '_system');
+            } else if(res==="play") {
+              //TODO: take the user to app store?
+              window.open('market://details?id=org.torproject.android', '_system');
+            } else if(res==="unprotected") {
+              //the user cancelled... just get the topic anyways
+              window.skipOrbotCheck = true;
+              _performTopicDownload(topic);
+            } else if(res==="offline") {
+              //do nothing... staying offline
+            }
+          });
         });
 
-        getAppPopup.then(function(res) {
-          if(res==="fdroid") {
-            //TODO: take the user to app store?
-            window.open('https://f-droid.org/repository/browse/?fdid=org.torproject.android', '_system');
-          } else if(res==="play") {
-            //TODO: take the user to app store?
-            window.open('market://details?id=org.torproject.android', '_system');
-          } else if(res==="unprotected") {
-            //the user cancelled... just get the topic anyways
-            window.skipOrbotCheck = true;
-            _performTopicDownload(topic);
-          } else if(res==="offline") {
-            //do nothing... staying offline
-          }
+      } else {
+        var offlinePopup = $ionicPopup.alert({
+          title: 'Unable to Download Content',
+          template: 'You are currently offline. To download content, enable your network connection.'
         });
-      });
-
+      }
     } else {
-      var offlinePopup = $ionicPopup.alert({
-        title: 'Unable to Download Content',
-        template: 'You are currently offline. To download content, enable your network connection.'
-      });
+      _performTopicDownload(topic);
     }
   };
 
