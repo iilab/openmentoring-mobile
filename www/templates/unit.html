@@ -3,22 +3,48 @@
     <div class="buttons">
       <button class="button button-icon icon ion-home" ng-click="goHome()"></button>
     </div>
-    <h1 class="title">{{currentUnitTitle}}</h1>
+    <div class="title">
+      <span class="topic-title"><b>{{currentTopicTitle}}</b> &gt; {{currentUnitTitle}}</span>
+    </div>
     <div class="buttons">
-      <button class="button button-icon icon ion-close" ng-click="closeUnit()"></button>
+      <button class="button button-icon icon ion-ios-help" ng-click="closeUnit()"></button>
     </div>
   </ion-header-bar>
   <ion-content scroll="false">
-  <ion-slides slider="data.slider" show-nav-buttons="false" slides-per-view="1" space-between="20">
+    <div class="swiper-pagination-container">
+      <div class="swiper-pagination-progress">
+        <span class="swiper-pagination-progressbar" style="transform: translate3d(0px, 0px, 0px) scaleX(0) scaleY(1); transition-duration: 300ms;" ng-style="{'transform':currentProgress}"></span>
+      </div>
+    </div>
+  <ion-slides slider="data.slider" options="swiper.options" slides-per-view="1" space-between="20">
     <ion-slide-page class="swiper-slide" ng-repeat="card in cards">
       <ion-content class="card-container" scrollbar-y="false" padding="false">
-        <div class="card">
-          <div class="item">
-            {{card.title}}
+        <div class="card" ng-show="!(card.subtype=='next' || card.subtype=='test')">
+          <div class="item item-image" ng-show="card.images[0] && !(card.subtype=='scenario' || card.subtype=='learn' || card.subtype=='takeaways')">
+            <img ng-src="{{imgBaseUrl}}/{{card.images[0]}}">
           </div>
-          <div ng-bind-html="card.contents" class="item item-body">
+          <div class="item item-image" ng-show="card.subtype=='scenario'">
+            <img ng-src="{{imgBaseUrl}}/{{card.images[$index-2]}}">
+          </div>
+          <div class="item item-image" ng-show="!card.images[0] && card.subtype=='takeaways'">
+            <img ng-src="img/takeaways.svg" class="small">
+          </div>
+          <div class="item item-image" ng-show="card.subtype=='learn' && card['stack-index']!=card['stack-length']">
+            <img ng-src="{{imgBaseUrl}}/transparent-{{card.images[0]}}" class="small" style="filter: url(#grayscale)">
+          </div>
+          <div class="item item-image" ng-show="card.subtype=='learn' && card['stack-index']==card['stack-length']">
+            <img ng-src="{{imgBaseUrl}}/{{card.images[0]}}">
+          </div>
+          <div class="item item-body">
+            <div class="unit-supertitle" ng-class="{'takeaway-title': (card.subtype=='takeaways')}">{{card.title}}</div>
+            <div class="item-body-content" compile="card.contents"></div>
           </div>
         </div>
+        <svg height="0">
+          <filter id="grayscale">
+               <feColorMatrix type="saturate" values="0"/>
+          </filter>
+        </svg>
       </ion-content>
     </ion-slide-page>
   </ion-slides>
