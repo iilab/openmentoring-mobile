@@ -1,4 +1,0 @@
-## Introduction
-
-How it works
-
