@@ -355,6 +355,9 @@ div.list-intro {
   color: #666;
   text-decoration: none;
   font-family: "RobotoLight"
+  border-bottom: 1px;
+  border-bottom-color: #b8860b;
+  border-bottom-style: dotted;
 }
 
 .card-container .item-image {
