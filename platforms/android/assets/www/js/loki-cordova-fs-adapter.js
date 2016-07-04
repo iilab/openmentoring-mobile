@@ -110,7 +110,7 @@ var LokiCordovaFSAdapter = (function () {
         value: function _getFile(name, handleSuccess, handleError) {
             var _this2 = this;
 
-            window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) {
+            window.resolveLocalFileSystemURL(cordova.file.applicationStorageDirectory, function (dir) {
                 var fileName = _this2.options.prefix + "__" + name;
                 dir.getFile(fileName, { create: true }, handleSuccess, handleError);
             }, function (err) {

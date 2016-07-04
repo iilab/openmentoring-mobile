@@ -49,8 +49,10 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
     var newList = [];
     flatIndex.forEach(function(item){
       var newItem = _.cloneDeep(item);
+      console.log(item)
       newItem.profile = "";
       newItem.devices = [];
+      newItem.kind = newItem.slug.split("-")[0] // "practice" 
       var categories = newItem.categories;
       categories.forEach(function(category){
         var propArray = category.split(':');
@@ -71,7 +73,7 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
       this.ref('slug');
     });
     flatIndex.forEach(function(item){
-      console.log(item);
+      // console.log(item);
       _idx.add(item,false);
     });
     console.log('done with all');
@@ -79,7 +81,10 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
 
   function renderIndexAsNestedList(flatIndex) {
     //get the list of previously downloaded topics and conver it to a hash for easy lookup
-    var previouslyDownloaded = _downloadedTopics.chain().find().data();
+    if (_downloadedTopics) {
+      var previouslyDownloaded = _downloadedTopics.chain().find().data();
+    }
+
     var downloadsHash = {};
     if(previouslyDownloaded && previouslyDownloaded.length) {
       downloadsHash = _.indexBy(previouslyDownloaded,'slug');

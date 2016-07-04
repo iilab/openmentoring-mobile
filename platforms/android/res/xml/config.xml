@@ -70,8 +70,10 @@
     <author email="contact@iilab.org" href="http://iilab.org/">
       iilab team
     </author>
-    <content original-src="index.html" src="http://172.26.3.65:8100" />
+    <content src="index.html" />
     <access origin="*" />
+    <allow-navigation href="file://*/*" />
+    <preference name="Orientation" value="portrait" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />

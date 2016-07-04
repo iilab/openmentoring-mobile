@@ -7,7 +7,7 @@
 
    <ion-nav-buttons side="right">
      <button class="button button-positive button-clear no-animation"
-             ng-click="startApp()" ng-show="slideIndex != 0">
+             ng-click="startApp()" ng-show="slideIndex == 0">
        Skip
      </button>
    </ion-nav-buttons>
@@ -15,40 +15,54 @@
   <ion-slide-box on-slide-changed="slideChanged(index)">
     <ion-slide>
       <div class="slide">
+        <div class="spacer"></div>
+        <h1>Welcome!</h1>
+        <p class="desc">Swipe the screen to read lessons:</p>
+        <div class="logo">
+          <img src="./img/swipe.svg" style="height:30vh;">
+        </div>
+        <div class="spacer"></div>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="slide">
+        <div class="spacer"></div>
+        <h1>Access lessons offline</h1>
+        <p class="desc">You can download lessons safely by clicking on download link</p>
+        <div class="logo">
+          <i class="ion-android-download" style="font-size:20vh;"></i>
+        </div>
+        <div class="spacer"></div>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="slide">
         <div class="logo">
           <img src="./img/intro.png">
         </div>
-        <h1>Welcome!</h1>
+        <h1>Stay informed!</h1>
         <p>
           <strong>Wekuume</strong> helps you<br> learn at your own pace<br> with <strong>short</strong> lessons.
         </p>
+        <div class="spacer"></div>
+        <div class="spacer"></div>
       </div>
     </ion-slide>
     <ion-slide>
       <div class="slide">
-        <h1>Stay informed!</h1>
-
-        <div class="list-intro">
-          <p>With <strong>Wekuume</strong> you get:</p>
-            <ul>
-              <li>Lessons about information security</li>
-              <li>News from the frontlines of infosec</li>
-              <li>Quizzes for you and your friends!</li>
-            </ul>
+        <div class="spacer"></div>
+        <h1>Keep learning</h1>
+        <div class="desc">
+          <a class="button button-icon icon ion-ios-bookmarks-outline"><span class="badge badge-assertive">5</span></a>
         </div>
-      </div>
-    </ion-slide>
-    <ion-slide>
-      <div class="slide">
-        <h1>Follow the advice</h1>
-        <div class="list-intro">
-          <p>Follow this icon to keep learning!</p>
+        <p class="desc">
+          Follow this icon to choose
+          <br><b>your own</b> learning path!
+        </p>
+        <div class="button-learn">
+          <a class="button button-block get-started-button" ui-sref="home.learn()" href="#/home/learn">Let's learn</a>
         </div>
-        <div class="row actions-row">
-          <div class="col">
-            <a class="button button-block get-started-button" ui-sref="home()" href="#/home">Let's learn</a>
-          </div>
-        </div>
+        <div class="spacer"></div>
       </div>
     </ion-slide>
   </ion-slide-box>

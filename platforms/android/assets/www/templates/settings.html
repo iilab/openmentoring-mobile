@@ -17,15 +17,15 @@
         <label class="item item-select">
           <select ng-model="settingsData.profile">
             <option value="journo">Journalist</option>
-            <option value="hrd">Human rights defender</option>
-            <option value="citizen">An interested citizen</option>
+            <!-- <option value="hrd">Human rights defender</option>
+            <option value="citizen">An interested citizen</option> -->
           </select>
         </label>
         <div class="item item-divider">
           Platforms
         </div>
         <div class="item item-text-wrap description-item">
-            We'll show you content relevant to the devices/operating systems that you use, but you'll still be able to see other content if you want to help a colleague.
+            <b>Soon!</b> We'll show you content relevant to the devices/operating systems that you use, but you'll still be able to see other content if you want to help a colleague.
         </div>
         <ion-checkbox ng-repeat="item in settingsData.platforms"
                     ng-model="item.checked"
@@ -47,5 +47,30 @@
         </label>
       </div>
     </form>
+    <div class="list">
+      <div class="item item-divider">
+        Technical Information
+      </div>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Manufacturer</span>
+        <div>{{device.manufacturer}}</div>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Model</span>
+        <div>{{device.model}}</div>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Platform</span>
+        <div>{{device.platform}}</div>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Platform Version</span>
+        <div>{{device.version}}</div>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">App Version</span>
+        <div>{{appVersion}}</div>
+      </label>
+    </div>
   </ion-content>
 </ion-modal-view>

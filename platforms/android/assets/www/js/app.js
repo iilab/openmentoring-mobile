@@ -13,8 +13,8 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
     }
+
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
@@ -100,63 +100,73 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     }
   })
 
-  // .state('home.news', {
-  //   url: '/news',
-  //   views: {
-  //     'tab-news': {
-  //       templateUrl: 'templates/news.html',
-  //       controller: 'NewsCtrl'
+  .state('home.news', {
+    url: '/news',
+    views: {
+      'home-news': {
+        templateUrl: 'templates/news.html',
+        controller: 'NewsCtrl'
+      }
+    }
+  })
+
+  .state('home.settings', {
+    url: '/settings',
+    views: {
+      'home-news': {
+        templateUrl: 'templates/settings.html',
+        controller: 'SettingsCtrl'
+      }
+    }
+  })
+
+  // .state('app', {
+  //   url: '/app',
+  //   abstract: true,
+  //   templateUrl: 'templates/menu.html',
+  //   controller: 'AppCtrl',
+  //   resolve: {
+  //     db: function($ionicPlatform, $q, DBService) {
+  //       var dfd = $q.defer();
+  //       $ionicPlatform.ready(function() {
+  //         dfd.resolve(DBService.initDB());
+  //       });
+  //       return dfd.promise;
   //     }
   //   }
   // })
-
-  .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl',
-    resolve: {
-      db: function($ionicPlatform, $q, DBService) {
-        var dfd = $q.defer();
-        $ionicPlatform.ready(function() {
-          dfd.resolve(DBService.initDB());
-        });
-        return dfd.promise;
-      }
-    }
-  })
-
-  .state('app.about', {
-    url: '/about',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/about.html',
-        controller: 'AboutCtrl'
-      }
-    }
-  })
-
-  .state('app.queue', {
-    url: '/queue',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/queue.html',
-        controller: 'QueueCtrl'
-      }
-    }
-  })
-
-  .state('app.topics', {
-    url: '/topics?unit',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/topics.html',
-        controller: 'TopicsCtrl'
-      }
-    }
-  });
+  //
+  // .state('app.about', {
+  //   url: '/about',
+  //   views: {
+  //     'menuContent': {
+  //       templateUrl: 'templates/about.html',
+  //       controller: 'AboutCtrl'
+  //     }
+  //   }
+  // })
+  //
+  // .state('app.queue', {
+  //   url: '/queue',
+  //   views: {
+  //     'menuContent': {
+  //       templateUrl: 'templates/queue.html',
+  //       controller: 'QueueCtrl'
+  //     }
+  //   }
+  // })
+  //
+  // .state('app.topics', {
+  //   url: '/topics?unit',
+  //   views: {
+  //     'menuContent': {
+  //       templateUrl: 'templates/topics.html',
+  //       controller: 'TopicsCtrl'
+  //     }
+  //   }
+  // });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/home/learn');
+  $urlRouterProvider.otherwise('/start');
 });
 
 //url scheme handling

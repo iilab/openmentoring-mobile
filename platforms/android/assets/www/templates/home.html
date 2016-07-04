@@ -1,25 +1,16 @@
 <ion-view view-title="Wekuume">
-  <ion-header-bar align-title="center" class="bar bar-stable">
-    <div class="buttons">
-      <a class="button button-icon icon ion-ios-search" ng-click="showFilterBar()"></a>
-    </div>
-    <h1 class="title">Wekuume</h1>
-    <div class="buttons">
-      <a class="button button-icon icon ion-ios-list-outline"></a>
-    </div>
-  </ion-header-bar>
 
-  <ion-tabs class="tabs-positive tabs-icon-top">
+  <ion-tabs class="tabs-icon-top">
 
     <ion-tab title="Learn" icon="icon ion-home" href="#/home/learn">
       <ion-nav-view name="home-learn"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab title="News" icon="icon ion-list" href="#/home/news">
+    <ion-tab title="News" icon="icon ion-ios-list-outline" href="#/home/news" badge="2" badge-style="badge-assertive">
       <ion-nav-view name="home-news"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab title="Settings" icon="icon ion-gear-b" href="#/home/settings">
+    <ion-tab title="Settings" icon="icon ion-gear-b" href="#/home/settings" menu-close ng-click="settings()">
       <ion-nav-view name="home-settings"></ion-nav-view>
     </ion-tab>
 

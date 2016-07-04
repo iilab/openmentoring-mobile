@@ -1,0 +1,101 @@
+@font-face	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^@font-face {$/;"	function	line:3
+@font-face	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^@font-face {$/;"	function	line:8
+@font-face	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^@font-face {$/;"	function	line:13
+.pane	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.pane {$/;"	function	line:18
+.modal-open .modal-backdrop	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.modal-open .modal-backdrop {$/;"	function	line:22
+.unit-modal	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.unit-modal {$/;"	function	line:27
+.intro img	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.intro img {$/;"	function	line:31
+.logo-container h1	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.logo-container h1 {$/;"	function	line:36
+.intro div.slide	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.intro div.slide {$/;"	function	line:48
+.intro h1	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.intro h1 {$/;"	function	line:52
+.intro h3	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.intro h3 {$/;"	function	line:63
+div.list-intro	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^div.list-intro {$/;"	function	line:73
+.list-intro .button-icon	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.list-intro .button-icon {$/;"	function	line:81
+.list-intro .button-icon .icon:before, .list-intro .button-icon.icon:before	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.list-intro .button-icon .icon:before, .list-intro .button-icon.icon:before {$/;"	function	line:85
+.list-intro .header-badge	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.list-intro .header-badge {$/;"	function	line:89
+.intro ul	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.intro ul {$/;"	function	line:94
+.intro ul li	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.intro ul li {$/;"	function	line:101
+.intro li:before	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.intro li:before {$/;"	function	line:109
+.logo-container p	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.logo-container p {$/;"	function	line:114
+.intro p	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.intro p {$/;"	function	line:124
+.swiper-pagination-container	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.swiper-pagination-container {$/;"	function	line:134
+.swiper-pagination-progress	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.swiper-pagination-progress {$/;"	function	line:138
+.swiper-pagination-progress .swiper-pagination-progressbar	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.swiper-pagination-progress .swiper-pagination-progressbar {$/;"	function	line:157
+.unit-modal img	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.unit-modal img {$/;"	function	line:175
+.unit-modal .button-icon	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.unit-modal .button-icon {$/;"	function	line:179
+.unit-modal .topic-title	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.unit-modal .topic-title {$/;"	function	line:182
+.unit-modal .unit-title	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.unit-modal .unit-title {$/;"	function	line:190
+.unit-modal .unit-supertitle	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.unit-modal .unit-supertitle {$/;"	function	line:198
+.unit-modal h1	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.unit-modal h1 {$/;"	function	line:204
+.card .unit-header	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.card .unit-header {$/;"	function	line:209
+.intro .button.button-positive.button-clear	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.intro .button.button-positive.button-clear {$/;"	function	line:215
+.welcome-view.pane	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.welcome-view.pane {$/;"	function	line:219
+.start-container	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.start-container {$/;"	function	line:223
+.start-container > .title-row	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.start-container > .title-row {$/;"	function	line:230
+.title-row h1	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.title-row h1 {$/;"	function	line:235
+.start-container > .subtitle-row	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.start-container > .subtitle-row {$/;"	function	line:241
+.subtitle-row p	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.subtitle-row p {$/;"	function	line:246
+.start-container > .images-row	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.start-container > .images-row {$/;"	function	line:252
+.start-container > .images-row > img	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.start-container > .images-row > img {$/;"	function	line:257
+.start-container > .description-row	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.start-container > .description-row {$/;"	function	line:262
+.start-container > .description-row h4	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.start-container > .description-row h4 {$/;"	function	line:267
+.start-container > .button-row	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.start-container > .button-row {$/;"	function	line:272
+.get-started-button.button	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.get-started-button.button {$/;"	function	line:277
+.start-container > .skip-row	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.start-container > .skip-row {$/;"	function	line:289
+.start-container > .skip-row button	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.start-container > .skip-row button {$/;"	function	line:294
+/*.welcome-view .title-row	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^\/*.welcome-view .title-row {$/;"	function	line:299
+/*.welcome-view .images-row	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^\/*.welcome-view .images-row {$/;"	function	line:304
+.welcome-view .images-row img	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.welcome-view .images-row img {$/;"	function	line:309
+.welcome-view .actions-row	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.welcome-view .actions-row {$/;"	function	line:314
+.welcome-view .images-row .logo-container	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.welcome-view .images-row .logo-container {$/;"	function	line:320
+.welcome-view .images-row .illustration-container .illustration-image	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.welcome-view .images-row .illustration-container .illustration-image {$/;"	function	line:325
+.welcome-view .actions-row .illustration-container h4	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.welcome-view .actions-row .illustration-container h4 {$/;"	function	line:330
+.header-badge	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.header-badge{$/;"	function	line:339
+.header-badge.badge	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.header-badge.badge {$/;"	function	line:345
+.header-badge.badge	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.header-badge.badge {$/;"	function	line:356
+.slider	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.slider {$/;"	function	line:371
+.slider-pager	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.slider-pager {$/;"	function	line:375
+.slider-slide	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.slider-slide {$/;"	function	line:379
+.card	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.card {$/;"	function	line:388
+.bar-minimal	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.bar-minimal {$/;"	function	line:394
+.bar-minimal .button.button-icon:before	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.bar-minimal .button.button-icon:before {$/;"	function	line:398
+.platform-android .bar-minimal .bar .title	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.platform-android .bar-minimal .bar .title {$/;"	function	line:402
+.tabs-striped .tabs	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.tabs-striped .tabs {$/;"	function	line:406
+.bar.bar-stable	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.bar.bar-stable {$/;"	function	line:411
+.bar.bar-stable .title	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.bar.bar-stable .title {$/;"	function	line:417
+.bar-stable .button	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.bar-stable .button {$/;"	function	line:421
+.bar-header	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.bar-header {$/;"	function	line:426
+.topic-list	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.topic-list {$/;"	function	line:431
+.topic-list .item.item-stable	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.topic-list .item.item-stable {$/;"	function	line:435
+.card>.item	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.card>.item {$/;"	function	line:441
+.card>.item:first-child	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.card>.item:first-child {$/;"	function	line:446
+.card .item.item-body	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.card .item.item-body {$/;"	function	line:451
+.topic-card .item-icon-left	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.topic-card .item-icon-left {$/;"	function	line:455
+.topic-card .item-icon-right	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.topic-card .item-icon-right {$/;"	function	line:459
+.topic-card .item-icon-right .icon	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.topic-card .item-icon-right .icon {$/;"	function	line:463
+.topic-card .item-icon-left .icon	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.topic-card .item-icon-left .icon {$/;"	function	line:467
+.topic-card .segment-button-right	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.topic-card .segment-button-right {$/;"	function	line:471
+.topic-card .segment-button-right:before	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.topic-card .segment-button-right:before {$/;"	function	line:475
+.topic-card .item[disabled]	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.topic-card .item[disabled] {$/;"	function	line:479
+.topic-card .item[disabled] .icon	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.topic-card .item[disabled] .icon {$/;"	function	line:483
+.icon.unit-icon:before	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.icon.unit-icon:before {$/;"	function	line:487
+.topic-card .item-icon-right .icon.unit-icon	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.topic-card .item-icon-right .icon.unit-icon {$/;"	function	line:491
+.item-download	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.item-download {$/;"	function	line:495
+.swiper-container	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.swiper-container {$/;"	function	line:499
+.swiper-slide	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.swiper-slide {$/;"	function	line:504
+.swiper-slide .card-container	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.swiper-slide .card-container {$/;"	function	line:508
+.swiper-slide .card-container .card	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.swiper-slide .card-container .card {$/;"	function	line:513
+.swiper-slide .card-container .card img	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.swiper-slide .card-container .card img {$/;"	function	line:519
+.swiper-slide .card-container .card img.small	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.swiper-slide .card-container .card img.small {$/;"	function	line:524
+.card-container .card ul	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.card-container .card ul {$/;"	function	line:530
+.card-container .card ul li	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.card-container .card ul li {$/;"	function	line:535
+.card-container .card ul li a	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.card-container .card ul li a {$/;"	function	line:559
+.card-container .item-image	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.card-container .item-image {$/;"	function	line:565
+.swiper-slide .item-body > .item-body-content, .swiper-slide .item-body > .item-body-content > p	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.swiper-slide .item-body > .item-body-content, .swiper-slide .item-body > .item-body-content > p {$/;"	function	line:570
+.card .item-body-content blockquote p	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.card .item-body-content blockquote p {$/;"	function	line:578
+.item.description-item	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.item.description-item {$/;"	function	line:582
+.item[disabled], .item.item-looks-disabled	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.item[disabled], .item.item-looks-disabled {$/;"	function	line:587
+.item[disabled] .icon	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.item[disabled] .icon {$/;"	function	line:591
+.height-10	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.height-10 {$/;"	function	line:605
+.height-15	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.height-15 {$/;"	function	line:609
+.height-20	/Users/jun/dev/uganda/openmentoring-mobile/www/css/style.css	/^.height-20 {$/;"	function	line:613
