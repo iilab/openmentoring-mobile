@@ -119,7 +119,11 @@
                     ],
                     "/manifest/application/activity": [
                         {
-                            "xml": "<intent-filter><data android:scheme=\"openmentoring\" /><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><category android:name=\"android.intent.category.BROWSABLE\" /></intent-filter>",
+                            "xml": "<intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><category android:name=\"android.intent.category.BROWSABLE\" /><data android:scheme=\"openmentoring\" /></intent-filter>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><category android:name=\"android.intent.category.BROWSABLE\" /><data android:host=\" \" android:pathPrefix=\"/\" android:scheme=\" \" /></intent-filter>",
                             "count": 1
                         }
                     ]
@@ -169,6 +173,9 @@
         },
         "cordova-plugin-customurlscheme": {
             "URL_SCHEME": "openmentoring",
+            "ANDROID_SCHEME": " ",
+            "ANDROID_HOST": " ",
+            "ANDROID_PATHPREFIX": "/",
             "PACKAGE_NAME": "org.iilab.openmentoring"
         },
         "com.lampa.startapp": {
@@ -448,12 +455,12 @@
         "cordova-plugin-whitelist": "1.2.2",
         "cordova-plugin-splashscreen": "3.1.0",
         "cordova-plugin-statusbar": "2.1.3",
-        "ionic-plugin-keyboard": "2.2.0",
+        "ionic-plugin-keyboard": "2.2.1",
         "cordova-plugin-file": "4.1.1",
         "cordova-plugin-file-transfer": "1.5.1",
         "cordova-plugin-zip": "3.1.0",
         "cordova-plugin-network-information": "1.2.1",
-        "cordova-plugin-customurlscheme": "4.1.5",
+        "cordova-plugin-customurlscheme": "4.2.0",
         "com.lampa.startapp": "0.1.4"
     }
 }

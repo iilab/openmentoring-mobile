@@ -47,7 +47,7 @@
     "tag": "v1.1.1",
     "commit": "0a0a9f310a911815b45161800b276a9404142825"
   },
-  "_source": "git://github.com/djett41/ionic-filter-bar.git",
-  "_target": "~1.1.1",
+  "_source": "https://github.com/djett41/ionic-filter-bar.git",
+  "_target": "^1.1.1",
   "_originalSource": "ionic-filter-bar"
 }
