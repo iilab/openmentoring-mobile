@@ -1,0 +1,52 @@
+<ion-view view-title="Wekuume">
+  <ion-content class="topic-list">
+
+    <div class="card topic-card">
+
+      <div class="item item-divider">
+        Other Source - May 29, 2016
+      </div>
+    </div>
+
+    <div class="card topic-card">
+
+      <div class="item item-divider">
+        Citizen Lab - May 29, 2016
+      </div>
+      <ion-item class="item-stable item-icon-right item-text-wrap" ng-class=""  ng-click="toggleUnits(topic)">
+        Keep Calm and (Don’t) Enable Macros: A New Threat Actor Targets UAE Dissidents
+      </ion-item>
+      <ion-item class="item item-text-wrap" ng-class="">
+        This report describes a campaign of targeted spyware attacks carried out by a sophisticated operator, which we call Stealth Falcon.  The attacks have been conducted from 2012 until the present, against Emirati journalists, activists, and dissidents.
+      </ion-item>
+    </div>
+
+    <div class="card topic-card">
+
+      <div class="item item-divider">
+        Other Source - May 29, 2016
+      </div>
+    </div>
+
+    <div class="card topic-card">
+
+      <div class="item item-divider">
+        Other Source - May 29, 2016
+      </div>
+    </div>
+
+    <!-- <div class="card topic-card list" ng-repeat="topic in topics" ng-show="topic.isVisible">
+      <ion-item class="item-stable item-icon-right" ng-class="{'item-icon-right':!topic.isDownloaded}"  ng-click="toggleUnits(topic)">
+        {{topic.title}}
+        <a class="button segment-button-right button-icon icon ion-android-download" ng-show="(!topic.isDownloaded)" ng-click="downloadTopic(topic)"></a>
+        <a class="button segment-button-right button-icon icon" ng-show="(topic.isDownloaded)" ng-class="{'ion-arrow-down-b': !topic.showUnits, 'ion-arrow-up-b': topic.showUnits }"></a>
+      </ion-item>
+      <ion-item class="item item-icon-right" ng-class="{'item-looks-disabled':!topic.isDownloaded}" ng-repeat="unit in topic.units" ng-click="(topic.isDownloaded ? openUnit(unit.slug) : downloadTopic(topic))" ng-show="(topic.showUnits || unit.isVisible)">
+        <i class="icon unit-icon" ng-class="{'ion-android-download':!topic.isDownloaded,'ion-chevron-right':topic.isDownloaded}"></i>
+        {{unit.title}}
+      </ion-item>
+      <a class="item item-divider item-alert item-icon-right item-download" ng-click="downloadTopic(topic)" ng-show="(!topic.isLatest && topic.isDownloaded)">Click to download an update for this lesson<i class="segment-button-right button-icon icon ion-android-download"></i></a>
+    </div> -->
+
+  </ion-content>
+</ion-view>
